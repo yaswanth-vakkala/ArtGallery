@@ -1,5 +1,7 @@
 
 using ArtGalleryAPI.Data;
+using ArtGalleryAPI.Services.Implementation;
+using ArtGalleryAPI.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArtGalleryAPI
@@ -20,6 +22,7 @@ namespace ArtGalleryAPI
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ArtGalleryDbConnectionString"));
             });
+            builder.Services.AddScoped<IProductInterface, ProductService>();
 
             var app = builder.Build();
 
