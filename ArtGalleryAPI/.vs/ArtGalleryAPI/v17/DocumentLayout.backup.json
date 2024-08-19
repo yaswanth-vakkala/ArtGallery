@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\services\\implementation\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\services\\implementation\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,40 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Program.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Program.cs*",
-              "RelativeToolTip": "ArtGalleryAPI\\Program.cs*",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAABgAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-19T16:18:25.32Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "ArtGalleryAPI\\Controllers\\ProductController.cs",
               "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\ProductController.cs",
               "RelativeToolTip": "ArtGalleryAPI\\Controllers\\ProductController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAADIAAAAAAAAAAAAgwEQAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-19T16:15:48.813Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ProductService.cs",
-              "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Implementation\\ProductService.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Services\\Implementation\\ProductService.cs",
-              "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Implementation\\ProductService.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Services\\Implementation\\ProductService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-19T16:13:31.2Z",
               "EditorCaption": ""
             }
           ]

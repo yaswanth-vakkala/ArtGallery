@@ -21,25 +21,58 @@ namespace ArtGalleryAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
-            var products = await productService.GetAllProductsAsync();
-            return Ok(products);
+            try
+            {
+                var products = await productService.GetAllProductsAsync();
+                return Ok(products);
+            }
+            catch (Exception ex) 
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        /*[HttpPost]
+        [HttpGet]
+        [Route("{productId:Guid}")]
+        public async Task<IActionResult> GetProductById([FromRoute]Guid productId)
+        {
+            try
+            {
+                var product = await productService.GetProductByIdAsync(productId);
+                return Ok(product);
+            }
+            catch (Exception ex) 
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AddProduct([FromBody] AddProductDto product)
         {
-            var newProduct = new Product
+            if (!ModelState.IsValid)
             {
-                Name = product.Name,
-                Description = product.Description,
-                ImageUrl = product.ImageUrl,
-                Price = product.Price,
-                Status = "Active",
-                CreatedAt = DateTime.UtcNow,
-            };
-            await dbContext.Product.AddAsync(newProduct);
-            await dbContext.SaveChangesAsync();
-            return Ok(newProduct);
-        }*/
+                return BadRequest("Invalid data provided!");
+            }
+
+            try
+            {
+                var newProduct = new Product
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    ImageUrl = product.ImageUrl,
+                    Price = product.Price,
+                    Status = "Active",
+                    CreatedAt = DateTime.UtcNow,
+                };
+                await productService.CreateProductAsync(newProduct);
+                return Ok(newProduct);
+            }
+            catch (Exception ex)
+            { 
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
