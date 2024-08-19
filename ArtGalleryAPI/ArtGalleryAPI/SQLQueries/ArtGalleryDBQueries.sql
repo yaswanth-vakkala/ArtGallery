@@ -25,8 +25,8 @@ PaymentId uniqueidentifier foreign key references Payment(PaymentId), UserAddres
 CreatedAt datetime2 not null, ModifiedAt datetime2, ModifiedBy nvarchar(100));
 
 create table OrderItem(OrderItemId uniqueidentifier primary key default newid(),OrderId uniqueidentifier foreign key references AppOrder(OrderId), 
-ProductId uniqueidentifier foreign key references Product(ProductId),Quantity int not null, OrderItemStatus nvarchar(30) not null,
-ProductCost money not null, TaxCost money not null, ShippingCost money not null);
+ProductId uniqueidentifier foreign key references Product(ProductId),Quantity int not null, Status nvarchar(30) not null,
+ProductCost decimal(13,3) not null, TaxCost decimal(13,3) not null, ShippingCost decimal(13,3) not null);
 
 create table Cart(CartId uniqueidentifier primary key default newid(), AppUserId UNIQUEIDENTIFIER FOREIGN key REFERENCES AppUser(AppUserId),
 ProductId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Product(ProductId), Quantity int not null);
@@ -34,5 +34,5 @@ ProductId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Product(ProductId), Quantity i
 create table WishList(WishListId uniqueidentifier primary key default newid(), AppUserId UNIQUEIDENTIFIER FOREIGN key REFERENCES AppUser(AppUserId),
 ProductId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Product(ProductId));
 
-create table Payment(PaymentId uniqueidentifier primary key default newid(), PaymentAmount money not null, PaymentDate datetime2 not null,
+create table Payment(PaymentId uniqueidentifier primary key default newid(), Amount decimal(13,3) not null, PaymentDate datetime2 not null,
 PaymentMethod nvarchar(100) not null, );
