@@ -23,6 +23,7 @@ namespace ArtGalleryAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ArtGalleryDbConnectionString"));
             });
             builder.Services.AddScoped<IProductInterface, ProductService>();
+            builder.Services.AddScoped<ICategoryInterface, CategoryService>();
 
             var app = builder.Build();
 
