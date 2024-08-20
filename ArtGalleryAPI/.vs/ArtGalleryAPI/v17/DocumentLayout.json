@@ -1,10 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\",
+  "WorkspaceRootPath": "C:\\Users\\admin\\Documents\\repo\\ArtGallery\\ArtGalleryAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repo\\artgallery\\artgalleryapi\\artgalleryapi\\services\\interface\\iproductinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\services\\interface\\iproductinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Controllers\\ProductController.cs",
-              "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Controllers\\ProductController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE0AAAABAAAAAAAAAA==",
+              "Title": "IProductInterface.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repo\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Interface\\IProductInterface.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Services\\Interface\\IProductInterface.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\repo\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Interface\\IProductInterface.cs",
+              "RelativeToolTip": "ArtGalleryAPI\\Services\\Interface\\IProductInterface.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-19T16:15:48.813Z",
+              "WhenOpened": "2024-08-20T05:39:13.074Z",
               "EditorCaption": ""
             }
           ]

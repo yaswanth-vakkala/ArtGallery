@@ -1,4 +1,5 @@
-﻿using ArtGalleryAPI.Data;
+﻿using ArtGalleryAPI.CustomExceptions;
+using ArtGalleryAPI.Data;
 using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
@@ -17,6 +18,10 @@ namespace ArtGalleryAPI.Controllers
         {
             this.productService = productService;
         }
+        /// <summary>
+        /// returns all the active products from the database
+        /// </summary>
+        /// <returns>list of all products</returns>
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
@@ -26,27 +31,44 @@ namespace ArtGalleryAPI.Controllers
                 var products = await productService.GetAllProductsAsync();
                 return Ok(products);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
+        /// <summary>
+        /// returns the filtered product record based on id
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns>filtered product</returns>
         [HttpGet]
         [Route("{productId:Guid}")]
-        public async Task<IActionResult> GetProductById([FromRoute]Guid productId)
+        public async Task<IActionResult> GetProductById([FromRoute] Guid productId)
         {
             try
             {
                 var product = await productService.GetProductByIdAsync(productId);
-                return Ok(product);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(product);
+                }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
+        /// <summary>
+        /// add's a new product to db
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>new product</returns>
         [HttpPost]
         public async Task<IActionResult> AddProduct([FromBody] AddProductDto product)
         {
@@ -67,10 +89,62 @@ namespace ArtGalleryAPI.Controllers
                     CreatedAt = DateTime.UtcNow,
                 };
                 await productService.CreateProductAsync(newProduct);
-                return Ok(newProduct);
+                var locationUri = Url.Action("GetProductById", new { productId = newProduct.ProductId });
+                return Created(locationUri, newProduct);
             }
             catch (Exception ex)
-            { 
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// updates the existing product in db
+        /// </summary>
+        /// <param name="updatedProduct"></param>
+        /// <returns>updated product</returns>
+        [HttpPut]
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto updatedProduct)
+        {
+            try
+            {
+                var result = await productService.UpdateProductAsync(updatedProduct);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// delete a product in db based on id
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns>bool representing state of operation</returns>
+        [HttpDelete]
+        [Route("{productId:Guid}")]
+        public async Task<IActionResult> DeleteProduct([FromRoute] Guid productId)
+        {
+            try
+            {
+                var deleteStatus = await productService.DeleteProductAsync(productId);
+                return Ok(deleteStatus);
+            }
+            catch (InvalidDeletionException de)
+            {
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
                 return BadRequest(ex.Message);
             }
         }
