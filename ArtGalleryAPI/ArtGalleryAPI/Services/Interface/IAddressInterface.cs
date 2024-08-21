@@ -3,12 +3,12 @@ using ArtGalleryAPI.Models.Dto;
 
 namespace ArtGalleryAPI.Services.Interface
 {
-    public class IAddressInterface
+    public interface IAddressInterface
     {
         Task<IEnumerable<Address>> GetAllAddressesAsync();
         Task<Address>? GetAddressByIdAsync(Guid addressId);
         Task<Address> AddAddressAsync(Address newAddress);
-        Task<Product>? UpdateAddressAsync(UpdateAddressDto updatedAddress);
+        Task<Address>? UpdateAddressAsync(UpdateAddressDto updatedAddress);
         Task<bool> DeleteAddressAsync(Guid addressId);
     }
 }

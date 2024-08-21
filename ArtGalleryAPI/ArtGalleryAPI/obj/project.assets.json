@@ -4528,11 +4528,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\admin\\Documents\\repo\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\ArtGalleryAPI.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\ArtGalleryAPI.csproj",
       "projectName": "ArtGalleryAPI",
-      "projectPath": "C:\\Users\\admin\\Documents\\repo\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\ArtGalleryAPI.csproj",
+      "projectPath": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\ArtGalleryAPI.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\admin\\Documents\\repo\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\obj\\",
+      "outputPath": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

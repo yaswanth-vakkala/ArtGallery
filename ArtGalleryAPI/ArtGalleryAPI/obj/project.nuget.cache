@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4n6dKU94aMMc/DRx1LNAOyqz94x8mpW0HZHlDBUV36cEH83DH8wz4Fmd7qY6vzdFXGagl8LDDI7CREnK7nJpNQ==",
+  "dgSpecHash": "kFNsC1xpfgnnvgXEjiucuws4rHhO8/hxeErrGbeUNDr2fdn18pXU3qhvNnEGOQv+GT/9guaQFuVeNsvGAtFQ6A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\admin\\Documents\\repo\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\ArtGalleryAPI.csproj",
+  "projectFilePath": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\ArtGalleryAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
