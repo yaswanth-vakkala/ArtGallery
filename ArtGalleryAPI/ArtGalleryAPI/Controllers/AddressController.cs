@@ -108,11 +108,7 @@ namespace ArtGalleryAPI.Controllers
             {
                 var deleteStatus = await addressService.DeleteAddressAsync(addressId);
                 return Ok(deleteStatus);
-            }
-            catch (InvalidDeletionException de)
-            {
-                return NotFound();
-            }
+            }         
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
