@@ -27,12 +27,6 @@ namespace ArtGalleryAPI.Services.Implementation
             return product;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
-        {
-            var products = await dbContext.Product.Where(p => p.CategoryId == categoryId).ToListAsync();
-            return products;
-        }
-
         public async Task<Product> CreateProductAsync(Product newProduct)
         {
             await dbContext.Product.AddAsync(newProduct);
@@ -40,9 +34,15 @@ namespace ArtGalleryAPI.Services.Implementation
             return newProduct;
         }
 
-        public async Task<Product>? UpdateProductAsync(UpdateProductDto updatedProduct)
+        public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
         {
-            var product = await dbContext.Product.SingleOrDefaultAsync(product => product.ProductId == updatedProduct.ProductId);
+            var products = await dbContext.Product.Where(p => p.CategoryId == categoryId).ToListAsync();
+            return products;
+        }
+
+        public async Task<Product>? UpdateProductAsync(Guid productId, UpdateProductDto updatedProduct)
+        {
+            var product = await dbContext.Product.SingleOrDefaultAsync(product => product.ProductId == productId);
             if (product == null)
             {
                 return null;

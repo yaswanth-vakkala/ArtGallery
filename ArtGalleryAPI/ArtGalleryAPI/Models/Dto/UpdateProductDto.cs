@@ -5,8 +5,6 @@ namespace ArtGalleryAPI.Models.Dto
 {
     public class UpdateProductDto
     {
-        [Key]
-        public Guid ProductId { get; set; }
         [Required]
         [MaxLength(100, ErrorMessage = "Product Name can have a maximum of 100 characters!")]
         public required string Name { get; set; }
