@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\data\\authdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\data\\authdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -19,12 +23,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AuthDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Data\\AuthDbContext.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Data\\AuthDbContext.cs",
+              "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Data\\AuthDbContext.cs",
+              "RelativeToolTip": "ArtGalleryAPI\\Data\\AuthDbContext.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAYwDsAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-22T19:02:35.176Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "CategoryController.cs",
               "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "ArtGalleryAPI\\Controllers\\CategoryController.cs",
               "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\CategoryController.cs",
               "RelativeToolTip": "ArtGalleryAPI\\Controllers\\CategoryController.cs",
-              "ViewState": "AgIAAHkAAAAAAAAAAAAowIIAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGYAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-22T17:42:00.302Z",
               "EditorCaption": ""
