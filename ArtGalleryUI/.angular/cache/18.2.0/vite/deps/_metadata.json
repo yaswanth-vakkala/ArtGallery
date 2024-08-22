@@ -1,34 +1,58 @@
 {
-  "hash": "7da12f1f",
-  "configHash": "b8f2af5c",
-  "lockfileHash": "086f4b07",
-  "browserHash": "45d1e7ea",
+  "hash": "c93cda40",
+  "configHash": "2b571782",
+  "lockfileHash": "9bc96818",
+  "browserHash": "70c6a88e",
   "optimized": {
+    "@angular/common": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "2912fc6e",
+      "needsInterop": false
+    },
+    "@angular/common/http": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
+      "file": "@angular_common_http.js",
+      "fileHash": "41d7553c",
+      "needsInterop": false
+    },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "fce79ad2",
+      "fileHash": "8f227246",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "ec68b1fe",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "2dc81da4",
+      "fileHash": "f3784242",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "17698dbc",
+      "fileHash": "9fdde150",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-2WPYQJ2V": {
-      "file": "chunk-2WPYQJ2V.js"
+    "chunk-CNP3OPBG": {
+      "file": "chunk-CNP3OPBG.js"
     },
-    "chunk-LRQ54M6E": {
-      "file": "chunk-LRQ54M6E.js"
+    "chunk-QZ5W74RP": {
+      "file": "chunk-QZ5W74RP.js"
+    },
+    "chunk-SXM6IB3K": {
+      "file": "chunk-SXM6IB3K.js"
+    },
+    "chunk-PBKKMZF6": {
+      "file": "chunk-PBKKMZF6.js"
     }
   }
 }
