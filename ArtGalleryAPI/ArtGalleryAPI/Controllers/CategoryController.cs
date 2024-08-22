@@ -1,9 +1,7 @@
-﻿using ArtGalleryAPI.CustomExceptions;
-using ArtGalleryAPI.Models.Domain;
+﻿using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
-using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArtGalleryAPI.Controllers
@@ -130,6 +128,7 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="categoryId"></param>
         /// <returns>bool representing state of operation</returns>
         [HttpDelete]
+        [Authorize(Roles = "Writer")]
         [Route("{categoryId:Guid}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid categoryId)
         {
