@@ -29,13 +29,13 @@ ArtGalleryUI/!.vscode/extensions.json
 ArtGalleryUI/.history/*
 
 # Miscellaneous
-ArtGalleryUI/.angular/cache
+ArtGalleryUI//.angular/cache
 ArtGalleryUI/.sass-cache/
-ArtGalleryUI/connect.lock
-ArtGalleryUI/coverage
-ArtGalleryUI/libpeerconnection.log
+ArtGalleryUI//connect.lock
+ArtGalleryUI//coverage
+ArtGalleryUI//libpeerconnection.log
 ArtGalleryUI/testem.log
-ArtGalleryUI/typings
+ArtGalleryUI//typings
 
 # System files
 ArtGalleryUI/.DS_Store
