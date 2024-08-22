@@ -27,6 +27,12 @@ namespace ArtGalleryAPI.Services.Implementation
             return product;
         }
 
+        public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
+        {
+            var products = await dbContext.Product.Where(p => p.CategoryId == categoryId).ToListAsync();
+            return products;
+        }
+
         public async Task<Product> CreateProductAsync(Product newProduct)
         {
             await dbContext.Product.AddAsync(newProduct);

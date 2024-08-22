@@ -65,6 +65,33 @@ namespace ArtGalleryAPI.Controllers
         }
 
         /// <summary>
+        /// returns all products in a category
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("products/{categoryId:Guid}")]
+        public async Task<IActionResult> GetProductsByCategoryId([FromRoute] Guid categoryId)
+        {
+            try
+            {
+                var category = await productService.GetProductsByCategoryIdAsync(categoryId);
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(category);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// add's a new product to db
         /// </summary>
         /// <param name="product"></param>
