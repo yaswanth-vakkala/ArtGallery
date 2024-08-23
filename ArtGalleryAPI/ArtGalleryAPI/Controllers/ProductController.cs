@@ -2,6 +2,7 @@
 using ArtGalleryAPI.Data;
 using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
+using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -65,6 +66,33 @@ namespace ArtGalleryAPI.Controllers
         }
 
         /// <summary>
+        /// returns all products in a category
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("products/{categoryId:Guid}")]
+        public async Task<IActionResult> GetProductsByCategoryId([FromRoute] Guid categoryId)
+        {
+            try
+            {
+                var category = await productService.GetProductsByCategoryIdAsync(categoryId);
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(category);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// add's a new product to db
         /// </summary>
         /// <param name="product"></param>
@@ -87,6 +115,7 @@ namespace ArtGalleryAPI.Controllers
                     Price = product.Price,
                     Status = "Active",
                     CreatedAt = DateTime.UtcNow,
+                    CategoryId = product.CategoryId
                 };
                 await productService.CreateProductAsync(newProduct);
                 var locationUri = Url.Action("GetProductById", new { productId = newProduct.ProductId });
@@ -104,11 +133,12 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="updatedProduct"></param>
         /// <returns>updated product</returns>
         [HttpPut]
-        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto updatedProduct)
+        [Route("{productId:Guid}")]
+        public async Task<IActionResult> UpdateProduct([FromRoute] Guid productId, [FromBody] UpdateProductDto updatedProduct)
         {
             try
             {
-                var result = await productService.UpdateProductAsync(updatedProduct);
+                var result = await productService.UpdateProductAsync(productId, updatedProduct);
                 if (result == null)
                 {
                     return NotFound();

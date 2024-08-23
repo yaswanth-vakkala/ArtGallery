@@ -8,7 +8,7 @@ namespace ArtGalleryAPI.Services.Interface
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
         Task<Category>? GetCategoryByIdAsync(Guid categoryId);
         Task<Category> CreateCategoryAsync(Category newCategory);
-        Task<Category>? UpdateCategoryAsync(UpdateCategoryDto updatedCategory);
+        Task<Category>? UpdateCategoryAsync(Guid categoryId, UpdateCategoryDto updatedCategory);
         Task<bool> DeleteCategoryAsync(Guid categoryId);
     }
 }

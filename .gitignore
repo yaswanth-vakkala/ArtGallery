@@ -1,0 +1,42 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output
+ArtGalleryUI/dist
+ArtGalleryUI/tmp
+ArtGalleryUI/out-tsc
+ArtGalleryUI/bazel-out
+
+# Node
+ArtGalleryUI/node_modules
+ArtGalleryUI/npm-debug.log
+ArtGalleryUI/yarn-error.log
+
+# IDEs and editors
+ArtGalleryUI/.idea/
+ArtGalleryUI/.project
+ArtGalleryUI/.classpath
+ArtGalleryUI/.c9/
+ArtGalleryUI/*.launch
+ArtGalleryUI/.settings/
+ArtGalleryUI/*.sublime-workspace
+
+# Visual Studio Code
+ArtGalleryUI/.vscode/*
+ArtGalleryUI/!.vscode/settings.json
+ArtGalleryUI/!.vscode/tasks.json
+ArtGalleryUI/!.vscode/launch.json
+ArtGalleryUI/!.vscode/extensions.json
+ArtGalleryUI/.history/*
+
+# Miscellaneous
+ArtGalleryUI//.angular/cache
+ArtGalleryUI/.sass-cache/
+ArtGalleryUI//connect.lock
+ArtGalleryUI//coverage
+ArtGalleryUI//libpeerconnection.log
+ArtGalleryUI/testem.log
+ArtGalleryUI//typings
+
+# System files
+ArtGalleryUI/.DS_Store
+ArtGalleryUI/Thumbs.db
