@@ -7,8 +7,10 @@ namespace ArtGalleryAPI.Services.Interface
     {
         Task<IEnumerable<Product>> GetAllProductsAsync();
         Task<Product>? GetProductByIdAsync(Guid productId);
+        Task<IEnumerable<Product>>? GetProductsByCategoryIdAsync(Guid categoryId);
+        Task<Inventory>? GetInventoryByProductIdAsync(Guid productId);
         Task<Product> CreateProductAsync(Product newProduct);
-        Task<Product>? UpdateProductAsync(UpdateProductDto updatedProduct);
+        Task<Product>? UpdateProductAsync(Guid productId,UpdateProductDto updatedProduct);
         Task<bool> DeleteProductAsync(Guid productId);
     }
 }

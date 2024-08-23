@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ArtGalleryAPI.Models.Domain;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace ArtGalleryAPI.Models.Dto
@@ -18,7 +19,12 @@ namespace ArtGalleryAPI.Models.Dto
         public required string ImageUrl { get; set; }
 
         [Required]
-        [Precision(13,3)]
+        [Precision(13, 3)]
         public decimal Price { get; set; }
+        [Required]
+        public required Guid? CategoryId { get; set; }
+
+        [Required]
+        public required Inventory Inventory { get; set; }
     }
 }

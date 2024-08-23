@@ -26,7 +26,16 @@ namespace ArtGalleryAPI.Services.Implementation
             var product = await dbContext.Product.SingleOrDefaultAsync(product => product.ProductId == productId);
             return product;
         }
-
+        public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
+        {
+            var products = await dbContext.Product.Where(p => p.CategoryId == categoryId).ToListAsync();
+            return products;
+        }
+        public async Task<Inventory> GetInventoryByProductIdAsync(Guid productId)
+        {
+            var inventory = await dbContext.Product.SingleOrDefaultAsync(p => p.ProductId == productId);
+            return inventory.Inventory;
+        }
         public async Task<Product> CreateProductAsync(Product newProduct)
         {
             await dbContext.Product.AddAsync(newProduct);
@@ -34,9 +43,9 @@ namespace ArtGalleryAPI.Services.Implementation
             return newProduct;
         }
 
-        public async Task<Product>? UpdateProductAsync(UpdateProductDto updatedProduct)
+        public async Task<Product>? UpdateProductAsync(Guid productId,UpdateProductDto updatedProduct)
         {
-            var product = await dbContext.Product.SingleOrDefaultAsync(product => product.ProductId == updatedProduct.ProductId);
+            var product = await dbContext.Product.SingleOrDefaultAsync(product => product.ProductId == productId);
             if (product == null)
             {
                 return null;

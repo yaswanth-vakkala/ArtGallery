@@ -32,9 +32,9 @@ namespace ArtGalleryAPI.Services.Implementation
             await dbContext.SaveChangesAsync();
             return newAddress;
         }
-        public async Task<Address>? UpdateAddressAsync(UpdateAddressDto updatedAddress)
+        public async Task<Address>? UpdateAddressAsync(Guid addressId,UpdateAddressDto updatedAddress)
         {
-            var address = await dbContext.Address.SingleOrDefaultAsync(address => address.AddressId == updatedAddress.AddressId);
+            var address = await dbContext.Address.SingleOrDefaultAsync(address => address.AddressId == addressId);
             if (address == null)
             {
                 return null;

@@ -35,5 +35,10 @@ namespace ArtGalleryAPI.Models.Domain
 
         [MaxLength(100, ErrorMessage = "Product modified by can have a maximum of 100 characters!")]
         public string? ModifiedBy { get; set; }
+
+        [Required]
+        public required Guid? CategoryId { get; set; }
+        [Required]
+        public required Inventory Inventory { get; set; }
     }
 }

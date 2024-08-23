@@ -63,6 +63,48 @@ namespace ArtGalleryAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet]
+        [Route("products/{categoryId:Guid}")]
+        public async Task<IActionResult> GetProductsByCategoryId([FromRoute] Guid categoryId)
+        {
+            try
+            {
+                var category = await productService.GetProductsByCategoryIdAsync(categoryId);
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(category);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        [Route("inventory/{productId:Guid}")]
+        public async Task<IActionResult> GetInventoryByProductId([FromRoute] Guid productId)
+        {
+            try
+            {
+                var inventory = await productService.GetInventoryByProductIdAsync(productId);
+                if (inventory == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(inventory);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         /// <summary>
         /// add's a new product to db
@@ -87,6 +129,8 @@ namespace ArtGalleryAPI.Controllers
                     Price = product.Price,
                     Status = "Active",
                     CreatedAt = DateTime.UtcNow,
+                    CategoryId = product.CategoryId,
+                    Inventory =product.Inventory,
                 };
                 await productService.CreateProductAsync(newProduct);
                 var locationUri = Url.Action("GetProductById", new { productId = newProduct.ProductId });
@@ -104,11 +148,12 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="updatedProduct"></param>
         /// <returns>updated product</returns>
         [HttpPut]
-        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto updatedProduct)
+        [Route("{productId:Guid}")]
+        public async Task<IActionResult> UpdateProduct([FromRoute] Guid productId,[FromBody] UpdateProductDto updatedProduct)
         {
             try
             {
-                var result = await productService.UpdateProductAsync(updatedProduct);
+                var result = await productService.UpdateProductAsync(productId,updatedProduct);
                 if (result == null)
                 {
                     return NotFound();

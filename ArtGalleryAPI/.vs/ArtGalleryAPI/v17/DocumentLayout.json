@@ -3,32 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\controllers\\addresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\controllers\\addresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\services\\interface\\iaddressinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\services\\interface\\iaddressinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\models\\dto\\updateaddressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\models\\dto\\updateaddressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\services\\implementation\\addressservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\services\\implementation\\addressservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\models\\dto\\addressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\models\\dto\\addressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -47,88 +23,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AddressController.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\AddressController.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Controllers\\AddressController.cs",
-              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\AddressController.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Controllers\\AddressController.cs",
-              "ViewState": "AQIAAGoAAAAAAAAAAAAQwG4AAAANAAAA",
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "ArtGalleryAPI\\Controllers\\ProductController.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAAwB4AAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T06:55:58.685Z",
+              "WhenOpened": "2024-08-23T06:41:57.789Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UpdateAddressDto.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Models\\Dto\\UpdateAddressDto.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Models\\Dto\\UpdateAddressDto.cs",
-              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Models\\Dto\\UpdateAddressDto.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Models\\Dto\\UpdateAddressDto.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAA9wCEAAAA4AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T09:09:29.367Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AddressService.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Implementation\\AddressService.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Services\\Implementation\\AddressService.cs",
-              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Implementation\\AddressService.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Services\\Implementation\\AddressService.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAIwCUAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T06:15:56.079Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IAddressInterface.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Interface\\IAddressInterface.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Services\\Interface\\IAddressInterface.cs",
-              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Interface\\IAddressInterface.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Services\\Interface\\IAddressInterface.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAA1wAcAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T06:52:40.967Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AddressDto.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Models\\Dto\\AddressDto.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Models\\Dto\\AddressDto.cs",
-              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Models\\Dto\\AddressDto.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Models\\Dto\\AddressDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T06:46:33.846Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T06:32:56.708Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Program.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Program.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAABMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-21T06:31:05.96Z"
             }
           ]
         }
