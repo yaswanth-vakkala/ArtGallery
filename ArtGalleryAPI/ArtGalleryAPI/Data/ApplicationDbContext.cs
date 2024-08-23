@@ -12,5 +12,6 @@ namespace ArtGalleryAPI.Data
 
         public DbSet<Product> Product { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<Payment> Payment { get; set; }
     }
 }
