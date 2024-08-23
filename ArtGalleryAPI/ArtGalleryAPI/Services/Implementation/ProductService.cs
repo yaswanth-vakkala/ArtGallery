@@ -17,13 +17,13 @@ namespace ArtGalleryAPI.Services.Implementation
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            var products = await dbContext.Product.ToListAsync();
+            var products = await dbContext.Product.Include(p => p.Inventory).ToListAsync();
             return products;
         }
 
         public async Task<Product>? GetProductByIdAsync(Guid productId)
         {
-            var product = await dbContext.Product.SingleOrDefaultAsync(product => product.ProductId == productId);
+            var product = await dbContext.Product.Include(p => p.Inventory).SingleOrDefaultAsync(product => product.ProductId == productId);
             return product;
         }
         public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
@@ -33,7 +33,7 @@ namespace ArtGalleryAPI.Services.Implementation
         }
         public async Task<Inventory> GetInventoryByProductIdAsync(Guid productId)
         {
-            var inventory = await dbContext.Product.SingleOrDefaultAsync(p => p.ProductId == productId);
+            var inventory = await dbContext.Product.Include(p => p.Inventory).SingleOrDefaultAsync(p => p.ProductId == productId);
             return inventory.Inventory;
         }
         public async Task<Product> CreateProductAsync(Product newProduct)

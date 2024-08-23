@@ -3,8 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\services\\implementation\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\services\\implementation\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\services\\interface\\iproductinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\services\\interface\\iproductinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\services\\implementation\\inventoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\services\\implementation\\inventoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\services\\interface\\iinventoryinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\services\\interface\\iinventoryinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\models\\domain\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\models\\domain\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\admin\\documents\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\controllers\\inventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\controllers\\inventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,21 +42,112 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Implementation\\ProductService.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Services\\Implementation\\ProductService.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Implementation\\ProductService.cs",
+              "RelativeToolTip": "ArtGalleryAPI\\Services\\Implementation\\ProductService.cs",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAmwCEAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-23T10:57:42.019Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IProductInterface.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Interface\\IProductInterface.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Services\\Interface\\IProductInterface.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Interface\\IProductInterface.cs",
+              "RelativeToolTip": "ArtGalleryAPI\\Services\\Interface\\IProductInterface.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAIwAoAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-23T10:57:16.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "InventoryService.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Implementation\\InventoryService.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Services\\Implementation\\InventoryService.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Implementation\\InventoryService.cs",
+              "RelativeToolTip": "ArtGalleryAPI\\Services\\Implementation\\InventoryService.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAwwBoAAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-23T10:55:37.904Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "ArtGalleryAPI\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAgwA8AAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-23T10:55:19.518Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "IInventoryInterface.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Interface\\IInventoryInterface.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Services\\Interface\\IInventoryInterface.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Services\\Interface\\IInventoryInterface.cs",
+              "RelativeToolTip": "ArtGalleryAPI\\Services\\Interface\\IInventoryInterface.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAkwAoAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-23T10:51:04.97Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Inventory.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Models\\Domain\\Inventory.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Models\\Domain\\Inventory.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Models\\Domain\\Inventory.cs",
+              "RelativeToolTip": "ArtGalleryAPI\\Models\\Domain\\Inventory.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-23T10:43:30.998Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InventoryController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\InventoryController.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Controllers\\InventoryController.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\InventoryController.cs",
+              "RelativeToolTip": "ArtGalleryAPI\\Controllers\\InventoryController.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAIwEMAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-23T09:25:53.798Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "ArtGalleryAPI\\Controllers\\ProductController.cs",
               "ToolTip": "C:\\Users\\admin\\Documents\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\ProductController.cs",
               "RelativeToolTip": "ArtGalleryAPI\\Controllers\\ProductController.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAAwB4AAAA6AAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAHwAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-23T06:41:57.789Z",
               "EditorCaption": ""

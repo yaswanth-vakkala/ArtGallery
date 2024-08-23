@@ -64,8 +64,6 @@ namespace ArtGalleryAPI.Controllers
                 {
                     Quantity = inventory.Quantity,
                     CreatedAt = DateTime.UtcNow,
-                    ModifiedAt= DateTime.UtcNow,
-                    ModifiedBy=inventory.ModifiedBy,
                 };
                 await inventoryService.CreateInventoryAsync(newInventory);
                 var locationUri = Url.Action("GetInventoryById", new { inventoryId = newInventory.InventoryId });

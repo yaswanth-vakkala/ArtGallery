@@ -4,6 +4,7 @@ using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -130,7 +131,10 @@ namespace ArtGalleryAPI.Controllers
                     Status = "Active",
                     CreatedAt = DateTime.UtcNow,
                     CategoryId = product.CategoryId,
-                    Inventory =product.Inventory,
+                    Inventory = new Inventory() {
+                        Quantity=product.Inventory.Quantity,
+                        CreatedAt=DateTime.UtcNow,
+                    },
                 };
                 await productService.CreateProductAsync(newProduct);
                 var locationUri = Url.Action("GetProductById", new { productId = newProduct.ProductId });

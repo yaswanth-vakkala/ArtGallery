@@ -5,9 +5,6 @@ namespace ArtGalleryAPI.Models.Dto
 {
     public class AddressDto
     {
-            [Key]
-            public Guid AddressId { get; set; }
-
             [Required]
             [MaxLength(500, ErrorMessage = "Address line can have a maximum of 500 characters!")]
             public required string AddressLine { get; set; }

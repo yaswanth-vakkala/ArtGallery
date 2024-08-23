@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ArtGalleryAPI.Models.Dto;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+
 
 namespace ArtGalleryAPI.Models.Domain
 {
