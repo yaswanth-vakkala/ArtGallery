@@ -6,19 +6,29 @@ import { CookieService } from 'ngx-cookie-service';
 import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { environment } from '../../../../environments/environment.development';
+import { RegisterRequest } from '../models/register-request.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   $user = new BehaviorSubject<User | undefined>(undefined);
-  constructor(private http: HttpClient,
-    private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   login(request: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/auth/login`, {
-      Email: request.email,
-      Password: request.password
+    return this.http.post<LoginResponse>(
+      `${environment.apiBaseUrl}/api/auth/login`,
+      {
+        email: request.email,
+        password: request.password,
+      }
+    );
+  }
+
+  register(request: RegisterRequest): Observable<void> {
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/auth/register`, {
+      email: request.email,
+      password: request.password,
     });
   }
 
@@ -28,7 +38,7 @@ export class AuthService {
     localStorage.setItem('user-roles', user.roles.join(','));
   }
 
-  user() : Observable<User | undefined> {
+  user(): Observable<User | undefined> {
     return this.$user.asObservable();
   }
 
@@ -39,7 +49,7 @@ export class AuthService {
     if (email && roles) {
       const user: User = {
         email: email,
-        roles: roles.split(',')
+        roles: roles.split(','),
       };
 
       return user;
