@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\sqlqueries\\artgallerydbqueries.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\sqlqueries\\artgallerydbqueries.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\models\\domain\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\models\\domain\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\sqlqueries\\artgallerydbqueries.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\sqlqueries\\artgallerydbqueries.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\controllers\\appusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\controllers\\appusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,26 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ArtGalleryDBQueries.sql ",
-              "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\SQLQueries\\ArtGalleryDBQueries.sql",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\SQLQueries\\ArtGalleryDBQueries.sql",
-              "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\SQLQueries\\ArtGalleryDBQueries.sql",
-              "RelativeToolTip": "ArtGalleryAPI\\SQLQueries\\ArtGalleryDBQueries.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-08-25T17:17:18.189Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AppUser.cs",
-              "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Models\\Domain\\AppUser.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Models\\Domain\\AppUser.cs",
-              "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Models\\Domain\\AppUser.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Models\\Domain\\AppUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "AppUserController.cs",
+              "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\AppUserController.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Controllers\\AppUserController.cs",
+              "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\AppUserController.cs*",
+              "RelativeToolTip": "ArtGalleryAPI\\Controllers\\AppUserController.cs*",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAIwFQAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-25T17:17:14.517Z",
+              "WhenOpened": "2024-08-25T17:24:23.097Z",
               "EditorCaption": ""
             }
           ]

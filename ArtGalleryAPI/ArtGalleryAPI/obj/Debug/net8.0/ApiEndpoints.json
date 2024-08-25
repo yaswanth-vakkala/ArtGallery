@@ -1,5 +1,68 @@
 [
   {
+    "ContainingType": "ArtGalleryAPI.Controllers.AppUserController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/AppUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ArtGalleryAPI.Controllers.AppUserController",
+    "Method": "GetUserById",
+    "RelativePath": "api/AppUser/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ArtGalleryAPI.Controllers.AppUserController",
+    "Method": "UpdateCategory",
+    "RelativePath": "api/AppUser/{userId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedAppUser",
+        "Type": "ArtGalleryAPI.Models.Dto.UpdateAppUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ArtGalleryAPI.Controllers.AppUserController",
+    "Method": "DeleteCategory",
+    "RelativePath": "api/AppUser/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ArtGalleryAPI.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",

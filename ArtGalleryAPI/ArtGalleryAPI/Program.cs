@@ -35,6 +35,7 @@ namespace ArtGalleryAPI
             builder.Services.AddScoped<IProductInterface, ProductService>();
             builder.Services.AddScoped<ICategoryInterface, CategoryService>();
             builder.Services.AddScoped<ITokenInterface, TokenService>();
+            builder.Services.AddScoped<IAppUserInterface, AppUserService>();
 
             builder.Services.AddIdentityCore<AppUser>(options =>
             {
