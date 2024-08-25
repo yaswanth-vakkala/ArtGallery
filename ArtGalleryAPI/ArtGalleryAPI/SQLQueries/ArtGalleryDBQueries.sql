@@ -2,10 +2,9 @@
 
 use ArtGalleryDb;
 
-create table AppUser(AppUserId UNIQUEIDENTIFIER primary key DEFAULT newid(), FirstName nvarchar(50) not null, LastName nvarchar(50) not null,
+/*create table AppUser(AppUserId UNIQUEIDENTIFIER primary key DEFAULT newid(), FirstName nvarchar(50) not null, LastName nvarchar(50) not null,
 Email nvarchar(100) not null unique, Role nvarchar(30) not null, Status nvarchar(30) not null, CountryCode nvarchar(6), PhoneNumber nvarchar(15), CreatedAt datetime2 not null,
-ModifiedAt datetime2, ModifiedBy nvarchar(100));
-
+ModifiedAt datetime2, ModifiedBy nvarchar(100));*/
 create table Address(AddressId UNIQUEIDENTIFIER primary key default newid(), AppUserId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES AppUser(AppUserId), 
 AddressLine nvarchar(500) not null, PinCode nvarchar(12) not null, City nvarchar(100) not null, Landmark nvarchar(100), Country nvarchar(100) not null,
 CountryCode nvarchar(6) not null, PhoneNumber nvarchar(15) not null);

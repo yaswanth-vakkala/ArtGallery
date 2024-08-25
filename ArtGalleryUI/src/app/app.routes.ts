@@ -5,8 +5,13 @@ import { EditCategoryComponent } from './features/category/edit-category/edit-ca
 import { LoginComponent } from './features/auth/login/login.component';
 import { authGuard } from './features/auth/guards/auth.guard';
 import { RegisterComponent } from './features/auth/register/register.component';
+import { ProductListComponent } from './features/products/product-list/product-list.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: ProductListComponent,
+  },
   {
     path: 'login',
     component: LoginComponent,

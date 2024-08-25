@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|c:\\users\\yaswa\\documents\\work\\repos\\artgallery\\artgalleryapi\\artgalleryapi\\controllers\\appusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3ED2E16D-3C28-4B74-8897-010C61B2D8EF}|ArtGalleryAPI\\ArtGalleryAPI.csproj|solutionrelative:artgalleryapi\\controllers\\appusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CategoryController.cs",
-              "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\CategoryController.cs",
-              "RelativeDocumentMoniker": "ArtGalleryAPI\\Controllers\\CategoryController.cs",
-              "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\CategoryController.cs",
-              "RelativeToolTip": "ArtGalleryAPI\\Controllers\\CategoryController.cs",
-              "ViewState": "AgIAAFYAAAAAAAAAAAAkwGYAAAAlAAAAAAAAAA==",
+              "Title": "AppUserController.cs",
+              "DocumentMoniker": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\AppUserController.cs",
+              "RelativeDocumentMoniker": "ArtGalleryAPI\\Controllers\\AppUserController.cs",
+              "ToolTip": "C:\\Users\\yaswa\\Documents\\work\\repos\\ArtGallery\\ArtGalleryAPI\\ArtGalleryAPI\\Controllers\\AppUserController.cs*",
+              "RelativeToolTip": "ArtGalleryAPI\\Controllers\\AppUserController.cs*",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAIwFQAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-22T17:42:00.302Z",
+              "WhenOpened": "2024-08-25T17:24:23.097Z",
               "EditorCaption": ""
             }
           ]

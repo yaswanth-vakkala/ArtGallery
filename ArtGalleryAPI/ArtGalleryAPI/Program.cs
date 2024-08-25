@@ -1,5 +1,6 @@
 
 using ArtGalleryAPI.Data;
+using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,10 +35,14 @@ namespace ArtGalleryAPI
             builder.Services.AddScoped<IProductInterface, ProductService>();
             builder.Services.AddScoped<ICategoryInterface, CategoryService>();
             builder.Services.AddScoped<ITokenInterface, TokenService>();
+            builder.Services.AddScoped<IAppUserInterface, AppUserService>();
 
-            builder.Services.AddIdentityCore<IdentityUser>()
+            builder.Services.AddIdentityCore<AppUser>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            })
                 .AddRoles<IdentityRole>()
-                .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("ArtGallery")
+                .AddTokenProvider<DataProtectorTokenProvider<AppUser>>("ArtGallery")
                 .AddEntityFrameworkStores<AuthDbContext>()
                 .AddDefaultTokenProviders();
 

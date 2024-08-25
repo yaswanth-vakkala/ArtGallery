@@ -1,3 +1,40 @@
+<!-- <div class="tw-p-5 tw-flex tw-bg-white tw-justify-between tw-items-center">
+  <div class="tw-flex tw-ml-32 tw-items-center">
+    <div class="tw-flex">
+      <svg
+        class="tw-w-8 tw-text-deep-purple-accent-400 tw-mx-2"
+        viewBox="0 0 24 24"
+        stroke-linejoin="round"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-miterlimit="10"
+        stroke="currentColor"
+        fill="none"
+      >
+        <rect x="3" y="1" width="7" height="12"></rect>
+        <rect x="3" y="17" width="7" height="6"></rect>
+        <rect x="14" y="1" width="7" height="6"></rect>
+        <rect x="14" y="11" width="7" height="12"></rect>
+      </svg>
+      <span class="tw-font-semibold tw-text-2xl tw-mr-5">GALLERIA</span>
+    </div>
+    <div class="tw-items-center">
+      <a routerLink="/" class="tw-font-medium tw-ml-5 tw-mr-5">Home</a>
+      <a routerLink="/admin/categories" class="tw-font-medium tw-mx-2">Categories</a>
+    </div>
+  </div>
+
+  <div class="tw-hidden tw-md:flex tw-mr-48">
+    <a class="tw-mx-2 tw-font-medium" [routerLink]="['/login']">Login</a>
+    <a class="tw-mx-2 tw-font-medium" [routerLink]="['/register']">Register</a>
+  </div>
+  <button class="tw-p-2 tw-md:hidden" onclick="">
+    <i class="bi bi-menu"></i>
+  </button>
+
+  <div class="fixed inset-0"></div>
+</div> -->
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand mx-5" routerLink="/">Art Gallery</a>
@@ -17,25 +54,25 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
         </li>
-        @if(user && user.roles.includes('Writer')){
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Admin
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item" routerLink="admin/categories"
-                >Categories</a
-              >
-            </li>
-          </ul>
-        </li>
+        @if (user && user.roles.includes("Writer")) {
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Admin
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" routerLink="admin/categories"
+                  >Categories</a
+                >
+              </li>
+            </ul>
+          </li>
         }
       </ul>
 
@@ -50,19 +87,18 @@
       </form>
 
       <div class="d-flex">
-        @if(!user){
-        <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
-        <a [routerLink]="['/register']" class="btn btn-primary mx-3"
-          >Register</a
-        >
-        }@else {
-        <div class="d-flex align-items-center">
-          <span>{{ user.email }}</span>
-          <button class="btn btn-primary ms-3" (click)="onLogout()">
-            Logout
-          </button>
-        </div>
-
+        @if (!user) {
+          <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
+          <a [routerLink]="['/register']" class="btn btn-primary mx-3"
+            >Register</a
+          >
+        } @else {
+          <div class="d-flex align-items-center">
+            <span>{{ user.email }}</span>
+            <button class="btn btn-primary ms-3" (click)="onLogout()">
+              Logout
+            </button>
+          </div>
         }
       </div>
     </div>

@@ -1,4 +1,5 @@
-﻿using ArtGalleryAPI.Models.Dto;
+﻿using ArtGalleryAPI.Models.Domain;
+using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,10 @@ namespace ArtGalleryAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<AppUser> userManager;
         private readonly ITokenInterface tokenService;
 
-        public AuthController(UserManager<IdentityUser> userManager, ITokenInterface tokenService)
+        public AuthController(UserManager<AppUser> userManager, ITokenInterface tokenService)
         {
             this.userManager = userManager;
             this.tokenService = tokenService;
@@ -55,10 +56,16 @@ namespace ArtGalleryAPI.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
         {
-            var user = new IdentityUser()
+            var user = new AppUser()
             {
-                UserName = request.Email?.Trim(),
-                Email = request.Email?.Trim()
+                UserName = request.Email.Trim(),
+                Email = request.Email.Trim(),
+                FirstName = request.FirstName.Trim(),
+                LastName = request?.LastName?.Trim(),
+                CountryCode = request?.CountryCode?.Trim(),
+                PhoneNumber = request?.PhoneNumber?.Trim(),
+                Status = "Active",
+                CreatedAt = DateTime.UtcNow,
             };
             var identityResult = await userManager.CreateAsync(user, request.Password);
 
