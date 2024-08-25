@@ -6,36 +6,54 @@
     >
   </div>
   <div class="container">
-    @if(products$ | async; as products){
-    <table class="table table-bordered mt-3">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        @for(product of products; track product.productId){
-        <tr>
-          <td>{{ product.productId }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.description }}</td>
-          <th>
-            <div class="d-flex justify-content-around">
-              <a
-                class="btn btn-secondary"
-                [routerLink]="['/admin/categories/edit', product.productId]"
-              >
-                <i class="bi bi-pencil"></i>
-              </a>
-            </div>
-          </th>
-        </tr>
-        }
-      </tbody>
-    </table>
+    @if (products$ | async; as products) {
+      <table class="table table-bordered mt-3">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (product of products; track product.productId) {
+            <tr>
+              <td>{{ product.productId }}</td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <th>
+                <div class="d-flex justify-content-around">
+                  <a
+                    class="btn btn-secondary"
+                    [routerLink]="['/admin/categories/edit', product.productId]"
+                  >
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                </div>
+              </th>
+            </tr>
+          }
+        </tbody>
+      </table>
     }
   </div>
 </div>
+
+@if (products$ | async; as products) {
+  @for (product of products; track product.productId) {
+    <div class="my-3 p-3 rounded">
+      <a href="{{ product.productId }}">
+        <img src="{{ product.imageUrl }}" alt="{{ product.name }}" />
+      </a>
+      <a href="">
+        <div>
+          <strong>{{ product.name }}</strong>
+        </div>
+      </a>
+      <h3>
+        {{ product.price }}
+      </h3>
+    </div>
+  }
+}

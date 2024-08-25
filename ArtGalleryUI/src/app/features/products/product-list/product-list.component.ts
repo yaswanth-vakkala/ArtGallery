@@ -14,7 +14,10 @@ import { AsyncPipe } from '@angular/common';
 })
 export class ProductListComponent implements OnInit {
   products$?: Observable<Product[]>;
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.products$ = this.productService.getAllProducts();
