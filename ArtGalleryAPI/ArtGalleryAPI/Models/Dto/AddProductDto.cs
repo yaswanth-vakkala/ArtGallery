@@ -21,8 +21,10 @@ namespace ArtGalleryAPI.Models.Dto
         [Required]
         [Precision(13, 3)]
         public decimal Price { get; set; }
+        [Required]
+        public required Guid? CategoryId { get; set; }
 
         [Required]
-        public required Guid CategoryId { get; set; }
+        public required InventoryDto Inventory { get; set; }
     }
 }

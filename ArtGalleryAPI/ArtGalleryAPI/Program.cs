@@ -16,7 +16,7 @@ namespace ArtGalleryAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add services to the container
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -36,6 +36,8 @@ namespace ArtGalleryAPI
             builder.Services.AddScoped<ICategoryInterface, CategoryService>();
             builder.Services.AddScoped<ITokenInterface, TokenService>();
             builder.Services.AddScoped<IAppUserInterface, AppUserService>();
+            builder.Services.AddScoped<IAddressInterface, AddressService>();
+            builder.Services.AddScoped<IInventoryInterface, InventoryService>();
 
             builder.Services.AddIdentityCore<AppUser>(options =>
             {
