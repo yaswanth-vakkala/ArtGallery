@@ -101,11 +101,12 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="updatedCategory"></param>
         /// <returns>updated category</returns>
         [HttpPut]
-        public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryDto updatedCategory)
+        [Route("{categoryId:Guid}")]
+        public async Task<IActionResult> UpdateCategory([FromRoute] Guid categoryId,[FromBody] UpdateCategoryDto updatedCategory)
         {
             try
             {
-                var result = await categoryService.UpdateCategoryAsync(updatedCategory);
+                var result = await categoryService.UpdateCategoryAsync(categoryId,updatedCategory);
                 if (result == null)
                 {
                     return NotFound();

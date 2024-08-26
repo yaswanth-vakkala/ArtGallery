@@ -24,7 +24,8 @@ namespace ArtGalleryAPI
             });
             builder.Services.AddScoped<IProductInterface, ProductService>();
             builder.Services.AddScoped<ICategoryInterface, CategoryService>();
-            builder.Services.AddScoped<IAddressInterface, AddressService>();    
+            builder.Services.AddScoped<IAddressInterface, AddressService>();
+            builder.Services.AddScoped<IInventoryInterface, InventoryService>();
 
             var app = builder.Build();
 

@@ -80,11 +80,12 @@ namespace ArtGalleryAPI.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateAddress([FromBody] UpdateAddressDto updatedAddress)
+        [Route("{addressId:Guid}")]
+        public async Task<IActionResult> UpdateAddress([FromRoute] Guid addressId,[FromBody] UpdateAddressDto updatedAddress)
         {
             try
             {
-                var result = await addressService.UpdateAddressAsync(updatedAddress);
+                var result = await addressService.UpdateAddressAsync(addressId,updatedAddress);
                 if (result == null)
                 {
                     return NotFound();

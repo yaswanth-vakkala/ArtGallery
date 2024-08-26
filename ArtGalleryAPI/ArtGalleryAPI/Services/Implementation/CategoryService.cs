@@ -34,9 +34,9 @@ namespace ArtGalleryAPI.Services.Implementation
             return newCategory;
         }
 
-        public async Task<Category>? UpdateCategoryAsync(UpdateCategoryDto updatedCategory)
+        public async Task<Category>? UpdateCategoryAsync(Guid categoryId,UpdateCategoryDto updatedCategory)
         {
-            var category = await dbContext.Category.SingleOrDefaultAsync(category => category.CategoryId == updatedCategory.CategoryId);
+            var category = await dbContext.Category.SingleOrDefaultAsync(category => category.CategoryId == categoryId);
             if (category == null)
             {
                 return null;
