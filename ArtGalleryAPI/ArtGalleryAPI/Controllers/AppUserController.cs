@@ -64,12 +64,38 @@ namespace ArtGalleryAPI.Controllers
         }
 
         /// <summary>
+        /// returns the filtered user record based on email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>filtered user</returns>
+        [HttpGet]
+        [Route("admin/getUserByEmail/{email}")]
+        public async Task<IActionResult> GetUserByEmail([FromRoute] string email)
+        {
+            try
+            {
+                var user = await appUserService.GetUserByEmailAsync(email);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(user);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// updates the existing user in db
         /// </summary>
         /// <param name="updatedUser"></param>
         /// <returns>updated user</returns>
         [HttpPut]
-        [Authorize(Roles = "Writer")]
         [Route("{userId}")]
         public async Task<IActionResult> UpdateCategory([FromRoute] string userId, [FromBody] UpdateAppUserDto updatedAppUser)
         {
@@ -98,7 +124,6 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="userId"></param>
         /// <returns>bool representing state of operation</returns>
         [HttpDelete]
-        [Authorize(Roles = "Writer")]
         [Route("{userId}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] string userId)
         {

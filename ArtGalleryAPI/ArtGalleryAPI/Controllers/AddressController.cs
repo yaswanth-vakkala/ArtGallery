@@ -12,9 +12,12 @@ namespace ArtGalleryAPI.Controllers
     public class AddressController : ControllerBase
     {
         private readonly IAddressInterface addressService;
-        public AddressController(IAddressInterface addressService)
+        private readonly IAppUserInterface appUserService;
+
+        public AddressController(IAddressInterface addressService, IAppUserInterface appUserService)
         {
             this.addressService = addressService;
+            this.appUserService = appUserService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllAddresses()
@@ -60,19 +63,28 @@ namespace ArtGalleryAPI.Controllers
 
             try
             {
-                var newAddress = new Address
+                var user = await appUserService.GetUserByEmailAsync(address.userEmail);
+                if (user != null)
                 {
-                    AddressLine = address.AddressLine,
-                    PinCode = address.PinCode,
-                    City = address.City,
-                    Landmark = address.Landmark,
-                    Country = address.Country,
-                    CountryCode = address.CountryCode,
-                    PhoneNumber = address.PhoneNumber,
-                };
-                await addressService.AddAddressAsync(newAddress);
-                var locationUri = Url.Action("GetAddressById", new { addressId = newAddress.AddressId });
-                return Created(locationUri, newAddress);
+                    var newAddress = new Address
+                    {
+                        AddressLine = address.AddressLine,
+                        PinCode = address.PinCode,
+                        City = address.City,
+                        Landmark = address.Landmark,
+                        Country = address.Country,
+                        CountryCode = address.CountryCode,
+                        PhoneNumber = address.PhoneNumber,
+                        AppUserId = user.Id,
+                    };
+                    await addressService.AddAddressAsync(newAddress);
+                    var locationUri = Url.Action("GetAddressById", new { addressId = newAddress.AddressId });
+                    return Created(locationUri, newAddress);
+                }
+                else
+                {
+                    return BadRequest("Invalid data!");
+                }
             }
             catch (Exception ex)
             {
@@ -81,11 +93,11 @@ namespace ArtGalleryAPI.Controllers
         }
         [HttpPut]
         [Route("{addressId:Guid}")]
-        public async Task<IActionResult> UpdateAddress([FromRoute] Guid addressId,[FromBody] UpdateAddressDto updatedAddress)
+        public async Task<IActionResult> UpdateAddress([FromRoute] Guid addressId, [FromBody] UpdateAddressDto updatedAddress)
         {
             try
             {
-                var result = await addressService.UpdateAddressAsync(addressId,updatedAddress);
+                var result = await addressService.UpdateAddressAsync(addressId, updatedAddress);
                 if (result == null)
                 {
                     return NotFound();
@@ -109,7 +121,7 @@ namespace ArtGalleryAPI.Controllers
             {
                 var deleteStatus = await addressService.DeleteAddressAsync(addressId);
                 return Ok(deleteStatus);
-            }         
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);

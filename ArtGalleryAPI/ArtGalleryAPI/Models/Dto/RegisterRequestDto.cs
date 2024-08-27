@@ -24,5 +24,7 @@ namespace ArtGalleryAPI.Models.Dto
 
         [MaxLength(15, ErrorMessage = "User phone number can have a maximum of 15 characters")]
         public string? PhoneNumber { get; set; }
+
+        public bool isAdmin { get; set; }
     }
 }

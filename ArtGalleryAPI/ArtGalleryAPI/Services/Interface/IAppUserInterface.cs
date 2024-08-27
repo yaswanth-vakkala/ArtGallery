@@ -7,6 +7,7 @@ namespace ArtGalleryAPI.Services.Interface
     {
         Task<IEnumerable<AppUser>> GetAllUsersAsync();
         Task<AppUser>? GetUserByIdAsync(string userId);
+        Task<AppUser>? GetUserByEmailAsync(string email);
         Task<AppUser> CreateUserAsync(AppUser appUser);
         Task<AppUser>? UpdateUserAsync(string userId, UpdateAppUserDto updatedUser);
         Task<bool> DeleteUserAsync(string userId);

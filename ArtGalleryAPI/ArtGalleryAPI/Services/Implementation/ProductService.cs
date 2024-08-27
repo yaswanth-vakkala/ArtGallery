@@ -17,25 +17,22 @@ namespace ArtGalleryAPI.Services.Implementation
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            var products = await dbContext.Product.Include(p => p.Inventory).ToListAsync();
+            var products = await dbContext.Product.Include(c => c.Categories).ToListAsync();
             return products;
         }
 
         public async Task<Product>? GetProductByIdAsync(Guid productId)
         {
-            var product = await dbContext.Product.Include(p => p.Inventory).SingleOrDefaultAsync(product => product.ProductId == productId);
+            var product = await dbContext.Product.Include(c => c.Categories).SingleOrDefaultAsync(product => product.ProductId == productId);
             return product;
         }
+
         public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
         {
-            var products = await dbContext.Product.Where(p => p.CategoryId == categoryId).ToListAsync();
+            var products = await dbContext.Product.Include(c => c.Categories).Where(p => p.Categories.Any(c => c.CategoryId == categoryId)).ToListAsync();
             return products;
         }
-        public async Task<Inventory> GetInventoryByProductIdAsync(Guid productId)
-        {
-            var inventory = await dbContext.Product.Include(p => p.Inventory).SingleOrDefaultAsync(p => p.ProductId == productId);
-            return inventory.Inventory;
-        }
+
         public async Task<Product> CreateProductAsync(Product newProduct)
         {
             await dbContext.Product.AddAsync(newProduct);
@@ -43,9 +40,9 @@ namespace ArtGalleryAPI.Services.Implementation
             return newProduct;
         }
 
-        public async Task<Product>? UpdateProductAsync(Guid productId, UpdateProductDto updatedProduct)
+        public async Task<Product>? UpdateProductAsync(Guid productId, Product updatedProduct)
         {
-            var product = await dbContext.Product.SingleOrDefaultAsync(product => product.ProductId == productId);
+            var product = await dbContext.Product.Include(c => c.Categories).SingleOrDefaultAsync(product => product.ProductId == productId);
             if (product == null)
             {
                 return null;
@@ -53,6 +50,7 @@ namespace ArtGalleryAPI.Services.Implementation
             else
             {
                 dbContext.Entry(product).CurrentValues.SetValues(updatedProduct);
+                product.Categories = updatedProduct.Categories;
                 await dbContext.SaveChangesAsync();
                 return product;
             }

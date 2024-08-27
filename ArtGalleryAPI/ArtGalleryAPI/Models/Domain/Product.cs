@@ -1,6 +1,7 @@
 ﻿using ArtGalleryAPI.Models.Dto;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace ArtGalleryAPI.Models.Domain
@@ -27,20 +28,19 @@ namespace ArtGalleryAPI.Models.Domain
         public required decimal Price { get; set; }
 
         [Required]
+        public required int Quantity { get; set; }
+
+        [Required]
         [MaxLength(30, ErrorMessage = "Product status can have a maximum of 30 characters!")]
         public required string Status { get; set; }
 
-        [Required]
-        public required DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public DateTime? ModifiedAt { get; set; }
 
         [MaxLength(100, ErrorMessage = "Product modified by can have a maximum of 100 characters!")]
         public string? ModifiedBy { get; set; }
 
-        [Required]
-        public required Guid? CategoryId { get; set; }
-        [Required]
-        public required Inventory Inventory { get; set; }
+        public ICollection<Category>? Categories { get; set; }
     }
 }

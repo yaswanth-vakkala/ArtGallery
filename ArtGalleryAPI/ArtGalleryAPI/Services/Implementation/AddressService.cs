@@ -1,5 +1,4 @@
-﻿using ArtGalleryAPI.CustomExceptions;
-using ArtGalleryAPI.Data;
+﻿using ArtGalleryAPI.Data;
 using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ArtGalleryAPI.Services.Implementation
 {
-    public class AddressService: IAddressInterface
+    public class AddressService : IAddressInterface
     {
         private readonly ApplicationDbContext dbContext;
 
@@ -32,7 +31,7 @@ namespace ArtGalleryAPI.Services.Implementation
             await dbContext.SaveChangesAsync();
             return newAddress;
         }
-        public async Task<Address>? UpdateAddressAsync(Guid addressId,UpdateAddressDto updatedAddress)
+        public async Task<Address>? UpdateAddressAsync(Guid addressId, UpdateAddressDto updatedAddress)
         {
             var address = await dbContext.Address.SingleOrDefaultAsync(address => address.AddressId == addressId);
             if (address == null)

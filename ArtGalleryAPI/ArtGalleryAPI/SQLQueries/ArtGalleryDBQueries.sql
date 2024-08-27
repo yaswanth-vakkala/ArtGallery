@@ -12,12 +12,11 @@ CountryCode nvarchar(6) not null, PhoneNumber nvarchar(15) not null);
 create table Category(CategoryId UNIQUEIDENTIFIER primary key default newsequentialid(), Name NVARCHAR(50) not null UNIQUE, Description NVARCHAR(500),
 CreatedAt datetime2 not null, ModifiedAt datetime2, ModifiedBy nvarchar(100));
 
-create table Inventory(InventoryId uniqueidentifier primary key default newid(), Quantity int not null, CreatedAt datetime2 not null, ModifiedAt datetime2, 
-ModifiedBy nvarchar(100));
+/*create table Inventory(InventoryId uniqueidentifier primary key default newid(), Quantity int not null, CreatedAt datetime2 not null, ModifiedAt datetime2, 
+ModifiedBy nvarchar(100));*/
 
 create table Product(ProductId UNIQUEIDENTIFIER primary key DEFAULT newsequentialid(), Name nvarchar(100) not null, Description nvarchar(max) not null,
-ImageUrl nvarchar(max), Price decimal(13, 3) not null, Status nvarchar(30) not null,CategoryId UNIQUEIDENTIFIER foreign key references Category(CategoryId), 
-InventoryId uniqueidentifier foreign key references Inventory(InventoryId), CreatedAt datetime2 not null, ModifiedAt datetime2, ModifiedBy nvarchar(100));
+ImageUrl nvarchar(max), Price decimal(13, 3) not null, Status nvarchar(30) not null,CategoryId UNIQUEIDENTIFIER foreign key references Category(CategoryId), CreatedAt datetime2 not null, ModifiedAt datetime2, ModifiedBy nvarchar(100));
 
 create table Cart(CartId uniqueidentifier primary key default newid(), AppUserId UNIQUEIDENTIFIER FOREIGN key REFERENCES AppUser(AppUserId),
 ProductId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Product(ProductId), Quantity int not null);

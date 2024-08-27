@@ -100,7 +100,6 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="updatedCategory"></param>
         /// <returns>updated category</returns>
         [HttpPut]
-        [Authorize(Roles = "Writer")]
         [Route("{categoryId:Guid}")]
         public async Task<IActionResult> UpdateCategory([FromRoute] Guid categoryId, [FromBody] UpdateCategoryDto updatedCategory)
         {
@@ -129,7 +128,6 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="categoryId"></param>
         /// <returns>bool representing state of operation</returns>
         [HttpDelete]
-        [Authorize(Roles = "Writer")]
         [Route("{categoryId:Guid}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid categoryId)
         {

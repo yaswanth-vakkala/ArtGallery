@@ -1,12 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ArtGalleryAPI.Models.Dto
 {
-    public class UpdateInventoryDto
+    public class UpdateCartDto
     {
         [Required]
         public required int Quantity { get; set; }
-
     }
 }

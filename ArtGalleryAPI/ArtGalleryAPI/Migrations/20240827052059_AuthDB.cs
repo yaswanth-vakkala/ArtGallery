@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ArtGalleryAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialmigrationforauth : Migration
+    public partial class AuthDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,14 @@ namespace ArtGalleryAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    CountryCode = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    LastLoginAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -169,8 +177,8 @@ namespace ArtGalleryAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "4f3cd3ce-b56e-46b4-85c1-9d6598915c81", 0, "acc32ede-e3a0-4ca7-bb03-10b84c258c40", "admin@galleria.com", false, false, null, "ADMIN@GALLERIA.COM", "ADMIN@GALLERIA.COM", "AQAAAAIAAYagAAAAEGCkozYc0J5Yp10tR2EVNG3FND1k52X9I6WywksoRVh2rTnFMzpKObtYj3w0SdHAsA==", null, false, "16ec1502-b6a3-4cb8-b945-d0ec5989a275", false, "admin@galleria.com" });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CountryCode", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "LastLoginAt", "LastName", "LockoutEnabled", "LockoutEnd", "ModifiedAt", "ModifiedBy", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "4f3cd3ce-b56e-46b4-85c1-9d6598915c81", 0, "7366758d-7d01-42fd-b5b1-9cc599bb3f23", null, new DateTime(2024, 8, 27, 5, 20, 57, 405, DateTimeKind.Utc).AddTicks(1437), "admin@galleria.com", false, "admin", null, null, false, null, null, null, "ADMIN@GALLERIA.COM", "ADMIN@GALLERIA.COM", "AQAAAAIAAYagAAAAEDu8Q4GP0GuqaUblyHIavpJzOVcQUJOB8ClklKmKZtrljDyl3MuS8LSfhGSR7JwQ9w==", null, false, "b54d2953-1390-47db-acc2-d21277aa3f03", "Active", false, "admin@galleria.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

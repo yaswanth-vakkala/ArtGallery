@@ -4,6 +4,7 @@ using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -37,7 +38,9 @@ namespace ArtGalleryAPI
             builder.Services.AddScoped<ITokenInterface, TokenService>();
             builder.Services.AddScoped<IAppUserInterface, AppUserService>();
             builder.Services.AddScoped<IAddressInterface, AddressService>();
-            builder.Services.AddScoped<IInventoryInterface, InventoryService>();
+            builder.Services.AddScoped<ICartInterface, CartService>();
+            builder.Services.AddScoped<IOrderInterface, OrderService>();
+            builder.Services.AddScoped<IOrderItemInterface, OrderItemService>();
 
             builder.Services.AddIdentityCore<AppUser>(options =>
             {

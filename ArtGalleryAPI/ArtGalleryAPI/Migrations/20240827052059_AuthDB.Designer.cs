@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtGalleryAPI.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20240825155837_extend user table")]
-    partial class extendusertable
+    [Migration("20240827052059_AuthDB")]
+    partial class AuthDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,6 @@ namespace ArtGalleryAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CountryCode")
-                        .IsRequired()
                         .HasMaxLength(6)
                         .HasColumnType("nvarchar(6)");
 
@@ -61,7 +60,6 @@ namespace ArtGalleryAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -127,19 +125,17 @@ namespace ArtGalleryAPI.Migrations
                         {
                             Id = "4f3cd3ce-b56e-46b4-85c1-9d6598915c81",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00e6d72c-3948-4f5e-82aa-7b22230fc988",
-                            CountryCode = "+91",
-                            CreatedAt = new DateTime(2024, 8, 25, 15, 58, 37, 257, DateTimeKind.Utc).AddTicks(7137),
+                            ConcurrencyStamp = "7366758d-7d01-42fd-b5b1-9cc599bb3f23",
+                            CreatedAt = new DateTime(2024, 8, 27, 5, 20, 57, 405, DateTimeKind.Utc).AddTicks(1437),
                             Email = "admin@galleria.com",
                             EmailConfirmed = false,
                             FirstName = "admin",
-                            LastName = "admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GALLERIA.COM",
                             NormalizedUserName = "ADMIN@GALLERIA.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEy2DFrYtebFLz29n8iDlktN5TlE7pdnS/f5PqJDUaoM/3ZpwB9JyokS8nuFyjL7HQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDu8Q4GP0GuqaUblyHIavpJzOVcQUJOB8ClklKmKZtrljDyl3MuS8LSfhGSR7JwQ9w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ca609980-3a6f-47af-930b-3ea82e9175e9",
+                            SecurityStamp = "b54d2953-1390-47db-acc2-d21277aa3f03",
                             Status = "Active",
                             TwoFactorEnabled = false,
                             UserName = "admin@galleria.com"
