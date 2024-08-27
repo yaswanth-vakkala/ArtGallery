@@ -1,5 +1,5 @@
 @if (model) {
-  <div class="flex justify-between w-full">
+  <div class="flex max-sm:flex-wrap md:flex-nowrap justify-between w-full">
     <div class="ml-[5%] mt-20">
       <img
         [ngSrc]="model.imageUrl"
@@ -8,7 +8,7 @@
         width="600"
       />
     </div>
-    <div class="pl-28 text-left w-[50%] mt-20">
+    <div class="md:pl-28 max-sm:pl-8 text-left w-[50%] mt-20">
       <h1 class="font-bold text-4xl mb-2">{{ model.name }}</h1>
       @for (category of model.categories; track category.categoryId) {
         <div class="badge badge-primary badge-outline mr-2">
