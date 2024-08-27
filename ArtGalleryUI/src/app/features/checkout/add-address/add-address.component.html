@@ -1,0 +1,101 @@
+<div class="grid grid-cols-1 gap4 lg:id-cols-12 px-5 lg:px-20" >
+    <div class="col-span-1 lg:col-span-5">
+        <!-- <div class="rounded-md shadow-md h-[32.2rem] overflow-y-scroll hide-scroller box py-5">
+            <div class="p-5 py-7 cursor-pointer">
+                
+            </div>
+        </div> -->
+        <div class="rounded-md shadow-md p-5 box">
+            <form #form="ngForm" (ngSubmit)="onAddAddressSubmit()">
+                <div class="mt-2">
+                  <div class="mt-3">
+                    <label class="form-label" for="addressLine"> Address Line: </label>
+                    <input
+                      id="addressLine"
+                      type="text"
+                      class="form-control"
+                      name="addressLine"
+                      [(ngModel)]="model.addressLine"
+                    />
+                  </div>
+                </div>
+                <div class="mt-2">
+                    <div class="mt-3">
+                      <label class="form-label" for="pinCode"> Pin Code: </label>
+                      <input
+                        id="pinCode"
+                        type="text"
+                        class="form-control"
+                        name="pinCode"
+                        [(ngModel)]="model.pinCode"
+                      />
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <div class="mt-3">
+                      <label class="form-label" for="city"> City: </label>
+                      <input
+                        id="city"
+                        type="text"
+                        class="form-control"
+                        name="city"
+                        [(ngModel)]="model.city"
+                      />
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <div class="mt-3">
+                      <label class="form-label" for="landmark"> Landmark </label>
+                      <input
+                        id="landmark"
+                        type="text"
+                        class="form-control"
+                        name="landmark"
+                        [(ngModel)]="model.landmark"
+                      />
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <div class="mt-3">
+                      <label class="form-label" for="country"> Country: </label>
+                      <input
+                        id="country"
+                        type="text"
+                        class="form-control"
+                        name="country"
+                        [(ngModel)]="model.country"
+                      />
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <div class="mt-3">
+                      <label class="form-label" for="countryCode"> Country Code: </label>
+                      <input
+                        id="countryCode"
+                        type="text"
+                        class="form-control"
+                        name="countryCode"
+                        [(ngModel)]="model.countryCode"
+                      />
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <div class="mt-3">
+                      <label class="form-label" for="phoneNumber"> Phone Number: </label>
+                      <input
+                        id="phoneNumber"
+                        type="text"
+                        class="form-control"
+                        name="phoneNumber"
+                        [(ngModel)]="model.phoneNumber"
+                      />
+                    </div>
+                </div>
+                <div class="mt-3">
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+
+
+</div>
