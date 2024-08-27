@@ -57,13 +57,18 @@
     </div>
   }
 } -->
-<div class="grid grid-cols-4 gap-4 ml-16 mt-4">
-  @if(products$ | async; as products){
-    @for(product of products; track product.productId){
-      <app-product-card id={{product.productId}} title= {{product.name}} description= {{product.description}}
-      imageUrl={{product.imageUrl}} price={{product.price}} />
+<div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-4 ml-16 mt-4">
+  @if (products$ | async; as products) {
+    @for (product of products; track product.productId) {
+      <app-product-card
+        id="{{ product.productId }}"
+        title="{{ product.name }}"
+        description="{{ product.description }}"
+        imageUrl="{{ product.imageUrl }}"
+        price="{{ product.price }}"
+      />
     }
-  }@else {
+  } @else {
     <h1>Nothing to show!</h1>
   }
 </div>

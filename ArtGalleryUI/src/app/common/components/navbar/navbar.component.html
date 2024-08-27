@@ -81,29 +81,36 @@
           class="h-5 w-5"
           fill="none"
           viewBox="0 0 24 24"
-          stroke="currentColor">
+          stroke="currentColor"
+        >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M4 6h16M4 12h8m-8 6h16" />
+            d="M4 6h16M4 12h8m-8 6h16"
+          />
         </svg>
       </div>
       <ul
         tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li><a [routerLink] = "['/']" class="text-lg font-medium">Home</a></li>
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+      >
+        <li><a [routerLink]="['/']" class="text-lg font-medium">Home</a></li>
         <li>
           <details>
             <summary class="text-lg font-medium">Admin</summary>
             <ul class="p-2">
-              <li><a [routerLink]="['/admin/categories']" class="font-medium">Categories</a></li>
+              <li>
+                <a [routerLink]="['/admin/categories']" class="font-medium"
+                  >Categories</a
+                >
+              </li>
             </ul>
           </details>
         </li>
       </ul>
     </div>
-    <a [routerLink] = "['/']" class="btn btn-ghost text-2xl md:ml-12 lg:ml-24">
+    <a [routerLink]="['/']" class="btn btn-ghost text-2xl md:ml-12 lg:ml-24">
       <svg
         class="w-8 text-deep-purple-accent-400 mx-2"
         viewBox="0 0 24 24"
@@ -119,25 +126,51 @@
         <rect x="14" y="1" width="7" height="6"></rect>
         <rect x="14" y="11" width="7" height="12"></rect>
       </svg>
-      DreamScape</a>
+      DreamScape</a
+    >
   </div>
   <div class="navbar hidden md:flex ml-12">
     <ul class="menu menu-horizontal px-1">
-      <li><a [routerLink] = "['/']" class="text-lg font-medium">Home</a></li>
-      <li>
-        <details>
-          <summary class="text-lg font-medium">Admin</summary>
-          <ul class="p-2">
-            <li><a [routerLink]="['/admin/categories']" class="font-medium">Categories</a></li>
-          </ul>
-        </details>
-      </li>
+      @if (user && user.roles.includes("Writer")) {
+        <li><a [routerLink]="['/']" class="text-lg font-medium">Home</a></li>
+        <li>
+          <details>
+            <summary class="text-lg font-medium">Admin</summary>
+            <ul class="p-2 z-50">
+              <li>
+                <a [routerLink]="['/admin/categories']" class="font-medium"
+                  >Categories</a
+                >
+              </li>
+            </ul>
+          </details>
+        </li>
+      }
     </ul>
   </div>
-  <div class="navbar-end lg:mr-24">
-    <a [routerLink] = "['/login']" class="btn btn-outline btn-md px-4 mr-2 glass text-lg">Login</a>
-    <a [routerLink] = "['/register']" class="btn btn-outline btn-md px-4 glass text-lg">Register</a>
-  </div>
+  @if (!user) {
+    <div class="navbar-end lg:mr-24">
+      <a
+        [routerLink]="['/login']"
+        class="btn btn-outline btn-md px-4 mr-2 glass text-lg"
+        >Login</a
+      >
+      <a
+        [routerLink]="['/register']"
+        class="btn btn-outline btn-md px-4 glass text-lg"
+        >Register</a
+      >
+    </div>
+  } @else {
+    <div class="navbar-end lg:mr-24">
+      <button
+        (click)="onLogout()"
+        class="btn btn-outline btn-primary px-4 btn-md"
+      >
+        Logout
+      </button>
+    </div>
+  }
 </div>
 
 <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
