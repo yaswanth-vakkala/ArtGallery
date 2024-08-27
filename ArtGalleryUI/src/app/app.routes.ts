@@ -6,11 +6,16 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { authGuard } from './features/auth/guards/auth.guard';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { ProductListComponent } from './features/products/product-list/product-list.component';
+import { ProductDetailComponent } from './features/products/product-detail/product-detail.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: ProductListComponent,
+  },
+  {
+    path: 'products/:productId',
+    component: ProductDetailComponent,
   },
   {
     path: 'login',
