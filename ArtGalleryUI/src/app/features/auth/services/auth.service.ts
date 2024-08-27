@@ -13,7 +13,10 @@ import { RegisterRequest } from '../models/register-request.model';
 })
 export class AuthService {
   $user = new BehaviorSubject<User | undefined>(undefined);
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+  ) {}
 
   login(request: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(
@@ -21,7 +24,7 @@ export class AuthService {
       {
         email: request.email,
         password: request.password,
-      }
+      },
     );
   }
 
@@ -29,6 +32,8 @@ export class AuthService {
     return this.http.post<void>(`${environment.apiBaseUrl}/api/auth/register`, {
       email: request.email,
       password: request.password,
+      firstName: request.firstName,
+      lastName: request.lastName,
     });
   }
 
