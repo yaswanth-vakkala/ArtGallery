@@ -1,61 +1,61 @@
 {
-  "hash": "ba663f93",
-  "configHash": "ade3c80a",
-  "lockfileHash": "2f5d294d",
-  "browserHash": "cf448ba7",
+  "hash": "88258a8c",
+  "configHash": "ec95c1d6",
+  "lockfileHash": "81efae40",
+  "browserHash": "2e7a7862",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "cb97edc2",
+      "fileHash": "9cf6e092",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "435d2531",
+      "fileHash": "094aa6d8",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "6de63d17",
+      "fileHash": "36821e5a",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "180ad04c",
+      "fileHash": "0048b01e",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "209323d5",
+      "fileHash": "12015eaa",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "dc2ef957",
+      "fileHash": "dd9449dc",
       "needsInterop": false
     },
     "jwt-decode": {
       "src": "../../../../../node_modules/jwt-decode/build/esm/index.js",
       "file": "jwt-decode.js",
-      "fileHash": "51c6dc11",
+      "fileHash": "4b1d8c8d",
       "needsInterop": false
     },
     "ngx-cookie-service": {
       "src": "../../../../../node_modules/ngx-cookie-service/fesm2022/ngx-cookie-service.mjs",
       "file": "ngx-cookie-service.js",
-      "fileHash": "bfe5359d",
+      "fileHash": "67adcb3b",
       "needsInterop": false
     },
     "rxjs": {
       "src": "../../../../../node_modules/rxjs/dist/esm5/index.js",
       "file": "rxjs.js",
-      "fileHash": "f669cdc7",
+      "fileHash": "9690ad35",
       "needsInterop": false
     }
   },

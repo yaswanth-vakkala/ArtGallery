@@ -4,10 +4,12 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
-  prefix: "tw-",
-  corePlugins: {
-      preflight: false,
-  }
+  plugins: [
+    require('daisyui'),
+  ],
+  // prefix: "tw-",
+  // corePlugins: {
+  //     preflight: false,
+  // }
 }
 
