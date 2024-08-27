@@ -40,3 +40,15 @@ ArtGalleryUI//typings
 # System files
 ArtGalleryUI/.DS_Store
 ArtGalleryUI/Thumbs.db
+
+ArtGalleryAPI/.vs
+ArtGalleryAPI/.vs/*
+ArtGalleryAPI/ArtGalleryAPI/bin
+ArtGalleryAPI/ArtGalleryAPI/bin/*
+ArtGalleryAPI/ArtGalleryAPI/obj
+ArtGalleryAPI/ArtGalleryAPI/obj/*
+ArtGalleryUI/.angular/cache
+ArtGalleryUI/.angular/cache/*
+
+
+
