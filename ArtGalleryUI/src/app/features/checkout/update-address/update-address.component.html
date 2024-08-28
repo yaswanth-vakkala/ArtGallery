@@ -1,0 +1,96 @@
+<div class="container">
+    <h1 class="mt-3">Update Address</h1>
+    @if(model){
+    <form #form="ngForm" (ngSubmit)="onUpdateAddressSubmit()">
+        <div class="mt-2">
+            <div class="mt-3">
+              <!-- <label class="form-label" for="addressLine"> Address Line: </label> -->
+              <label class="form-control w-full max-w-xs">
+                <div class="label">
+                  <span class="label-text">Address Line</span>
+            
+                </div>
+                <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-lg" name="addressLine" id="addressLine" [(ngModel)]="model.addressLine" />
+                
+              </label>
+            </div>
+          </div>
+          <div class="mt-2">
+              <div class="mt-3">
+                <label class="form-control w-full max-w-xs">
+                  <div class="label">
+                    <span class="label-text">Pin Code</span>
+              
+                  </div>
+                  <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="pinCode" id="pinCode" [(ngModel)]="model.pinCode" />
+                  
+                </label>
+              </div>
+          </div>
+          <div class="mt-2">
+              <div class="mt-3">
+                <label class="form-control w-full max-w-xs">
+                  <div class="label">
+                    <span class="label-text">City</span>
+              
+                  </div>
+                  <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="city" id="city" [(ngModel)]="model.city" />
+                  
+                </label>
+              </div>
+          </div>
+          <div class="mt-2">
+              <div class="mt-3">
+                <label class="form-control w-full max-w-xs">
+                  <div class="label">
+                    <span class="label-text">Landmark</span>
+              
+                  </div>
+                  <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="landmark" id="landmark" [(ngModel)]="model.landmark" />
+                  
+                </label>
+              </div>
+          </div>
+          <div class="mt-2">
+              <div class="mt-3">
+                <label class="form-control w-full max-w-xs">
+                  <div class="label">
+                    <span class="label-text">Country</span>
+              
+                  </div>
+                  <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="country" id="country" [(ngModel)]="model.country" />
+                  
+                </label>
+              </div>
+          </div>
+          <div class="mt-2">
+              <div class="mt-3">
+                <label class="form-control w-full max-w-xs">
+                  <div class="label">
+                    <span class="label-text">Country Code</span>
+              
+                  </div>
+                  <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm"  name="countryCode" id="countryCode"[(ngModel)]="model.countryCode" />
+                  
+                </label>
+              </div>
+          </div>
+          <div class="mt-2">
+              <div class="mt-3">
+                <label class="form-control w-full max-w-xs">
+                  <div class="label">
+                    <span class="label-text">Phone Number</span>
+              
+                  </div>
+                  <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="phoneNumber" id="phoneNumber" [(ngModel)]="model.phoneNumber" />
+                  
+                </label>
+              </div>
+          </div>
+          <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+      </form>
+  
+    }@else{ Not Found! }
+  </div>

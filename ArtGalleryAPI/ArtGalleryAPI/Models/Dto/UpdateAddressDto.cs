@@ -28,6 +28,7 @@ namespace ArtGalleryAPI.Models.Dto
         public required string CountryCode { get; set; }
 
         [Required]
+        [RegularExpression(@"^\+?[1-9]\d{1,14}$", ErrorMessage = "Please enter a valid phone number")]
         [MaxLength(15, ErrorMessage = "Phone number in address can have a maximum of 15 characters!")]
         public required string PhoneNumber { get; set; }
     }

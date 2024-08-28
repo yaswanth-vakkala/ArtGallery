@@ -15,23 +15,7 @@ import { Router } from '@angular/router';
 })
 export class AddAddressComponent implements OnDestroy{
   model!: AddAddress;
-  private addAddressSubscription?: Subscription;
-  //myForm: any;
-  // myForm:FormGroup=this.formBuilder.group({
-  //   firstName:["",Validators.required],
-  //   lastName:["",Validators.required],
-  //   addressLine:["",Validators.required],
-  //   pincode:["",Validators.required],
-  //   city:["",Validators.required],
-  //   landmark:["",Validators],
-  //   country:["",Validators.required],
-  //   countryCode:["",Validators.required],
-  //   phoneNumber:["",Validators.required],
-  // })
-
-  // constructor(private formBuilder:FormBuilder){
-
-  // }
+  private addAddressSubscription: Subscription | undefined;
   constructor(
     private addressService: AddressService,
     private router: Router
@@ -43,16 +27,21 @@ export class AddAddressComponent implements OnDestroy{
       landmark: '',
       country: '',
       countryCode: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      userEmail: '' ,
     };
   }
   onAddAddressSubmit() {
+    this.model.userEmail = localStorage.getItem('user-email')
     this.addAddressSubscription = this.addressService
       .addAddress(this.model)
       .subscribe({
         next: (response) => {
           this.router.navigateByUrl('user/address/add');
         },
+        error:(response)=>{
+          this.router.navigateByUrl('/');
+        }
       });
   }
 

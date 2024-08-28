@@ -5,5 +5,6 @@ export interface AddAddress{
     landmark: string,
     country: string,
     countryCode: string,
-    phoneNumber: string
+    phoneNumber: string,
+    userEmail: string | null
 }

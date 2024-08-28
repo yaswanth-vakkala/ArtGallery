@@ -6,5 +6,6 @@ export interface Address {
     landmark: string,
     country: string,
     countryCode: string,
-    phoneNumber: string
+    phoneNumber: string,
+    userEmail: string
   }

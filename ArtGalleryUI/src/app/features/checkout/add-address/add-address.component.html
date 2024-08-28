@@ -9,88 +9,101 @@
             <form #form="ngForm" (ngSubmit)="onAddAddressSubmit()">
                 <div class="mt-2">
                   <div class="mt-3">
-                    <label class="form-label" for="addressLine"> Address Line: </label>
-                    <input
-                      id="addressLine"
-                      type="text"
-                      class="form-control"
-                      name="addressLine"
-                      [(ngModel)]="model.addressLine"
-                    />
+                    <!-- <label class="form-label" for="addressLine"> Address Line: </label> -->
+                    <label class="form-control w-full max-w-xs">
+                      <div class="label">
+                        <span class="label-text">Address Line</span>
+                  
+                      </div>
+                      <input type="text" placeholder="Type here" name="addressLine" id="addressLine" class="input input-bordered w-full max-w-lg" [(ngModel)]="model.addressLine" required/>
+                      
+                    </label>
                   </div>
                 </div>
                 <div class="mt-2">
                     <div class="mt-3">
-                      <label class="form-label" for="pinCode"> Pin Code: </label>
-                      <input
-                        id="pinCode"
-                        type="text"
-                        class="form-control"
-                        name="pinCode"
-                        [(ngModel)]="model.pinCode"
-                      />
+                      <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                          <span class="label-text">Pin Code</span>
+                    
+                        </div>
+                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="pinCode" id="pinCode" [(ngModel)]="model.pinCode" />
+                        
+                      </label>
                     </div>
                 </div>
                 <div class="mt-2">
                     <div class="mt-3">
-                      <label class="form-label" for="city"> City: </label>
-                      <input
-                        id="city"
-                        type="text"
-                        class="form-control"
-                        name="city"
-                        [(ngModel)]="model.city"
-                      />
+                      <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                          <span class="label-text">City</span>
+                    
+                        </div>
+                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="city" id="city" [(ngModel)]="model.city" />
+                        
+                      </label>
                     </div>
                 </div>
                 <div class="mt-2">
                     <div class="mt-3">
-                      <label class="form-label" for="landmark"> Landmark </label>
-                      <input
-                        id="landmark"
-                        type="text"
-                        class="form-control"
-                        name="landmark"
-                        [(ngModel)]="model.landmark"
-                      />
+                      <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                          <span class="label-text">Landmark</span>
+                    
+                        </div>
+                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="landmark" id="landmark" [(ngModel)]="model.landmark" />
+                        
+                      </label>
                     </div>
                 </div>
                 <div class="mt-2">
                     <div class="mt-3">
-                      <label class="form-label" for="country"> Country: </label>
-                      <input
-                        id="country"
-                        type="text"
-                        class="form-control"
-                        name="country"
-                        [(ngModel)]="model.country"
-                      />
+                      <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                          <span class="label-text">Country</span>
+                    
+                        </div>
+                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="country" id="country" [(ngModel)]="model.country" />
+                        
+                      </label>
                     </div>
                 </div>
                 <div class="mt-2">
                     <div class="mt-3">
-                      <label class="form-label" for="countryCode"> Country Code: </label>
-                      <input
-                        id="countryCode"
-                        type="text"
-                        class="form-control"
-                        name="countryCode"
-                        [(ngModel)]="model.countryCode"
-                      />
+                      <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                          <span class="label-text">Country Code</span>
+                    
+                        </div>
+                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="countryCode" id="countryCode" [(ngModel)]="model.countryCode" />
+                        
+                      </label>
                     </div>
                 </div>
                 <div class="mt-2">
                     <div class="mt-3">
-                      <label class="form-label" for="phoneNumber"> Phone Number: </label>
-                      <input
-                        id="phoneNumber"
-                        type="text"
-                        class="form-control"
-                        name="phoneNumber"
-                        [(ngModel)]="model.phoneNumber"
-                      />
+                      <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                          <span class="label-text">Phone Number</span>
+                    
+                        </div>
+                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="phoneNumber" id="phoneNumber" [(ngModel)]="model.phoneNumber" />
+                        
+                      </label>
                     </div>
                 </div>
+                <!-- <div class="mt-2">
+                  <div class="mt-3">
+                    <label class="form-control w-full max-w-xs">
+                      <div class="label">
+                        <span class="label-text">Email</span>
+                  
+                      </div>
+                      <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="userEmail" id="userEmail" [(ngModel)]="model.userEmail" />
+                      
+                    </label>
+                  </div>
+              </div> -->
                 <div class="mt-3">
                   <button type="submit" class="btn btn-primary">Add</button>
                 </div>
