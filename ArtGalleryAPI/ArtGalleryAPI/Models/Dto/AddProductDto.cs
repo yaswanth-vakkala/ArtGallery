@@ -23,9 +23,6 @@ namespace ArtGalleryAPI.Models.Dto
         public decimal Price { get; set; }
 
         [Required]
-        public required int Quantity { get; set; }
-
-        [Required]
         public required Guid CategoryId { get; set; }
     }
 }

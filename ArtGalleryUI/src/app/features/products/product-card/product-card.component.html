@@ -4,7 +4,7 @@
       class="cursor-pointer"
       [ngSrc]="imageUrl"
       [alt]="title"
-      height="400"
+      height="100"
       width="300"
     />
   </figure>
@@ -12,7 +12,7 @@
     <h2 [routerLink]="['/products/', id]" class="card-title cursor-pointer">
       {{ title }}
     </h2>
-    <p>{{ description }}</p>
+    <p class="truncate">{{ description }}</p>
     <p class="font-medium">${{ price }}</p>
     <div class="card-actions justify-end">
       <button class="btn btn-sm btn-warning btn-outline rounded-full">

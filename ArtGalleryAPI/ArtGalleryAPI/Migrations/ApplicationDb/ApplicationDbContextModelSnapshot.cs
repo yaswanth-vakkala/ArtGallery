@@ -70,7 +70,7 @@ namespace ArtGalleryAPI.Migrations.ApplicationDb
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("ArtGalleryAPI.Models.Domain.AppOrder", b =>
@@ -102,7 +102,7 @@ namespace ArtGalleryAPI.Migrations.ApplicationDb
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("AppOrder");
+                    b.ToTable("AppOrder", (string)null);
                 });
 
             modelBuilder.Entity("ArtGalleryAPI.Models.Domain.AppUser", b =>
@@ -185,7 +185,7 @@ namespace ArtGalleryAPI.Migrations.ApplicationDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppUser");
+                    b.ToTable("AppUser", (string)null);
                 });
 
             modelBuilder.Entity("ArtGalleryAPI.Models.Domain.Cart", b =>
@@ -210,7 +210,7 @@ namespace ArtGalleryAPI.Migrations.ApplicationDb
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Cart");
+                    b.ToTable("Cart", (string)null);
                 });
 
             modelBuilder.Entity("ArtGalleryAPI.Models.Domain.Category", b =>
@@ -240,7 +240,7 @@ namespace ArtGalleryAPI.Migrations.ApplicationDb
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("ArtGalleryAPI.Models.Domain.OrderItem", b =>
@@ -281,7 +281,7 @@ namespace ArtGalleryAPI.Migrations.ApplicationDb
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItem", (string)null);
                 });
 
             modelBuilder.Entity("ArtGalleryAPI.Models.Domain.Product", b =>
@@ -329,7 +329,7 @@ namespace ArtGalleryAPI.Migrations.ApplicationDb
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("CategoryProduct", b =>
@@ -344,7 +344,7 @@ namespace ArtGalleryAPI.Migrations.ApplicationDb
 
                     b.HasIndex("ProductsProductId");
 
-                    b.ToTable("CategoryProduct");
+                    b.ToTable("CategoryProduct", (string)null);
                 });
 
             modelBuilder.Entity("ArtGalleryAPI.Models.Domain.Address", b =>

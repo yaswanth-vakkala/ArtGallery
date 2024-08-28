@@ -17,7 +17,6 @@ namespace ArtGalleryAPI.Data
         public DbSet<WishList> WishList { get; set; }
         public DbSet<AppOrder> AppOrder { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
-
         public DbSet<Payment> Payment { get; set; }
     }
 }
