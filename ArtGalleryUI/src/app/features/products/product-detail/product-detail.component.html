@@ -1,11 +1,11 @@
 @if (model) {
   <div class="flex max-sm:flex-wrap md:flex-nowrap justify-between w-full">
-    <div class="ml-[5%] mt-20">
+    <div class="ml-[5%] mt-[2%]">
       <img
         [ngSrc]="model.imageUrl"
         [alt]="model.name"
         height="100"
-        width="600"
+        width="550"
       />
     </div>
     <div class="md:pl-28 max-sm:pl-8 text-left w-[50%] mt-20">
@@ -14,7 +14,6 @@
         <div class="badge badge-primary badge-outline mr-2">
           {{ category.name }}
         </div>
-        <div class="badge badge-primary badge-outline">{{ category.name }}</div>
       }
       <div class="mt-3">
         <h1 class="font-medium text-2xl">{{ model.price }}$</h1>
