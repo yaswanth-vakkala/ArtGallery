@@ -1,9 +1,15 @@
-﻿namespace ArtGalleryAPI.Models.Dto
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ArtGalleryAPI.Models.Dto
 {
     public class AddAppOrderDto
     {
-        public Guid AddressId { get; set; }
-        public string AppUserId { get; set; }
+        [Required]
+        public required Guid AddressId { get; set; }
+        [Required]
+        public required Guid PaymentId { get; set; }
+        [Required]
+        public required string AppUserId { get; set; }
 
 
     }

@@ -9,14 +9,12 @@ namespace ArtGalleryAPI.Models.Domain
         public Guid CartId { get; set; }
 
         [Required]
-        public required int Quantity { get; set; }
+        public required DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        [ForeignKey(nameof(Product))]
-        public Guid ProductId { get; set; }
-        public Product Product { get; set; }
+        [Required]
+        public required Guid ProductId { get; set; }
 
-        [ForeignKey(nameof(AppUser))]
-        public string AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
+        [Required]
+        public required string AppUserId { get; set; }
     }
 }

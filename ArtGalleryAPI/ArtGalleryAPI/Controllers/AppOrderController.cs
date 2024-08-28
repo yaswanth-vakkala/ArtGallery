@@ -9,11 +9,11 @@ namespace ArtGalleryAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class AppOrderController : ControllerBase
     {
-        private readonly IOrderInterface orderService;
+        private readonly IAppOrderInterface orderService;
 
-        public OrderController(IOrderInterface orderService)
+        public AppOrderController(IAppOrderInterface orderService)
         {
             this.orderService = orderService;
         }
@@ -104,39 +104,12 @@ namespace ArtGalleryAPI.Controllers
                 {
                     AddressId = order.AddressId,
                     AppUserId = order.AppUserId,
+                    PaymentId = order.PaymentId,
                     CreatedAt = DateTime.UtcNow,
                 };
                 await orderService.CreateOrderAsync(neworder);
                 var locationUri = Url.Action("GetorderById", new { orderId = neworder.OrderId });
                 return Created(locationUri, neworder);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// updates the existing order in db
-        /// </summary>
-        /// <param name="updatedorder"></param>
-        /// <returns>updated order</returns>
-        [HttpPut]
-        [Route("{orderId:Guid}")]
-        public async Task<IActionResult> Updateorder([FromRoute] Guid orderId, [FromBody] UpdateAppOrderDto updatedorder)
-        {
-            try
-            {
-                var result = await orderService.UpdateOrderAsync(orderId, updatedorder);
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(result);
-                }
-
             }
             catch (Exception ex)
             {

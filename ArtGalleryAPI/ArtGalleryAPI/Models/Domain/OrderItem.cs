@@ -10,9 +10,6 @@ namespace ArtGalleryAPI.Models.Domain
         public Guid OrderItemId { get; set; }
 
         [Required]
-        public required int Quantity { get; set; }
-
-        [Required]
         [MaxLength(30, ErrorMessage = "Order item status can have a maximum of 30 characters!")]
         public required string Status { get; set; }
 
@@ -28,12 +25,10 @@ namespace ArtGalleryAPI.Models.Domain
         [Precision(13, 3)]
         public required decimal ShippingCost { get; set; }
 
-        [ForeignKey(nameof(Product))]
-        public Guid ProductId { get; set; }
-        public Product Product { get; set; }
+        [Required]
+        public required Guid ProductId { get; set; }
 
-        [ForeignKey(nameof(Order))]
-        public Guid OrderId { get; set; }
-        public AppOrder Order { get; set; }
+        [Required]
+        public required Guid OrderId { get; set; }
     }
 }

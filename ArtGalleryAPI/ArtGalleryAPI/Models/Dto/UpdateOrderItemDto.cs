@@ -6,9 +6,6 @@ namespace ArtGalleryAPI.Models.Dto
     public class UpdateOrderItemDto
     {
         [Required]
-        public required int Quantity { get; set; }
-
-        [Required]
         [MaxLength(30, ErrorMessage = "Order item status can have a maximum of 30 characters!")]
         public required string Status { get; set; }
 

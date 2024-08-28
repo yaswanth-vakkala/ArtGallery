@@ -37,6 +37,6 @@ namespace ArtGalleryAPI.Models.Dto
         [MaxLength(100, ErrorMessage = "Product modified by can have a maximum of 100 characters!")]
         public string? ModifiedBy { get; set; }
 
-        public IEnumerable<Category> Categories { get; set; }
+        public Category Category { get; set; }
     }
 }

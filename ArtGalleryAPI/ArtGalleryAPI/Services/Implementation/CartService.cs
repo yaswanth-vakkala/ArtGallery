@@ -30,20 +30,7 @@ namespace ArtGalleryAPI.Services.Implementation
             await dbContext.SaveChangesAsync();
             return newCart;
         }
-        public async Task<Cart>? UpdateCartAsync(Guid cartId, UpdateCartDto updatedCart)
-        {
-            var cart = await dbContext.Cart.SingleOrDefaultAsync(c => c.CartId == cartId);
-            if (cart == null)
-            {
-                return null;
-            }
-            else
-            {
-                dbContext.Entry(cart).CurrentValues.SetValues(updatedCart);
-                await dbContext.SaveChangesAsync();
-                return cart;
-            }
-        }
+
         public async Task<bool> DeleteCartAsync(Guid cartId)
         {
             var cart = await dbContext.Cart.SingleOrDefaultAsync(c => c.CartId == cartId);

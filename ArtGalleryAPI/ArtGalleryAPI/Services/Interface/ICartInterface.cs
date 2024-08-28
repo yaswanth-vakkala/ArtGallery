@@ -7,7 +7,6 @@ namespace ArtGalleryAPI.Services.Interface
     {
         Task<IEnumerable<Cart>> GetAllCartsForUserAsync(string userId);
         Task<Cart> CreateCartAsync(Cart newCart);
-        Task<Cart>? UpdateCartAsync(Guid cartId, UpdateCartDto updatedCart);
         Task<bool> DeleteCartAsync(Guid cartId);
     }
 }

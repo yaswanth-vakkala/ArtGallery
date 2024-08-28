@@ -3,8 +3,6 @@ using ArtGalleryAPI.Data;
 using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
-using Azure;
-using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -48,13 +46,7 @@ namespace ArtGalleryAPI.Controllers
                             Price = product.Price,
                             Status = product.Status,
                             CreatedAt = product.CreatedAt,
-                            Categories = product.Categories.Select(x => new Category
-                            {
-                                CategoryId = x.CategoryId,
-                                Name = x.Name,
-                                Description = x.Description,
-                                CreatedAt = x.CreatedAt,
-                            }).ToList()
+                            Category = product.Category
                         }
                         );
                 }
@@ -93,13 +85,7 @@ namespace ArtGalleryAPI.Controllers
                         Price = product.Price,
                         Status = product.Status,
                         CreatedAt = product.CreatedAt,
-                        Categories = product.Categories.Select(x => new Category
-                        {
-                            CategoryId = x.CategoryId,
-                            Name = x.Name,
-                            Description = x.Description,
-                            CreatedAt = x.CreatedAt,
-                        }).ToList()
+                        Category = product.Category
                     };
                     return Ok(response);
                 }
@@ -141,13 +127,7 @@ namespace ArtGalleryAPI.Controllers
                                 Price = product.Price,
                                 Status = product.Status,
                                 CreatedAt = product.CreatedAt,
-                                Categories = product.Categories.Select(x => new Category
-                                {
-                                    CategoryId = x.CategoryId,
-                                    Name = x.Name,
-                                    Description = x.Description,
-                                    CreatedAt = x.CreatedAt,
-                                }).ToList()
+                                Category = product.Category
                             }
                             );
                     }
@@ -181,41 +161,20 @@ namespace ArtGalleryAPI.Controllers
                     Description = product.Description,
                     ImageUrl = product.ImageUrl,
                     Price = product.Price,
-                    Status = "Active",
+                    Status = "In Stock",
                     CreatedAt = DateTime.UtcNow,
-                    Quantity = product.Quantity,
-                    Categories = new List<Category>()
+                    CategoryId = product.CategoryId,
+                    Category = null,
                 };
 
-                foreach (var categoryGuid in product.Categories)
+                var existingCategory = await categoryService.GetCategoryByIdAsync(product.CategoryId);
+                if (existingCategory != null)
                 {
-                    var existingCategory = await categoryService.GetCategoryByIdAsync(categoryGuid);
-                    if (existingCategory != null)
-                    {
-                        newProduct.Categories.Add(existingCategory);
-                    }
+                    newProduct.Category = existingCategory;
                 }
 
                 newProduct = await productService.CreateProductAsync(newProduct);
-
-                var response = new ProductDto()
-                {
-                    ProductId = newProduct.ProductId,
-                    Name = newProduct.Name,
-                    Description = newProduct.Description,
-                    ImageUrl = newProduct.ImageUrl,
-                    Price = newProduct.Price,
-                    Status = newProduct.Status,
-                    CreatedAt = newProduct.CreatedAt,
-                    Categories = newProduct.Categories.Select(x => new Category
-                    {
-                        CategoryId = x.CategoryId,
-                        Name = x.Name,
-                        Description = x.Description,
-                        CreatedAt = x.CreatedAt,
-                    }).ToList()
-                };
-                return Ok(response);
+                return Ok(newProduct);
             }
             catch (Exception ex)
             {
@@ -234,54 +193,44 @@ namespace ArtGalleryAPI.Controllers
         {
             try
             {
-                var newProduct = new Product
+                var newProduct = new UpdateProductDto()
                 {
-                    ProductId = productId,
                     Name = product.Name,
                     Description = product.Description,
                     ImageUrl = product.ImageUrl,
                     Price = product.Price,
                     Status = product.Status,
-                    Quantity = product.Quantity,
-                    Categories = new List<Category>()
+                    ModifiedAt = DateTime.UtcNow,
+                    CategoryId = product.CategoryId,
+                    Category = null,
                 };
 
-                foreach (var categoryGuid in product.Categories)
+                var existingCategory = await categoryService.GetCategoryByIdAsync(product.CategoryId);
+                if (existingCategory != null)
                 {
-                    var existingCategory = await categoryService.GetCategoryByIdAsync(categoryGuid);
-                    if (existingCategory != null)
-                    {
-                        newProduct.Categories.Add(existingCategory);
-                    }
+                    newProduct.Category = existingCategory;
                 }
 
+                var res = await productService.UpdateProductAsync(productId, newProduct);
 
-                newProduct = await productService.UpdateProductAsync(productId, newProduct);
-
-                if (newProduct == null)
+                if (res == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    var response = new ProductDto()
+                    var result = new ProductDto()
                     {
-                        ProductId = newProduct.ProductId,
-                        Name = newProduct.Name,
-                        Description = newProduct.Description,
-                        ImageUrl = newProduct.ImageUrl,
-                        Price = newProduct.Price,
-                        Status = newProduct.Status,
-                        CreatedAt = newProduct.CreatedAt,
-                        Categories = newProduct.Categories.Select(x => new Category
-                        {
-                            CategoryId = x.CategoryId,
-                            Name = x.Name,
-                            Description = x.Description,
-                            CreatedAt = x.CreatedAt,
-                        }).ToList()
+                        ProductId = res.ProductId,
+                        Name = res.Name,
+                        Description = res.Description,
+                        ImageUrl = res.ImageUrl,
+                        Price = res.Price,
+                        Status = res.Status,
+                        CreatedAt = res.CreatedAt,
+                        Category = res.Category,
                     };
-                    return Ok(response);
+                    return Ok(result);
                 }
 
             }

@@ -58,7 +58,7 @@ namespace ArtGalleryAPI.Controllers
                 {
                     AppUserId = newCart.AppUserId,
                     ProductId = newCart.ProductId,
-                    Quantity = newCart.Quantity,
+                    CreatedAt = DateTime.UtcNow,
                 };
                 await cartService.CreateCartAsync(cart); ;
                 return Ok(cart);
@@ -69,37 +69,6 @@ namespace ArtGalleryAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// update a new cart item
-        /// </summary>
-        /// <param name="newCart"></param>
-        /// <returns></returns>
-        [HttpPut]
-        [Route("{cartId:Guid}")]
-        public async Task<IActionResult> UpdateCart([FromRoute] Guid cartId, [FromBody] UpdateCartDto updatedCart)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Invalid data provided!");
-            }
-
-            try
-            {
-                var result = await cartService.UpdateCartAsync(cartId, updatedCart);
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(result);
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         /// <summary>
         /// delete a cart in db based on id

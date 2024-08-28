@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ArtGalleryAPI.Models.Dto
 {
-    public class AddressDto
+    public class AddAddressDto
     {
         [Required]
         [MaxLength(500, ErrorMessage = "Address line can have a maximum of 500 characters!")]

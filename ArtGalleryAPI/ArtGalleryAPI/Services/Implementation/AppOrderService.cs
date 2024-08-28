@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ArtGalleryAPI.Services.Implementation
 {
-    public class OrderService : IOrderInterface
+    public class AppOrderService : IAppOrderInterface
     {
         private readonly ApplicationDbContext dbContext;
 
-        public OrderService(ApplicationDbContext dbContext)
+        public AppOrderService(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -35,21 +35,6 @@ namespace ArtGalleryAPI.Services.Implementation
             await dbContext.AppOrder.AddAsync(newOrder);
             await dbContext.SaveChangesAsync();
             return newOrder;
-        }
-
-        public async Task<AppOrder>? UpdateOrderAsync(Guid orderId, UpdateAppOrderDto updatedOrder)
-        {
-            var order = await dbContext.AppOrder.SingleOrDefaultAsync(o => o.OrderId == orderId);
-            if (order == null)
-            {
-                return null;
-            }
-            else
-            {
-                dbContext.Entry(order).CurrentValues.SetValues(updatedOrder);
-                await dbContext.SaveChangesAsync();
-                return order;
-            }
         }
 
         public async Task<bool> DeleteOrderAsync(Guid orderId)

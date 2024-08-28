@@ -8,20 +8,21 @@ namespace ArtGalleryAPI.Models.Domain
         [Key]
         public Guid OrderId { get; set; }
 
-        [ForeignKey(nameof(Address))]
-        public Guid AddressId { get; set; }
-        public Address Address { get; set; }
-
-        [ForeignKey(nameof(AppUser))]
-        public string AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
-
         [Required]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public DateTime ModifiedAt { get; set; }
 
         [MaxLength(100, ErrorMessage = "User modified by can have a maximum of 100 characters!")]
-        public string? ModifiedBy { get; set; } = String.Empty;
+        public string? ModifiedBy { get; set; }
+
+        [Required]
+        public required Guid AddressId { get; set; }
+
+        [Required]
+        public required string AppUserId { get; set; }
+
+        [Required]
+        public required Guid PaymentId { get; set; }
     }
 }

@@ -82,7 +82,6 @@ namespace ArtGalleryAPI.Controllers
             {
                 var neworderItem = new OrderItem
                 {
-                    Quantity = orderItem.Quantity,
                     Status = orderItem.Status,
                     ProductCost = orderItem.ProductCost,
                     TaxCost = orderItem.TaxCost,

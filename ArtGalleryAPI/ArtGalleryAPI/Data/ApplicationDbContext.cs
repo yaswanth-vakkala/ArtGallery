@@ -14,7 +14,10 @@ namespace ArtGalleryAPI.Data
         public DbSet<Category> Category { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Cart> Cart { get; set; }
+        public DbSet<WishList> WishList { get; set; }
         public DbSet<AppOrder> AppOrder { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
+
+        public DbSet<Payment> Payment { get; set; }
     }
 }

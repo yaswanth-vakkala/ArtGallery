@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ArtGalleryAPI.Models.Domain
 {
@@ -36,9 +34,7 @@ namespace ArtGalleryAPI.Models.Domain
         [MaxLength(15, ErrorMessage = "Phone number in address can have a maximum of 15 characters!")]
         public required string PhoneNumber { get; set; }
 
-        [ForeignKey(nameof(AppUser))]
-        public string AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
-
+        [Required]
+        public required string AppUserId { get; set; }
     }
 }

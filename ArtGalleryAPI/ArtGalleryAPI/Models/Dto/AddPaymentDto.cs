@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace ArtGalleryAPI.Models.Domain
+namespace ArtGalleryAPI.Models.Dto
 {
-    public class Payment
+    public class AddPaymentDto
     {
-        [Key]
-        public Guid PaymentId { get; set; }
-
         [Required]
         [Precision(13, 3)]
         public required decimal Amount { get; set; }

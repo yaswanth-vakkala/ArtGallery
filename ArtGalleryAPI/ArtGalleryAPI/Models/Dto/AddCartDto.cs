@@ -7,9 +7,6 @@ namespace ArtGalleryAPI.Models.Dto
     public class AddCartDto
     {
         [Required]
-        public required int Quantity { get; set; }
-
-        [Required]
         public required Guid ProductId { get; set; }
 
         [Required]

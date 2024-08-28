@@ -17,19 +17,19 @@ namespace ArtGalleryAPI.Services.Implementation
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            var products = await dbContext.Product.Include(c => c.Categories).ToListAsync();
+            var products = await dbContext.Product.Include(c => c.Category).ToListAsync();
             return products;
         }
 
         public async Task<Product>? GetProductByIdAsync(Guid productId)
         {
-            var product = await dbContext.Product.Include(c => c.Categories).SingleOrDefaultAsync(product => product.ProductId == productId);
+            var product = await dbContext.Product.Include(c => c.Category).SingleOrDefaultAsync(product => product.ProductId == productId);
             return product;
         }
 
         public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
         {
-            var products = await dbContext.Product.Include(c => c.Categories).Where(p => p.Categories.Any(c => c.CategoryId == categoryId)).ToListAsync();
+            var products = await dbContext.Product.Include(c => c.Category).Where(p => p.Category.CategoryId == categoryId).ToListAsync();
             return products;
         }
 
@@ -40,9 +40,9 @@ namespace ArtGalleryAPI.Services.Implementation
             return newProduct;
         }
 
-        public async Task<Product>? UpdateProductAsync(Guid productId, Product updatedProduct)
+        public async Task<Product>? UpdateProductAsync(Guid productId, UpdateProductDto updatedProduct)
         {
-            var product = await dbContext.Product.Include(c => c.Categories).SingleOrDefaultAsync(product => product.ProductId == productId);
+            var product = await dbContext.Product.Include(c => c.Category).SingleOrDefaultAsync(product => product.ProductId == productId);
             if (product == null)
             {
                 return null;
@@ -50,7 +50,7 @@ namespace ArtGalleryAPI.Services.Implementation
             else
             {
                 dbContext.Entry(product).CurrentValues.SetValues(updatedProduct);
-                product.Categories = updatedProduct.Categories;
+                product.Category = updatedProduct.Category;
                 await dbContext.SaveChangesAsync();
                 return product;
             }

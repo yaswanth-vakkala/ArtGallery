@@ -54,7 +54,7 @@ namespace ArtGalleryAPI.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> AddAddress([FromBody] AddressDto address)
+        public async Task<IActionResult> AddAddress([FromBody] AddAddressDto address)
         {
             if (!ModelState.IsValid)
             {

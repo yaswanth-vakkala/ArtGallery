@@ -33,10 +33,6 @@ namespace ArtGalleryAPI.Services.Implementation
             var user = await dbcontext.Users.SingleOrDefaultAsync(u => u.Email == email);
             return user;
         }
-        public Task<AppUser> CreateUserAsync(AppUser appUser)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<AppUser>? UpdateUserAsync(string userId, UpdateAppUserDto updatedUser)
         {

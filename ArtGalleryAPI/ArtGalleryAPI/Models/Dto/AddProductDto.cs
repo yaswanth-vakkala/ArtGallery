@@ -26,6 +26,6 @@ namespace ArtGalleryAPI.Models.Dto
         public required int Quantity { get; set; }
 
         [Required]
-        public required Guid[] Categories { get; set; }
+        public required Guid CategoryId { get; set; }
     }
 }
