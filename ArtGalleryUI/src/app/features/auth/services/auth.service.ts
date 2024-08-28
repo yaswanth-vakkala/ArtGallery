@@ -46,7 +46,6 @@ export class AuthService {
         'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
       ];
     this.$user.next(user);
-    console.log(decodedToken);
     localStorage.setItem(
       'user-id',
       decodedToken[
@@ -71,10 +70,12 @@ export class AuthService {
 
   getUser(): User | undefined {
     const email = localStorage.getItem('user-email');
+    const id = localStorage.getItem('user-id');
     const roles = localStorage.getItem('user-roles');
 
-    if (email && roles) {
+    if (id && email && roles) {
       const user: User = {
+        id: id,
         email: email,
         roles: roles.split(','),
       };

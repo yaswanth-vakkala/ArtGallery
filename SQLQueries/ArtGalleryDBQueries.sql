@@ -14,7 +14,7 @@ ImageUrl nvarchar(max), Price decimal(13, 3) not null, Status nvarchar(30) not n
 CreatedAt datetime2 not null, ModifiedAt datetime2, ModifiedBy nvarchar(100));
 
 create table Cart(CartId uniqueidentifier primary key default newid(), AppUserId NVARCHAR(450) FOREIGN key REFERENCES AspNetUsers(Id),
-ProductId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Product(ProductId), CreatedAd datetime2 not null);
+ProductId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Product(ProductId), CreatedAt datetime2 not null);
 
 create table WishList(WishListId uniqueidentifier PRIMARY KEY default newid(), AppUserId NVARCHAR(450) FOREIGN key REFERENCES AspNetUsers(Id),
 ProductId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Product(ProductId), CreatedAt datetime2 not null);

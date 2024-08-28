@@ -9,7 +9,7 @@ namespace ArtGalleryAPI.Models.Domain
         public Guid CartId { get; set; }
 
         [Required]
-        public required DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public required DateTime CreatedAt { get; set; }
 
         [Required]
         public required Guid ProductId { get; set; }

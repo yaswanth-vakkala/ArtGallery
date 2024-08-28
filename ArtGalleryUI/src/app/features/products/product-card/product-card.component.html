@@ -15,7 +15,10 @@
     <p class="truncate">{{ description }}</p>
     <p class="font-medium">${{ price }}</p>
     <div class="card-actions justify-end">
-      <button class="btn btn-sm btn-warning btn-outline rounded-full">
+      <button
+        class="btn btn-sm btn-warning btn-outline rounded-full"
+        (click)="onAddToCart(id)"
+      >
         Add to cart
       </button>
     </div>
