@@ -7,6 +7,7 @@ import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { environment } from '../../../../environments/environment.development';
 import { RegisterRequest } from '../models/register-request.model';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -38,9 +39,30 @@ export class AuthService {
   }
 
   setUser(user: User): void {
+    let token = this.cookieService.get('Authorization');
+    const decodedToken: any = jwtDecode(token);
+    const claims: any =
+      decodedToken[
+        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+      ];
     this.$user.next(user);
-    localStorage.setItem('user-email', user.email);
-    localStorage.setItem('user-roles', user.roles.join(','));
+    console.log(decodedToken);
+    localStorage.setItem(
+      'user-id',
+      decodedToken[
+        'http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'
+      ],
+    );
+    localStorage.setItem(
+      'user-email',
+      decodedToken[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+      ],
+    );
+    localStorage.setItem(
+      'user-roles',
+      Array.isArray(claims) ? claims.join(',') : claims,
+    );
   }
 
   user(): Observable<User | undefined> {

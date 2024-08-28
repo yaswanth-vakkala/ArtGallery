@@ -128,6 +128,7 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="categoryId"></param>
         /// <returns>bool representing state of operation</returns>
         [HttpDelete]
+        [Authorize(Roles = "Writer")]
         [Route("{categoryId:Guid}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] Guid categoryId)
         {
