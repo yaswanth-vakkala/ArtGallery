@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { CartService } from '../services/cart.service';
 import { CartResponse } from '../models/cart-response.model';
 import { Product } from '../../products/models/product.model';
+import { Payment } from '../models/payment.model';
+import { AddPayment } from '../models/add-payment.model';
+import { AddOrder } from '../models/add-order.model';
+import { AddOrderItem } from '../models/add-orderItem.model';
+import { OrderItem } from '../models/orderItem.model';
 
 @Component({
   selector: 'app-cart-list',
@@ -13,7 +18,7 @@ import { Product } from '../../products/models/product.model';
   templateUrl: './cart-list.component.html',
   styleUrl: './cart-list.component.css'
 })
-export class CartListComponent implements OnInit {
+export class CartListComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   userId: any;
   productIds: string[]= [];
@@ -22,13 +27,38 @@ export class CartListComponent implements OnInit {
   shippingCost:number= 40;
   tax:number= 0;
   cartItems:any;
+  paymentModel: AddPayment;
+  orderModel: AddOrder;
+  orderItemModel: AddOrderItem;
+  orderItems: AddOrderItem[]= [];
   private paramsSubscription?: Subscription;
   private getCartsSubscription? : Subscription;
   private getProductsSubscription? : Subscription;
   private deleteCartItemSubscription?: Subscription;
+  private createPaymentSubscription? : Subscription;
+  private createOrderSubscription? : Subscription;
+  private createOrderItemSubscription?: Subscription;
 
   constructor(private cartService: CartService, private router: Router
     ,private route:ActivatedRoute){
+      this.paymentModel = {
+        amount: 1000,
+        paymentMethod: "UPI",
+        paymentDate: new Date()
+      }
+      this.orderModel= {
+        appUserId: '',
+        paymentId: '',
+        addressId: ''
+      }
+      this.orderItemModel={
+        status: "Order Placed",
+        productCost: 0,
+        shippingCost: 0,
+        taxCost: 0,
+        productId: '',
+        orderId: ''
+      }
   }
 
   ngOnInit(): void {
@@ -75,4 +105,32 @@ export class CartListComponent implements OnInit {
         },
       });
   }
+
+  onCheckout(){
+    const address = "57bc13ad-ba39-4bc0-8991-08dcc8125004";
+    const userId = localStorage.getItem('user-id');
+    this.createPaymentSubscription = this.cartService.createPayment(this.paymentModel).subscribe({
+      next:(res)=>{
+        this.orderModel = {
+          paymentId :res.paymentId,
+          addressId : address,
+          appUserId: userId,
+        }
+        this.createOrderSubscription = this.cartService.createOrder(this.orderModel).subscribe({
+          next: (res)=>{
+            for(let i=0; i<this.cartItems.length; i++){
+              this.orderItems.push();
+            }
+          }
+        });
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.deleteCartItemSubscription?.unsubscribe();
+    this.getCartsSubscription?.unsubscribe();
+    this.getProductsSubscription?.unsubscribe();
+    this.paramsSubscription?.unsubscribe();
+  }  
 }

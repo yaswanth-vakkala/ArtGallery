@@ -37,7 +37,7 @@ namespace ArtGalleryAPI.Controllers
                     Amount = payment.Amount,
                     PaymentDate = payment.PaymentDate,
                     PaymentMethod = payment.PaymentMethod,
-                    Status = payment.Status,
+                    Status = "Success"
                 };
 
                 var res = await paymentService.CreatePaymentAsync(newPayment);
