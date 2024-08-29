@@ -41,8 +41,8 @@ export class CartService {
     return this.http.post<Order>(`${environment.apiBaseUrl}/api/apporder`, orderModel);
   }
 
-  createOrderItem(orderItemModel: AddOrderItem): Observable<OrderItem>{
-    return this.http.post<OrderItem>(`${environment.apiBaseUrl}/api/orderitem`, orderItemModel);
+  createOrderItems(orderItemModel: AddOrderItem[]): Observable<OrderItem[]>{
+    return this.http.post<OrderItem[]>(`${environment.apiBaseUrl}/api/orderitem/addMultiple`, orderItemModel);
   }
 
   getCartProducts(productIds: string[]): Observable<Product[]>{
