@@ -8,7 +8,7 @@ namespace ArtGalleryAPI.Services.Interface
         Task<IEnumerable<Address>> GetAllAddressesAsync();
         Task<Address>? GetAddressByIdAsync(Guid addressId);
         Task<Address> AddAddressAsync(Address newAddress);
-        Task<Address>? UpdateAddressAsync(Guid addressId,UpdateAddressDto updatedAddress);
+        Task<Address>? UpdateAddressAsync(Guid addressId, UpdateAddressDto updatedAddress);
         Task<bool> DeleteAddressAsync(Guid addressId);
     }
 }

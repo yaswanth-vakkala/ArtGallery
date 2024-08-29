@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <h1 class="mt-3">Products List</h1>
   <div class="d-flex justify-content-end mt-3">
     <a [routerLink]="['/admin/categories/add']" class="btn btn-secondary"
@@ -56,4 +56,19 @@
       </h3>
     </div>
   }
-}
+} -->
+<div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-4 ml-16 mt-4">
+  @if (products$ | async; as products) {
+    @for (product of products; track product.productId) {
+      <app-product-card
+        id="{{ product.productId }}"
+        title="{{ product.name }}"
+        description="{{ product.description }}"
+        imageUrl="{{ product.imageUrl }}"
+        price="{{ product.price }}"
+      />
+    }
+  } @else {
+    <h1>Nothing to show!</h1>
+  }
+</div>

@@ -34,5 +34,7 @@ namespace ArtGalleryAPI.Models.Domain
         [MaxLength(15, ErrorMessage = "Phone number in address can have a maximum of 15 characters!")]
         public required string PhoneNumber { get; set; }
 
+        [Required]
+        public required string AppUserId { get; set; }
     }
 }

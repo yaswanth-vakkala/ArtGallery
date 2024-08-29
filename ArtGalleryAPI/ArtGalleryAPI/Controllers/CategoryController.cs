@@ -100,7 +100,6 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="updatedCategory"></param>
         /// <returns>updated category</returns>
         [HttpPut]
-        [Authorize(Roles = "Writer")]
         [Route("{categoryId:Guid}")]
         public async Task<IActionResult> UpdateCategory([FromRoute] Guid categoryId, [FromBody] UpdateCategoryDto updatedCategory)
         {

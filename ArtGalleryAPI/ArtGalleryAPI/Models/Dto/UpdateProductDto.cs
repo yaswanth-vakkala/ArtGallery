@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ArtGalleryAPI.Models.Domain;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace ArtGalleryAPI.Models.Dto
@@ -20,5 +21,16 @@ namespace ArtGalleryAPI.Models.Dto
         [Required]
         [Precision(13, 3)]
         public decimal Price { get; set; }
+
+        [Required]
+        [MaxLength(30, ErrorMessage = "Product status can have a maximum of 30 characters!")]
+        public required string Status { get; set; }
+
+        public DateTime? ModifiedAt { get; set; }
+
+        [Required]
+        public required Guid CategoryId { get; set; }
+
+        public Category Category { get; set; }
     }
 }

@@ -1,0 +1,89 @@
+<!-- <div class="container"> -->
+<div class="w-96 mx-auto">
+    <div class="m-6">
+      <h1 class="text-4xl font-medium text-center">Update Profile</h1>
+    </div>
+    @if(model){
+    <div class="rounded-md shadow-md p-5 box">
+    <form #form="ngForm" (ngSubmit)="onUpdateProfileSubmit()">
+      <!-- <label class="input input-bordered flex items-center gap-2 mb-2"> -->
+        <!-- <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          class="h-4 w-4 opacity-70"
+        >
+          <path
+            d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z"
+          />
+          <path
+            d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z"
+          />
+        </svg> -->
+        <!-- </label> -->
+        <div class="flex w-[100%] justify-between mb-5">
+            <label class="form-control w-[47%]">
+              <div class="label">
+                <span class="label-text">First Name</span>
+              </div>
+              <input
+                type="text"
+                placeholder=""
+                class="input input-bordered w-full max-w-xs"
+                id="firstName"
+                name="firstName"
+                [(ngModel)]="model.firstName"
+              />
+            </label>
+            <label class="form-control w-[47%]">
+              <div class="label">
+                <span class="label-text">Last Name</span>
+              </div>
+              <input
+                type="text"
+                placeholder=""
+                class="input input-bordered w-full max-w-xs"
+                id="lastName"
+                name="lastName"
+                [(ngModel)]="model.lastName"
+              />
+            </label>
+          </div>
+          <div class="flex w-[100%] justify-between mb-5">
+            <label class="form-control w-[47%]">
+              <div class="label">
+                <span class="label-text">Country Code</span>
+              </div>
+              <input
+                type="text"
+                placeholder=""
+                class="input input-bordered w-full max-w-xs"
+                id="countryCode"
+                name="countryCode"
+                [(ngModel)]="model.countryCode"
+              />
+            </label>
+            <label class="form-control w-[47%]">
+              <div class="label">
+                <span class="label-text">Phone Number</span>
+              </div>
+              <input
+                type="text"
+                placeholder=""
+                class="input input-bordered w-full max-w-xs"
+                id="phoneNumber"
+                name="phoneNumber"
+                [(ngModel)]="model.phoneNumber"
+              />
+            </label>
+        </div>
+          <div class="m-5">
+            <button class="btn btn-primary w-full rounded-full text-lg font-medium">
+              Update
+            </button>
+          </div>
+        </form> 
+    </div>  
+    }@else{Not found!}  
+    </div>
+<!-- </div> -->

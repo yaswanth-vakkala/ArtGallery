@@ -19,7 +19,9 @@ export const authGuard: CanActivateFn = (route, state) => {
 
     if (expirationDate < currentTime) {
       authService.logout();
-      return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+      return router.createUrlTree(['/login'], {
+        queryParams: { returnUrl: state.url },
+      });
     } else {
       if (user.roles.includes('Writer')) {
         return true;
@@ -30,6 +32,8 @@ export const authGuard: CanActivateFn = (route, state) => {
     }
   } else {
     authService.logout();
-    return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+    return router.createUrlTree(['/login'], {
+      queryParams: { returnUrl: state.url },
+    });
   }
 };

@@ -18,5 +18,9 @@ namespace ArtGalleryAPI.Models.Domain
         [Required]
         [MaxLength(100, ErrorMessage = "Payment method can have a maximum of 100 characters!")]
         public required string PaymentMethod { get; set; }
+
+        [Required]
+        [MaxLength(30, ErrorMessage = "Payment status can have a maximum of 30 characters")]
+        public required string Status { get; set; }
     }
 }

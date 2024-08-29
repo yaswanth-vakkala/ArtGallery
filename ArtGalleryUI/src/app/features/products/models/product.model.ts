@@ -1,3 +1,5 @@
+import { Category } from '../../category/models/category.model';
+
 export interface Product {
   productId: string;
   name: string;
@@ -8,5 +10,5 @@ export interface Product {
   createdAt: Date;
   modifiedAt: Date;
   modifiedBy: string;
-  categoryId: string;
+  categories: Category[];
 }

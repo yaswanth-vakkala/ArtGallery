@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ArtGalleryAPI.Models.Domain
 {
@@ -7,9 +8,6 @@ namespace ArtGalleryAPI.Models.Domain
     {
         [Key]
         public Guid OrderItemId { get; set; }
-
-        [Required]
-        public required int Quantity { get; set; }
 
         [Required]
         [MaxLength(30, ErrorMessage = "Order item status can have a maximum of 30 characters!")]
@@ -26,5 +24,11 @@ namespace ArtGalleryAPI.Models.Domain
         [Required]
         [Precision(13, 3)]
         public required decimal ShippingCost { get; set; }
+
+        [Required]
+        public required Guid ProductId { get; set; }
+
+        [Required]
+        public required Guid OrderId { get; set; }
     }
 }

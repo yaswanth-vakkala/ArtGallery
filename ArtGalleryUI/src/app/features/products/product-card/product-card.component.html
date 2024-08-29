@@ -1,0 +1,26 @@
+<div class="card card-compact bg-base-100 w-64 h-80 shadow-xl">
+  <figure [routerLink]="['/products/', id]">
+    <img
+      class="cursor-pointer"
+      [ngSrc]="imageUrl"
+      [alt]="title"
+      height="100"
+      width="300"
+    />
+  </figure>
+  <div class="card-body">
+    <h2 [routerLink]="['/products/', id]" class="card-title cursor-pointer">
+      {{ title }}
+    </h2>
+    <p class="truncate">{{ description }}</p>
+    <p class="font-medium">${{ price }}</p>
+    <div class="card-actions justify-end">
+      <button
+        class="btn btn-sm btn-warning btn-outline rounded-full"
+        (click)="onAddToCart(id)"
+      >
+        Add to cart
+      </button>
+    </div>
+  </div>
+</div>

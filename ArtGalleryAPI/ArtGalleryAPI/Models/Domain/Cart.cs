@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ArtGalleryAPI.Models.Domain
 {
@@ -8,6 +9,12 @@ namespace ArtGalleryAPI.Models.Domain
         public Guid CartId { get; set; }
 
         [Required]
-        public required int Quantity { get; set; }
+        public required DateTime CreatedAt { get; set; }
+
+        [Required]
+        public required Guid ProductId { get; set; }
+
+        [Required]
+        public required string AppUserId { get; set; }
     }
 }

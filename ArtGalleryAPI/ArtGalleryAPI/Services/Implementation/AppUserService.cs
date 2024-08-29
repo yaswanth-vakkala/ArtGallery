@@ -2,6 +2,7 @@
 using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArtGalleryAPI.Services.Implementation
@@ -26,22 +27,24 @@ namespace ArtGalleryAPI.Services.Implementation
             var user = await dbcontext.Users.SingleOrDefaultAsync(u => u.Id == userId);
             return user;
         }
-        public Task<AppUser> CreateUserAsync(AppUser appUser)
+
+        public async Task<AppUser>? GetUserByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            var user = await dbcontext.Users.SingleOrDefaultAsync(u => u.Email == email);
+            return user;
         }
 
         public async Task<AppUser>? UpdateUserAsync(string userId, UpdateAppUserDto updatedUser)
         {
             var user = await dbcontext.Users.SingleOrDefaultAsync(u => u.Id == userId);
-            if (user == null) 
+            if (user == null)
             {
                 return null;
             }
             else
             {
                 dbcontext.Entry(user).CurrentValues.SetValues(updatedUser);
-                await dbcontext.SaveChangesAsync(); 
+                await dbcontext.SaveChangesAsync();
                 return user;
             }
         }
@@ -49,7 +52,8 @@ namespace ArtGalleryAPI.Services.Implementation
         public async Task<bool> DeleteUserAsync(string userId)
         {
             var user = await dbcontext.Users.SingleOrDefaultAsync(u => u.Id == userId);
-            if (user == null) {
+            if (user == null)
+            {
                 return false;
             }
             else

@@ -1,6 +1,7 @@
 ﻿using ArtGalleryAPI.Models.Dto;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace ArtGalleryAPI.Models.Domain
@@ -30,8 +31,7 @@ namespace ArtGalleryAPI.Models.Domain
         [MaxLength(30, ErrorMessage = "Product status can have a maximum of 30 characters!")]
         public required string Status { get; set; }
 
-        [Required]
-        public required DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public DateTime? ModifiedAt { get; set; }
 
@@ -39,8 +39,8 @@ namespace ArtGalleryAPI.Models.Domain
         public string? ModifiedBy { get; set; }
 
         [Required]
-        public required Guid? CategoryId { get; set; }
-        [Required]
-        public required Inventory Inventory { get; set; }
+        [ForeignKey(nameof(Category))]
+        public required Guid CategoryId { get; set; }
+        public Category? Category { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -37,7 +38,10 @@ namespace ArtGalleryAPI
             builder.Services.AddScoped<ITokenInterface, TokenService>();
             builder.Services.AddScoped<IAppUserInterface, AppUserService>();
             builder.Services.AddScoped<IAddressInterface, AddressService>();
-            builder.Services.AddScoped<IInventoryInterface, InventoryService>();
+            builder.Services.AddScoped<ICartInterface, CartService>();
+            builder.Services.AddScoped<IAppOrderInterface, AppOrderService>();
+            builder.Services.AddScoped<IOrderItemInterface, OrderItemService>();
+            builder.Services.AddScoped<IPaymentInterface, PaymentService>();
 
             builder.Services.AddIdentityCore<AppUser>(options =>
             {
@@ -60,19 +64,19 @@ namespace ArtGalleryAPI
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    AuthenticationType = "Jwt",
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                    ValidAudience = builder.Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-                };
-            });
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        AuthenticationType = "Jwt",
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                    };
+                });
 
             var app = builder.Build();
 
