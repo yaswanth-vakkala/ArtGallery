@@ -10,6 +10,7 @@ import { AddAddressComponent } from './features/checkout/add-address/add-address
 import { UpdateAddressComponent } from './features/checkout/update-address/update-address.component';
 import { ProductDetailComponent } from './features/products/product-detail/product-detail.component';
 import { CartListComponent } from './features/cart/cart-list/cart-list.component';
+import { UpdateProfileComponent } from './features/profile/update-profile/update-profile.component';
 
 
 export const routes: Routes = [
@@ -56,8 +57,8 @@ export const routes: Routes = [
     path: 'user/address/update/:addressId',
     component: UpdateAddressComponent,
   },
-  // {
-  //   path: 'user/update-profile',
-  //   component: UpdateProfileComponent,
-  // },
+  {
+    path: 'user/update-profile/:userId',
+    component: UpdateProfileComponent,
+  },
 ];

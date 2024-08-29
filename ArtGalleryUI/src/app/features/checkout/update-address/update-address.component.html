@@ -1,6 +1,11 @@
 <div class="container">
-    <h1 class="mt-3">Update Address</h1>
+    <!-- <h1 class="mt-3">Update Address</h1> -->
+  <div class="w-96 mx-auto">
+      <div class="m-6">
+        <h1 class="text-4xl font-medium text-center">Update Address</h1>
+      </div>
     @if(model){
+    <div class="rounded-md shadow-md p-5 box">
     <form #form="ngForm" (ngSubmit)="onUpdateAddressSubmit()">
         <div class="mt-2">
             <div class="mt-3">
@@ -63,9 +68,9 @@
                 </label>
               </div>
           </div>
-          <div class="mt-2">
-              <div class="mt-3">
-                <label class="form-control w-full max-w-xs">
+          <!-- <div class="mt-2"> -->
+              <div class="flex w-[100%] justify-between mb-5">
+                <label class="form-control w-[33%]">
                   <div class="label">
                     <span class="label-text">Country Code</span>
               
@@ -73,11 +78,10 @@
                   <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm"  name="countryCode" id="countryCode"[(ngModel)]="model.countryCode" />
                   
                 </label>
-              </div>
-          </div>
+          <!-- </div>
           <div class="mt-2">
-              <div class="mt-3">
-                <label class="form-control w-full max-w-xs">
+              <div class="mt-3"> -->
+                <label class="form-control w-[60%]">
                   <div class="label">
                     <span class="label-text">Phone Number</span>
               
@@ -85,12 +89,20 @@
                   <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="phoneNumber" id="phoneNumber" [(ngModel)]="model.phoneNumber" />
                   
                 </label>
-              </div>
-          </div>
+            </div>
+          <!-- </div> -->
           <div class="mt-3">
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary w-full text-lg font-medium">Update</button>
           </div>
+            @if(message){
+              <div class="toast toast-top toast-end">
+                <div class="alert alert-success">
+                <span>Your address has been updated!</span>
+                </div>
+              </div>
+            }
       </form>
-  
+      </div>
+    <!-- </div> -->
     }@else{ Not Found! }
   </div>

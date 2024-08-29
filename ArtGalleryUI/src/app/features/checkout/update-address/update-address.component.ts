@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { AddressService } from '../services/address.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-update-address',
   standalone: true,
@@ -21,9 +22,11 @@ export class UpdateAddressComponent implements OnInit,OnDestroy {
   constructor(
     private addressService: AddressService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ){};
   
+    message: boolean=false;
+
   ngOnInit(): void {
     this.paramsSubscription = this.route.paramMap.subscribe({
       next: (params) => {
@@ -32,6 +35,7 @@ export class UpdateAddressComponent implements OnInit,OnDestroy {
           this.addressService.getAddressById(this.addressId).subscribe({
             next: (response) => {
               this.model = response;
+              // this.toastr.success('Hello world!', 'Toastr fun!');
             },
           });
         }
@@ -45,6 +49,11 @@ export class UpdateAddressComponent implements OnInit,OnDestroy {
         .subscribe({
           next: (response) => {
             this.router.navigateByUrl('/user/address/update');
+            this.message=true;
+            // this.toastr.success('Hello world!', 'Toastr fun!');
+            setTimeout(() =>{
+              this.message=false;
+            },5000);
           },
         });
     }
