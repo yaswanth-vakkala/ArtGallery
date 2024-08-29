@@ -33,6 +33,17 @@ namespace ArtGalleryAPI.Services.Implementation
             return products;
         }
 
+        public async Task<IEnumerable<Product>> GetProductsFromIdArrayAsync(IEnumerable<Guid> productIds)
+        {
+            List<Product> products = new List<Product>();
+            foreach(var id in productIds)
+            {
+                var product = await dbContext.Product.SingleOrDefaultAsync(p => p.ProductId == id);
+                products.Add(product);
+            }
+            return products;
+        }
+
         public async Task<Product> CreateProductAsync(Product newProduct)
         {
             await dbContext.Product.AddAsync(newProduct);

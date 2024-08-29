@@ -97,6 +97,48 @@ namespace ArtGalleryAPI.Controllers
         }
 
         /// <summary>
+        /// returns the filtered product record based on id
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns>filtered product</returns>
+        [HttpPost]
+        [Route("cart")]
+        public async Task<IActionResult> GetProductsFromIdArray([FromBody] ProductsIdListRequest productIds)
+        {
+            try
+            {
+                if (!productIds.productIds.Any())
+                {
+                    return NotFound();
+                }
+                var products = await productService.GetProductsFromIdArrayAsync(productIds.productIds);
+                if (products == null || !products.Any())
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    /*var response = new ProductDto()
+                    {
+                        ProductId = product.ProductId,
+                        Name = product.Name,
+                        Description = product.Description,
+                        ImageUrl = product.ImageUrl,
+                        Price = product.Price,
+                        Status = product.Status,
+                        CreatedAt = product.CreatedAt,
+                        Category = product.Category
+                    };*/
+                    return Ok(products);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// get products by category id
         /// </summary>
         /// <param name="categoryId"></param>

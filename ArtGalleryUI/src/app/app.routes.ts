@@ -9,6 +9,7 @@ import { ProductListComponent } from './features/products/product-list/product-l
 import { AddAddressComponent } from './features/checkout/add-address/add-address.component';
 import { UpdateAddressComponent } from './features/checkout/update-address/update-address.component';
 import { ProductDetailComponent } from './features/products/product-detail/product-detail.component';
+import { CartListComponent } from './features/cart/cart-list/cart-list.component';
 
 
 export const routes: Routes = [
@@ -19,6 +20,10 @@ export const routes: Routes = [
   {
     path: 'products/:productId',
     component: ProductDetailComponent,
+  },
+  {
+    path: 'cart/:userId',
+    component: CartListComponent
   },
   {
     path: 'login',

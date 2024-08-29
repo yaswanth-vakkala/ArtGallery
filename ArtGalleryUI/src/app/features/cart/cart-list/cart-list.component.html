@@ -1,0 +1,64 @@
+@if(products && products.length > 0){
+    <div class="flex max-lg:flex-wrap lg:flex-nowrap justify-between w-full px-20">
+        <div class="lg:w-[60%] max-lg:w-[100%]">
+            @for(product of products; track product.productId){
+                <div class="w-full flex justify-between bg-base-100 shadow-xl my-5 rounded-3xl">
+                    <div [routerLink]="['/products',product.productId]" class="w-[50%] cursor-pointer">
+                        <img class="rounded-2xl rounded-r-none" [ngSrc]="product.imageUrl" [alt]="product.name" width="1000" height="1000">
+                    </div>
+                    <div class="w-[50%] py-2 px-5">
+                        <div class="flex justify-between">
+                            <h1 [routerLink]="['/products',product.productId]" class="cursor-pointer text-xl font-bold mb-2">{{product.name}}</h1>
+                            <span class="text-right cursor-pointer" (click)="onDeleteClick(product.productId)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash3" viewBox="0 0 16 16">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                  </svg>
+                            </span>
+                        </div>
+                        <p class="truncate mb-2">{{product.description}}</p>
+                        <h1 class="text-success mb-2">{{product.status}}</h1>
+                        <h1 class="text-2xl font-bold mt-5">${{product.price}}</h1>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="px-16">
+            <div class="card bg-base-100 w-80 shadow-xl">
+                <div class="card-body">
+                  <h2 class="card-title">Checkout Details</h2>
+                  <hr/>
+                  @for(product of products; track product.productId){
+                    <div class="flex justify-around">
+                        <p class="truncate">{{product.name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </p>
+                        <p>${{product.price}}</p>
+                    </div>
+                  }
+                  <hr/>
+                  <div class="flex justify-around">
+                      <p>Cost &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p>
+                      <p>{{cost}}</p>
+                  </div>
+                  <div class="flex justify-around text-success">
+                      <p class="truncate">Tax &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p>
+                      <p>{{tax}}</p>
+                  </div>
+                  <div class="flex justify-around text-success">
+                      <p class="truncate">Shipping &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p>
+                      <p>{{shippingCost}}</p>
+                  </div>
+                  <div class="flex justify-around font-bold">
+                      <p class="truncate">Total Cost &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p>
+                      <p>{{totalCost}}</p>
+                  </div>
+                  <hr/>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-primary">Checkout</button>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+}@else {
+    <h1>cart is empty</h1>
+}
+
