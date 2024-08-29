@@ -12,5 +12,6 @@ namespace ArtGalleryAPI.Services.Interface
         Task<Product> CreateProductAsync(Product newProduct);
         Task<Product>? UpdateProductAsync(Guid productId, UpdateProductDto updatedProduct);
         Task<bool> DeleteProductAsync(Guid productId);
+        Task<bool> DeleteProductsAsync(Guid[] productIds);
     }
 }

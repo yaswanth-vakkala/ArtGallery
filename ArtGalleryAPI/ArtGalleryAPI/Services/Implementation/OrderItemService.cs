@@ -33,6 +33,14 @@ namespace ArtGalleryAPI.Services.Implementation
             return newOrderItem;
         }
 
+        public async Task<IEnumerable<OrderItem>> CreateOrderItemsAsync(IEnumerable<OrderItem> newOrderItems)
+        {
+            foreach (var orderItem in newOrderItems) {
+                await dbContext.OrderItem.AddAsync(orderItem);
+            }
+            await dbContext.SaveChangesAsync();
+            return newOrderItems;
+        }
         public async Task<OrderItem>? UpdateOrderItemAsync(Guid orderItemId, UpdateOrderItemDto updatedOrderItem)
         {
             var orderItem = await dbContext.OrderItem.SingleOrDefaultAsync(o => o.OrderItemId == orderItemId);

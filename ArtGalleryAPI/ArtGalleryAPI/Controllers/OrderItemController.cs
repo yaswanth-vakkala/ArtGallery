@@ -100,6 +100,45 @@ namespace ArtGalleryAPI.Controllers
         }
 
         /// <summary>
+        /// add's a new orderItem to db
+        /// </summary>
+        /// <param name="orderItem"></param>
+        /// <returns>new orderItem</returns>
+        [HttpPost]
+        [Route("addMultiple")]
+        public async Task<IActionResult> AddorderItems([FromBody] IEnumerable<AddOrderItemDto> orderItems)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data provided!");
+            }
+
+            try
+            {
+                List<OrderItem> newOrderItems = new List<OrderItem>();
+                foreach (var orderItem in orderItems)
+                {
+                    var neworderItem = new OrderItem
+                    {
+                        Status = orderItem.Status,
+                        ProductCost = orderItem.ProductCost,
+                        TaxCost = orderItem.TaxCost,
+                        ShippingCost = orderItem.ShippingCost,
+                        ProductId = orderItem.ProductId,
+                        OrderId = orderItem.OrderId,
+                    };
+                    newOrderItems.Add(neworderItem);
+                }
+                await orderItemService.CreateOrderItemsAsync(newOrderItems);
+                return Ok(newOrderItems);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// updates the existing orderItem in db
         /// </summary>
         /// <param name="updatedorderItem"></param>

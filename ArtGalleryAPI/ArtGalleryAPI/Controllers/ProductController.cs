@@ -305,5 +305,29 @@ namespace ArtGalleryAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// delete product's in db based on id's
+        /// </summary>
+        /// <param name="productIds"></param>
+        /// <returns>bool representing state of operation</returns>
+        [HttpPost]
+        [Route("deleteproducts")]
+        public async Task<IActionResult> DeleteProducts([FromBody] Guid[] productIds)
+        {
+            try
+            {
+                var deleteStatus = await productService.DeleteProductsAsync(productIds);
+                return Ok(deleteStatus);
+            }
+            catch (InvalidDeletionException de)
+            {
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

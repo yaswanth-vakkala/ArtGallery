@@ -45,5 +45,17 @@ namespace ArtGalleryAPI.Services.Implementation
                 return true;
             }
         }
+
+        public async Task<bool> DeleteCartsAsync(Guid[] productIds)
+        {
+            foreach (var productId in productIds) {
+                var carts = await dbContext.Cart.Where(c => c.ProductId == productId).ToListAsync();
+                foreach (var cart in carts) { 
+                    dbContext.Remove(cart);
+                }
+            }
+            await dbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

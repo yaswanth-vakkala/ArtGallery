@@ -90,5 +90,25 @@ namespace ArtGalleryAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// delete a carts in db based on product ids
+        /// </summary>
+        /// <param name="cartIds"></param>
+        /// <returns>bool representing state of operation</returns>
+        [HttpPost]
+        [Route("deleteCarts")]
+        public async Task<IActionResult> DeleteCarts([FromBody] Guid[] cartIds)
+        {
+            try
+            {
+                var deleteStatus = await cartService.DeleteCartsAsync(cartIds);
+                return Ok(deleteStatus);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

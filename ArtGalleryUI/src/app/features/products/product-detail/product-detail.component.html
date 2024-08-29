@@ -20,7 +20,7 @@
         <p class="font-medium mt-2">
           {{ model.status }}
         </p>
-        <button class="btn btn-sm btn-warning btn-outline rounded-full mt-5">
+        <button class="btn btn-sm btn-warning btn-outline rounded-full mt-5" (click)="onAddToCart(model.productId)">
           Add to cart
         </button>
       </div>

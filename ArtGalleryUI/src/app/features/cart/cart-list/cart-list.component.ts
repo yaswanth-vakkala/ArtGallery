@@ -35,6 +35,8 @@ export class CartListComponent implements OnInit, OnDestroy {
   private getCartsSubscription?: Subscription;
   private getProductsSubscription?: Subscription;
   private deleteCartItemSubscription?: Subscription;
+  private deleteCartsSubscription?: Subscription;
+  private deleteProductsSubscription?: Subscription;
   private createPaymentSubscription?: Subscription;
   private createOrderSubscription?: Subscription;
   private createOrderItemsSubscription?: Subscription;
@@ -145,7 +147,19 @@ export class CartListComponent implements OnInit, OnDestroy {
                   .createOrderItems(this.orderItems)
                   .subscribe({
                     next: (res) => {
-                      
+                      this.deleteCartsSubscription = this.cartService
+                        .deleteCarts(this.productIds)
+                        .subscribe({
+                          next: (res) => {
+                            this.deleteProductsSubscription = this.cartService
+                              .deleteProducts(this.productIds)
+                              .subscribe({
+                                next: (res) => {
+                                  this.router.navigateByUrl('/');
+                                },
+                              });
+                          },
+                        });
                     },
                   });
               },
@@ -162,5 +176,7 @@ export class CartListComponent implements OnInit, OnDestroy {
     this.createOrderItemsSubscription?.unsubscribe();
     this.createOrderSubscription?.unsubscribe();
     this.createPaymentSubscription?.unsubscribe();
+    this.deleteCartsSubscription?.unsubscribe();
+    this.deleteProductsSubscription?.unsubscribe();
   }
 }

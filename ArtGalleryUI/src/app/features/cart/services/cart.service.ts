@@ -22,8 +22,10 @@ export class CartService {
     private cookieService: CookieService,
   ) {}
 
-  getCartsForUser(userId:string) : Observable<CartResponse[]>{
-    return this.http.get<CartResponse[]>(`${environment.apiBaseUrl}/api/cart/${userId}?addAuth=true`);
+  getCartsForUser(userId: string): Observable<CartResponse[]> {
+    return this.http.get<CartResponse[]>(
+      `${environment.apiBaseUrl}/api/cart/${userId}?addAuth=true`,
+    );
   }
 
   addCart(model: Cart): Observable<void> {
@@ -33,25 +35,53 @@ export class CartService {
     );
   }
 
-  createPayment(paymentModel:AddPayment): Observable<Payment>{
-    return this.http.post<Payment>(`${environment.apiBaseUrl}/api/payment`, paymentModel);
+  createPayment(paymentModel: AddPayment): Observable<Payment> {
+    return this.http.post<Payment>(
+      `${environment.apiBaseUrl}/api/payment`,
+      paymentModel,
+    );
   }
 
-  createOrder(orderModel: AddOrder) : Observable<Order>{
-    return this.http.post<Order>(`${environment.apiBaseUrl}/api/apporder`, orderModel);
+  createOrder(orderModel: AddOrder): Observable<Order> {
+    return this.http.post<Order>(
+      `${environment.apiBaseUrl}/api/apporder`,
+      orderModel,
+    );
   }
 
-  createOrderItems(orderItemModel: AddOrderItem[]): Observable<OrderItem[]>{
-    return this.http.post<OrderItem[]>(`${environment.apiBaseUrl}/api/orderitem/addMultiple`, orderItemModel);
+  createOrderItems(orderItemModel: AddOrderItem[]): Observable<OrderItem[]> {
+    return this.http.post<OrderItem[]>(
+      `${environment.apiBaseUrl}/api/orderitem/addMultiple`,
+      orderItemModel,
+    );
   }
 
-  getCartProducts(productIds: string[]): Observable<Product[]>{
-    return this.http.post<Product[]>(`${environment.apiBaseUrl}/api/product/cart`,{
-      productIds
-    });
+  getCartProducts(productIds: string[]): Observable<Product[]> {
+    return this.http.post<Product[]>(
+      `${environment.apiBaseUrl}/api/product/cart`,
+      {
+        productIds,
+      },
+    );
   }
 
-  deleteCart(cartItemId: string) : Observable<boolean>{
-    return this.http.delete<boolean>(`${environment.apiBaseUrl}/api/cart/${cartItemId}`);
+  deleteProducts(productIds: string[]): Observable<boolean> {
+    return this.http.post<boolean>(
+      `${environment.apiBaseUrl}/api/product/deleteproducts`,
+      productIds,
+    );
+  }
+
+  deleteCart(cartItemId: string): Observable<boolean> {
+    return this.http.delete<boolean>(
+      `${environment.apiBaseUrl}/api/cart/${cartItemId}`,
+    );
+  }
+
+  deleteCarts(productIds: string[]): Observable<boolean> {
+    return this.http.post<boolean>(
+      `${environment.apiBaseUrl}/api/cart/deleteCarts`,
+      productIds,
+    );
   }
 }
