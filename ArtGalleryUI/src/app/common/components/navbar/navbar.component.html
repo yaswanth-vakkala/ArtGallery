@@ -177,13 +177,35 @@
           />
         </svg>
       </div>
-      <button
+      <!-- <button
         (click)="onLogout()"
         class="btn btn-outline btn-primary px-4 btn-md"
       >
         Logout
-      </button>
+      </button> -->
+      <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full">
+          <img
+            alt="Tailwind CSS Navbar component"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        </div>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <li>
+          <a class="justify-between" [routerLink]="['user/update-profile/', user.id]">
+            Update Profile
+            <!-- <span class="badge">New</span> -->
+          </a>
+        </li>
+        <li><a class="mr-7 cursor-pointer" [routerLink]="['user/address/', user.id]">Update Address</a></li>
+        <li><a class="mr-7 cursor-pointer" (click)="onLogout()">Logout</a></li>
+      </ul>
     </div>
+    </div>
+
   }
 </div>
 

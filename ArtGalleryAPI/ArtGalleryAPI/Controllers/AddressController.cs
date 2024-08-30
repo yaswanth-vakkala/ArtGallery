@@ -4,6 +4,7 @@ using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace ArtGalleryAPI.Controllers
 {
@@ -121,6 +122,27 @@ namespace ArtGalleryAPI.Controllers
             {
                 var deleteStatus = await addressService.DeleteAddressAsync(addressId);
                 return Ok(deleteStatus);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        [Route("AppUser/{userId}")]
+        public async Task<IActionResult> GetAddressesByUserId([FromRoute] string userId)
+        {
+            try
+            {
+                var addresses = await addressService.GetAddressesByUserIdAsync(userId);
+                if (addresses == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(addresses);
+                }
             }
             catch (Exception ex)
             {

@@ -59,5 +59,10 @@ namespace ArtGalleryAPI.Services.Implementation
                 return true;
             }
         }
+        public async Task<IEnumerable<Address>> GetAddressesByUserIdAsync(string userId)
+        {
+            var addresses = await dbContext.Address.Where(addresses => addresses.AppUserId == userId).ToListAsync();
+            return addresses;
+        }
     }
 }

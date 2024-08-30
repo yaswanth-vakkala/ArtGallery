@@ -11,6 +11,7 @@ import { UpdateAddressComponent } from './features/checkout/update-address/updat
 import { ProductDetailComponent } from './features/products/product-detail/product-detail.component';
 import { CartListComponent } from './features/cart/cart-list/cart-list.component';
 import { UpdateProfileComponent } from './features/profile/update-profile/update-profile.component';
+import { AddressListComponent } from './features/checkout/address-list/address-list.component';
 
 
 export const routes: Routes = [
@@ -60,5 +61,9 @@ export const routes: Routes = [
   {
     path: 'user/update-profile/:userId',
     component: UpdateProfileComponent,
+  },
+  {
+    path: 'user/address/:userId',
+    component: AddressListComponent,
   },
 ];

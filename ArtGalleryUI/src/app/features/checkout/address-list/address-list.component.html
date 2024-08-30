@@ -1,0 +1,27 @@
+<h1 class="mt-5 font-bold text-2xl">Address List</h1>
+<div class="container overflow-x-auto">
+@if (addresses$ | async; as addresses) {
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Address Line</th>
+        <th>Pin Code</th>
+        <th>City</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (address of addresses; track address.userId) {
+    
+        <tr>
+        <td>{{ address.userId }}</td>
+        <td>{{ address.addressLine }}</td>
+        <td>{{ address.pinCode }}</td>
+        <td>{{ address.city }}</td>
+        </tr>
+
+    }
+</tbody>
+</table>
+}
+</div>
