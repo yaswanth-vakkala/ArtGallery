@@ -12,6 +12,7 @@ import { ProductDetailComponent } from './features/products/product-detail/produ
 import { CartListComponent } from './features/cart/cart-list/cart-list.component';
 import { UpdateProfileComponent } from './features/profile/update-profile/update-profile.component';
 import { AddressListComponent } from './features/checkout/address-list/address-list.component';
+import { OrdersListComponent } from './features/orders/orders-list/orders-list.component';
 
 
 export const routes: Routes = [
@@ -22,6 +23,10 @@ export const routes: Routes = [
   {
     path: 'products/:productId',
     component: ProductDetailComponent,
+  },
+  {
+    path: 'myorders/:userId',
+    component: OrdersListComponent
   },
   {
     path: 'cart/:userId',

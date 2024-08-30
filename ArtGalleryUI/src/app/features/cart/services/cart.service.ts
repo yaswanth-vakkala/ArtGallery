@@ -8,10 +8,10 @@ import { CartResponse } from '../models/cart-response.model';
 import { Product } from '../../products/models/product.model';
 import { Payment } from '../models/payment.model';
 import { AddPayment } from '../models/add-payment.model';
-import { AddOrder } from '../models/add-order.model';
-import { Order } from '../models/order.model';
-import { AddOrderItem } from '../models/add-orderItem.model';
-import { OrderItem } from '../models/orderItem.model';
+import { AddOrder } from '../../orders/models/add-order.model';
+import { Order } from '../../orders/models/order.model';
+import { AddOrderItem } from '../../orders/models/add-orderItem.model';
+import { OrderItem } from '../../orders/models/orderItem.model';
 
 @Injectable({
   providedIn: 'root',
