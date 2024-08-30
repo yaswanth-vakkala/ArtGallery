@@ -27,7 +27,7 @@ export class AddressService {
 
     getAddressesByUserId(userId:string): Observable<AddressList[]>{
       return this.http.get<AddressList[]>(
-        `${environment.apiBaseUrl}/api/address/${userId}`
+        `${environment.apiBaseUrl}/api/address/appuser/${userId}`
       );
     }
 

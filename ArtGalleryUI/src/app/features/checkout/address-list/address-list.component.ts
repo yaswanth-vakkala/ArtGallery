@@ -15,9 +15,9 @@ import { AddressService } from '../services/address.service';
 export class AddressListComponent implements OnInit, OnDestroy{
   userId:any= '';
   model?: AddressList[];
-  addresses$?: Observable<AddressList[]>;
   private getAddressesByUserIdSubscription?: Subscription;
   private paramsSubscription?: Subscription;
+  private deleteAddressSubscription?: Subscription;
 
   constructor(
     private addressService: AddressService,
@@ -33,13 +33,27 @@ export class AddressListComponent implements OnInit, OnDestroy{
           this.addressService.getAddressesByUserId(this.userId).subscribe({
             next: (response) => {
               this.model=response;
-              //this.addresses$=this.addressService.getAddressesByUserId(this.userId);
             },
           });
         }
       },
     });
   }
+
+  onDeleteClick(id: string) {
+    this.deleteAddressSubscription = this.addressService
+      .deleteAddress(id)
+      .subscribe({
+        next: (response) => {
+          this.router
+            .navigateByUrl('/', { skipLocationChange: true })
+            .then(() => {
+              this.router.navigate([`user/address/${this.userId}`]);
+            });
+        },
+      });
+  }
+
   ngOnDestroy(): void {
     this.paramsSubscription?.unsubscribe();
     this.getAddressesByUserIdSubscription?.unsubscribe();

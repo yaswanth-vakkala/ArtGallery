@@ -43,14 +43,19 @@ export class UpdateAddressComponent implements OnInit,OnDestroy {
     });
   }
   onUpdateAddressSubmit(){
+    const userid=localStorage.getItem('user-id');
     if (this.addressId && (this.model?.addressLine || this.model?.pinCode || this.model?.city || this.model?.landmark || this.model?.country || this.model?.countryCode || this.model?.phoneNumber) ) {
       this.updateAddressSubscription = this.addressService
         .updateAddress(this.addressId, this.model)
         .subscribe({
           next: (response) => {
-            this.router.navigateByUrl('/user/address/update');
             this.message=true;
             // this.toastr.success('Hello world!', 'Toastr fun!');
+            this.router
+            .navigateByUrl('/', { skipLocationChange: true })
+            .then(() => {
+            this.router.navigate([`user/address/${userid}`]);
+          });
             setTimeout(() =>{
               this.message=false;
             },5000);
