@@ -10,5 +10,5 @@ export interface Product {
   createdAt: Date;
   modifiedAt: Date;
   modifiedBy: string;
-  categories: Category[];
+  category: Category;
 }
