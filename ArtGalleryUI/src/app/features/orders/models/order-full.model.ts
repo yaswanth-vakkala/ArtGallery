@@ -1,9 +1,10 @@
-import { OrderItem } from "./orderItem.model";
+import { OrderItemFull } from "./orderItem-full.model";
 
 export interface OrderFull{
     orderId: string,
     addressId: string,
     paymentId: string,
     appUserId: string,
-    orderItems: OrderItem[]
+    createdAt: Date,
+    orderItems: OrderItemFull[]
 }

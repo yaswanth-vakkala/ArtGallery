@@ -37,6 +37,20 @@ namespace ArtGalleryAPI.Services.Implementation
             var orders = await dbContext.AppOrder.Where(o => o.AppUserId == userId).ToListAsync();
             foreach (var order in orders) {
                 var orderItems = await dbContext.OrderItem.Where(o => o.OrderId == order.OrderId).ToListAsync();
+                List<OrderItemsFullDto> orderItemsFulls = new List<OrderItemsFullDto>();
+                foreach (var orderItem in orderItems) {
+                    var product = await dbContext.Product.SingleOrDefaultAsync(p => p.ProductId == orderItem.ProductId);
+                    orderItemsFulls.Add(new OrderItemsFullDto
+                    {
+                        OrderItemId = orderItem.OrderItemId,
+                        Status = orderItem.Status,
+                        ProductCost = orderItem.ProductCost,
+                        ShippingCost = orderItem.ShippingCost,
+                        TaxCost = orderItem.TaxCost,
+                        OrderId = orderItem.OrderId,
+                        Product = product
+                    });
+                }
                 appOrdersFull.Add(new AppOrdersFullDto()
                 {
                     AddressId = order.AddressId,
@@ -44,7 +58,7 @@ namespace ArtGalleryAPI.Services.Implementation
                     AppUserId = order.AppUserId,
                     CreatedAt = order.CreatedAt,
                     OrderId = order.OrderId,
-                    OrderItems = orderItems
+                    OrderItems = orderItemsFulls
                 });
             }
             return appOrdersFull;

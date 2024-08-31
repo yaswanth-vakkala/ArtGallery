@@ -26,7 +26,7 @@ namespace ArtGalleryAPI.Models.Dto
         public required decimal ShippingCost { get; set; }
 
         [Required]
-        public required Product ProductI { get; set; }
+        public required Product Product { get; set; }
 
         [Required]
         public required Guid OrderId { get; set; }
