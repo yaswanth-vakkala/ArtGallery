@@ -26,6 +26,22 @@ namespace ArtGalleryAPI.Services.Implementation
             var orderItem = await dbContext.OrderItem.SingleOrDefaultAsync(o => o.OrderItemId == orderItemId);
             return orderItem;
         }
+        
+        public async Task<OrderItemsFullDto>? GetOrderItemFullByIdAsync(Guid orderItemId)
+        {
+            var orderItem = await dbContext.OrderItem.SingleOrDefaultAsync(o => o.OrderItemId == orderItemId);
+            var product = await dbContext.Product.SingleOrDefaultAsync(p => p.ProductId == orderItem.ProductId);
+            return new OrderItemsFullDto()
+            {
+                OrderId = orderItem.OrderId,
+                OrderItemId = orderItem.OrderItemId,
+                ProductCost = orderItem.ProductCost,
+                ShippingCost = orderItem.ShippingCost,
+                TaxCost = orderItem.TaxCost,
+                Product = product,
+                Status = orderItem.Status,
+            };
+        }
         public async Task<OrderItem> CreateOrderItemAsync(OrderItem newOrderItem)
         {
             await dbContext.OrderItem.AddAsync(newOrderItem);

@@ -13,7 +13,7 @@ import { NgOptimizedImage } from '@angular/common';
   templateUrl: './orders-list.component.html',
   styleUrl: './orders-list.component.css',
 })
-export class OrdersListComponent implements OnInit {
+export class OrdersListComponent implements OnInit, OnDestroy {
   model?: OrderFull[];
   userId: any;
   private getOrdersSubscription?: Subscription;
@@ -40,5 +40,10 @@ export class OrdersListComponent implements OnInit {
         }
       },
     });
+  }
+  
+  ngOnDestroy(): void {
+    this.getOrdersSubscription?.unsubscribe();
+    this.paramsSubscription?.unsubscribe();
   }
 }

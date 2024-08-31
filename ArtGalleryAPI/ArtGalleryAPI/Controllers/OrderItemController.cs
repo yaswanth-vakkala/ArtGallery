@@ -66,6 +66,33 @@ namespace ArtGalleryAPI.Controllers
 
 
         /// <summary>
+        /// returns the filtered orderItem with prouduct record based on id
+        /// </summary>
+        /// <param name="orderItemId"></param>
+        /// <returns>filtered orderItem</returns>
+        [HttpGet]
+        [Route("product/{orderItemId:Guid}")]
+        public async Task<IActionResult> GetorderItemFullById([FromRoute] Guid orderItemId)
+        {
+            try
+            {
+                var orderItem = await orderItemService.GetOrderItemFullByIdAsync(orderItemId);
+                if (orderItem == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(orderItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// add's a new orderItem to db
         /// </summary>
         /// <param name="orderItem"></param>

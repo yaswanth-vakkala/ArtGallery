@@ -1,4 +1,4 @@
-import { OrderItemFull } from "./orderItem-full.model";
+import { OrderItemFull } from "../../orderItem/models/orderItem-full.model";
 
 export interface OrderFull{
     orderId: string,
