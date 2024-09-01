@@ -9,7 +9,8 @@
 
 h2 {
     margin-top: 70px;
-    color: #3b82f6; /* Primary color for headings */
+    color: #1F2937; /* Primary color for headings */
+    padding-bottom: 20px;
 }
 
 canvas {
@@ -20,7 +21,7 @@ canvas {
 
 .statistic-block {
     background-color: #f9f9f9; /* Light background for contrast */
-    padding: 1.5rem;
+    padding: 2.5rem;
     border-radius: 0.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

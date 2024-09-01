@@ -91,131 +91,143 @@ export class StatisticsComponent implements OnInit {
   }
 
   // Update total sales chart
-  updateTotalSalesChart(): void {
-    this.destroyChart(this.totalSalesChart);
-    const ctx = document.getElementById('totalSalesChart') as HTMLCanvasElement;
-    this.totalSalesChart = new Chart(ctx, {
+updateTotalSalesChart(): void {
+  this.destroyChart(this.totalSalesChart);
+  const ctx = document.getElementById('totalSalesChart') as HTMLCanvasElement;
+  this.totalSalesChart = new Chart(ctx, {
       type: 'bar' as ChartType,
       data: {
-        labels: ['Total Sales'],
-        datasets: [{
-          label: 'Sales Count',
-          data: [this.totalSales],
-          backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        }]
+          labels: ['Total Sales'],
+          datasets: [{
+              label: 'Sales Count',
+              data: [this.totalSales],
+              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+              barThickness: 20, // Adjust thickness here
+          }]
       },
-      options: this.getDefaultOptions()
-    });
-  }
+      options: this.getDefaultOptions({
+          scales: {
+              x: {
+                  stacked: true, // Optional: If you want stacked bars
+                  grid: {
+                      display: false, // Hide grid lines if desired
+                  }
+              },
+              y: {
+                  beginAtZero: true
+              }
+          }
+      })
+  });
+}
 
-  // Update category order counts chart
-  updateCategoryOrderCountsChart(): void {
-    this.destroyChart(this.categoryOrderCountsChart);
-    const ctx = document.getElementById('categoryOrderCountsChart') as HTMLCanvasElement;
-    this.categoryOrderCountsChart = new Chart(ctx, {
+// Update category order counts chart
+updateCategoryOrderCountsChart(): void {
+  this.destroyChart(this.categoryOrderCountsChart);
+  const ctx = document.getElementById('categoryOrderCountsChart') as HTMLCanvasElement;
+  this.categoryOrderCountsChart = new Chart(ctx, {
       type: 'pie' as ChartType,
       data: {
-        labels: Object.keys(this.categoryOrderCounts),
-        datasets: [{
-          label: 'Category Order Counts',
-          data: Object.values(this.categoryOrderCounts),
-          backgroundColor: Object.keys(this.categoryOrderCounts).map((_, index) =>
-            `rgba(${(index * 30) % 255}, ${(index * 50) % 255}, 200, 0.6)`)
-        }]
-      },
-      options: this.getDefaultOptions()
-    });
-  }
-
-  // Update monthly sales chart
- // Update monthly sales chart
-updateMonthlySalesChart(monthData: { [year: string]: { [month: string]: number } }): void {
-  this.destroyChart(this.monthlySalesChart);
-  const ctx = document.getElementById('monthlySalesChart') as HTMLCanvasElement;
-
-  // Extracting sales data
-  const year = Object.keys(monthData)[0]; // Assuming you are only dealing with one year for now
-  const monthlyData = monthData[year];
-
-  const labels = Object.keys(monthlyData).map(month => {
-      // Convert month number to month name (e.g., "8" -> "August")
-      return new Date(0, Number(month) - 1).toLocaleString('default', { month: 'long' });
-  });
-
-  const values = Object.values(monthlyData); // Get sales counts
-
-  if (values.length === 0 || labels.length === 0) {
-      console.warn('No data to display for monthly sales chart.');
-      return; // Prevent chart creation if there's no data
-  }
-
-  this.monthlySalesChart = new Chart(ctx, {
-      type: 'bar' as ChartType,
-      data: {
-          labels: labels, // Month names
+          labels: Object.keys(this.categoryOrderCounts),
           datasets: [{
-              label: 'Monthly Sales',
-              data: values,
-              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+              label: 'Category Order Counts',
+              data: Object.values(this.categoryOrderCounts),
+              backgroundColor: Object.keys(this.categoryOrderCounts).map((_, index) =>
+                  `rgba(${(index * 30) % 255}, ${(index * 50) % 255}, 200, 0.6)`)
           }]
       },
       options: this.getDefaultOptions()
   });
 }
 
+// Update monthly sales chart
+updateMonthlySalesChart(monthData: { [year: string]: { [month: string]: number } }): void {
+  this.destroyChart(this.monthlySalesChart);
+  const ctx = document.getElementById('monthlySalesChart') as HTMLCanvasElement;
 
-  // Update total products sold chart
-  updateTotalProductsSoldChart(): void {
-    this.destroyChart(this.totalProductsSoldChart);
-    const ctx = document.getElementById('totalProductsSoldChart') as HTMLCanvasElement;
-    this.totalProductsSoldChart = new Chart(ctx, {
+  const year = Object.keys(monthData)[0]; 
+  const monthlyData = monthData[year];
+  const labels = Object.keys(monthlyData).map(month => new Date(0, Number(month) - 1).toLocaleString('default', { month: 'long' }));
+  const values = Object.values(monthlyData);
+
+  if (values.length === 0 || labels.length === 0) {
+      console.warn('No data to display for monthly sales chart.');
+      return;
+  }
+
+  this.monthlySalesChart = new Chart(ctx, {
+      type: 'bar' as ChartType,
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Monthly Sales',
+              data: values,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+              barThickness: 40, // Adjust thickness here
+              maxBarThickness: 40, // Max thickness
+              barPercentage: 0.5, // Control spacing between bars
+              categoryPercentage: 0.5 // Control category spacing
+          }]
+      },
+      options: this.getDefaultOptions()
+  });
+}
+
+// Update total products sold chart
+updateTotalProductsSoldChart(): void {
+  this.destroyChart(this.totalProductsSoldChart);
+  const ctx = document.getElementById('totalProductsSoldChart') as HTMLCanvasElement;
+  this.totalProductsSoldChart = new Chart(ctx, {
       type: 'doughnut' as ChartType,
       data: {
-        labels: ['Total Products Sold'],
-        datasets: [{
-          data: [this.totalProductsSold, 100 - this.totalProductsSold], // Dummy data for visualization
-          backgroundColor: ['rgba(255, 159, 64, 0.6)', 'rgba(201, 203, 207, 0.6)']
-        }]
+          labels: ['Total Products Sold'],
+          datasets: [{
+              data: [this.totalProductsSold, 100 - this.totalProductsSold],
+              backgroundColor: ['rgba(255, 159, 64, 0.6)', 'rgba(201, 203, 207, 0.6)']
+          }]
       },
       options: this.getDefaultOptions()
-    });
-  }
+  });
+}
 
-  // Update top selling products chart
-  updateTopSellingProductsChart(): void {
-    this.destroyChart(this.topSellingProductsChart);
-    const ctx = document.getElementById('topSellingProductsChart') as HTMLCanvasElement;
-    this.topSellingProductsChart = new Chart(ctx, {
+// Update top selling products chart
+updateTopSellingProductsChart(): void {
+  this.destroyChart(this.topSellingProductsChart);
+  const ctx = document.getElementById('topSellingProductsChart') as HTMLCanvasElement;
+  this.topSellingProductsChart = new Chart(ctx, {
       type: 'bar' as ChartType,
       data: {
-        labels: this.topSellingProducts.map(product => product.name),
-        datasets: [{
-          label: 'Top Selling Products',
-          data: this.topSellingProducts.map(product => product.totalSales),
-          backgroundColor: 'rgba(153, 102, 255, 0.6)',
-        }]
+          labels: this.topSellingProducts.map(product => product.name),
+          datasets: [{
+              label: 'Top Selling Products',
+              data: this.topSellingProducts.map(product => product.totalSales),
+              backgroundColor: 'rgba(153, 102, 255, 0.6)',
+              barThickness: 40, // Adjust thickness here
+          }]
       },
       options: this.getDefaultOptions()
-    });
-  }
+  });
+}
 
-  // Update orders in date range chart
-  updateOrdersInDateRangeChart(): void {
-    this.destroyChart(this.ordersInDateRangeChart);
-    const ctx = document.getElementById('ordersInDateRangeChart') as HTMLCanvasElement;
-    this.ordersInDateRangeChart = new Chart(ctx, {
+// Update orders in date range chart
+updateOrdersInDateRangeChart(): void {
+  this.destroyChart(this.ordersInDateRangeChart);
+  const ctx = document.getElementById('ordersInDateRangeChart') as HTMLCanvasElement;
+  this.ordersInDateRangeChart = new Chart(ctx, {
       type: 'bar' as ChartType,
       data: {
-        labels: this.ordersInDateRange.map(order => order.formattedDate), // Use formattedDate
-        datasets: [{
-          label: 'Orders Over Time',
-          data: this.ordersInDateRange.map(order => order.orderCount), // Use orderCount
-          backgroundColor: 'rgba(255, 99, 132, 0.6)',
-        }]
+          labels: this.ordersInDateRange.map(order => order.formattedDate),
+          datasets: [{
+              label: 'Orders Over Time',
+              data: this.ordersInDateRange.map(order => order.orderCount),
+              backgroundColor: 'rgba(255, 99, 132, 0.6)',
+              barThickness: 40, // Adjust thickness here
+          }]
       },
       options: this.getDefaultOptions()
-    });
-  }
+  });
+}
+
 
   // Helper to destroy existing chart instances
   private destroyChart(chart: Chart | undefined): void {
@@ -225,7 +237,7 @@ updateMonthlySalesChart(monthData: { [year: string]: { [month: string]: number }
   }
 
   // Helper to get default options
-  private getDefaultOptions(): ChartOptions {
+  private getDefaultOptions(extraOptions: ChartOptions = {}): ChartOptions {
     return {
       scales: {
         y: {
