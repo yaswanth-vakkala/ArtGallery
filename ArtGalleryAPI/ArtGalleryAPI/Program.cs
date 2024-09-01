@@ -42,6 +42,7 @@ namespace ArtGalleryAPI
             builder.Services.AddScoped<IAppOrderInterface, AppOrderService>();
             builder.Services.AddScoped<IOrderItemInterface, OrderItemService>();
             builder.Services.AddScoped<IPaymentInterface, PaymentService>();
+            builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 
             builder.Services.AddIdentityCore<AppUser>(options =>
             {

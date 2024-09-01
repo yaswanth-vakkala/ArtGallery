@@ -1,0 +1,27 @@
+.statistics-container {
+    max-width: 800px; /* Set a maximum width */
+    margin: 20px auto; /* Center the container */
+    padding: 20px; /* Add padding to the container */
+    background-color: #ffffff; /* White background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+h2 {
+    margin-top: 70px;
+    color: #1F2937; /* Primary color for headings */
+    padding-bottom: 20px;
+}
+
+canvas {
+    margin:20px;
+    border-radius: 8px; /* Rounded corners for the canvas */
+    background-color: #f9fafb; /* Light grey background for canvas */
+}
+
+.statistic-block {
+    background-color: #f9f9f9; /* Light background for contrast */
+    padding: 2.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
