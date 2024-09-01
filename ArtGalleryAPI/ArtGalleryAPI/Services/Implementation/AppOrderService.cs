@@ -35,10 +35,12 @@ namespace ArtGalleryAPI.Services.Implementation
         {
             List<AppOrdersFullDto> appOrdersFull = new List<AppOrdersFullDto>();
             var orders = await dbContext.AppOrder.Where(o => o.AppUserId == userId).ToListAsync();
-            foreach (var order in orders) {
+            foreach (var order in orders)
+            {
                 var orderItems = await dbContext.OrderItem.Where(o => o.OrderId == order.OrderId).ToListAsync();
                 List<OrderItemsFullDto> orderItemsFulls = new List<OrderItemsFullDto>();
-                foreach (var orderItem in orderItems) {
+                foreach (var orderItem in orderItems)
+                {
                     var product = await dbContext.Product.SingleOrDefaultAsync(p => p.ProductId == orderItem.ProductId);
                     orderItemsFulls.Add(new OrderItemsFullDto
                     {
