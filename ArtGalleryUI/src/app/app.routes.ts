@@ -14,6 +14,7 @@ import { UpdateProfileComponent } from './features/profile/update-profile/update
 import { AddressListComponent } from './features/checkout/address-list/address-list.component';
 import { OrdersListComponent } from './features/orders/orders-list/orders-list.component';
 import { OrderItemDetailComponent } from './features/orderItem/order-item-detail/order-item-detail.component';
+import { StatisticsComponent } from './features/statistics/statistics/statistics.component';
 
 
 export const routes: Routes = [
@@ -58,6 +59,11 @@ export const routes: Routes = [
   {
     path: 'admin/categories/edit/:categoryId',
     component: EditCategoryComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path:'admin/statistics',
+    component:StatisticsComponent,
     canActivate: [authGuard],
   },
   {
