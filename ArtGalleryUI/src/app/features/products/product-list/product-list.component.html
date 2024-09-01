@@ -1,62 +1,17 @@
-<!-- <div class="container">
-  <h1 class="mt-3">Products List</h1>
-  <div class="d-flex justify-content-end mt-3">
-    <a [routerLink]="['/admin/categories/add']" class="btn btn-secondary"
-      >Add Product</a
+<div class="text-end mr-28">
+  <details class="dropdown dropdown-end">
+    <summary class="btn m-1">Sort By</summary>
+    <ul
+      class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
     >
-  </div>
-  <div class="container">
-    @if (products$ | async; as products) {
-      <table class="table table-bordered mt-3">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (product of products; track product.productId) {
-            <tr>
-              <td>{{ product.productId }}</td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.description }}</td>
-              <th>
-                <div class="d-flex justify-content-around">
-                  <a
-                    class="btn btn-secondary"
-                    [routerLink]="['/admin/categories/edit', product.productId]"
-                  >
-                    <i class="bi bi-pencil"></i>
-                  </a>
-                </div>
-              </th>
-            </tr>
-          }
-        </tbody>
-      </table>
-    }
-  </div>
+      <li><a (click)="sort('Price', 'asc')">Price (asc)</a></li>
+      <li><a (click)="sort('Price', 'desc')">Price (desc)</a></li>
+      <li><a (click)="sort('Name', 'asc')">Name (asc)</a></li>
+      <li><a (click)="sort('Name', 'desc')">Name (desc)</a></li>
+    </ul>
+  </details>
 </div>
 
-@if (products$ | async; as products) {
-  @for (product of products; track product.productId) {
-    <div class="my-3 p-3 rounded">
-      <a href="{{ product.productId }}">
-        <img src="{{ product.imageUrl }}" alt="{{ product.name }}" />
-      </a>
-      <a href="">
-        <div>
-          <strong>{{ product.name }}</strong>
-        </div>
-      </a>
-      <h3>
-        {{ product.price }}
-      </h3>
-    </div>
-  }
-} -->
 <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-4 ml-16 mt-4">
   @if (products$ | async; as products) {
     @for (product of products; track product.productId) {

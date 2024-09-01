@@ -28,11 +28,11 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>list of all products</returns>
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<IActionResult> GetAllProducts([FromQuery] string? sortBy, [FromQuery] string? sortOrder)
         {
             try
             {
-                var products = await productService.GetAllProductsAsync();
+                var products = await productService.GetAllProductsAsync(sortBy, sortOrder);
                 List<ProductDto> result = new List<ProductDto>();
                 foreach (Product product in products)
                 {

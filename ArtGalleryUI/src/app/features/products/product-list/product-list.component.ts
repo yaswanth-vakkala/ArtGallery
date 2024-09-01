@@ -23,4 +23,8 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.products$ = this.productService.getAllProducts();
   }
+
+  sort(sortBy: string, sortOrder: string) {
+    this.products$ = this.productService.getAllProducts(sortBy, sortOrder);
+  }
 }

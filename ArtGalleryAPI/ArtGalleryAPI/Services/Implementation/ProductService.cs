@@ -15,10 +15,23 @@ namespace ArtGalleryAPI.Services.Implementation
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(string? sortBy = null, string? sortOrder = null)
         {
-            var products = await dbContext.Product.Include(c => c.Category).ToListAsync();
-            return products;
+            var products = dbContext.Product.Include(c => c.Category).AsQueryable();
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (string.Equals(sortBy,"Price", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    products = isDesc ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
+                } else if (string.Equals(sortBy, "Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    products = isDesc ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name);
+                }
+            }
+            
+            return await products.ToListAsync();
         }
 
         public async Task<Product>? GetProductByIdAsync(Guid productId)
