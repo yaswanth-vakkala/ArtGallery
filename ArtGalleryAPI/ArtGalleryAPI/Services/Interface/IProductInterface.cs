@@ -8,7 +8,7 @@ namespace ArtGalleryAPI.Services.Interface
     {
         Task<IEnumerable<Product>> GetAllProductsAsync(int pageNumber, int pageSize, string? query = null,string? sortBy=null, string? sortOrder=null);
         Task<Product>? GetProductByIdAsync(Guid productId);
-        Task<int>? GetProductsCountAsync();
+        Task<int>? GetProductsCountAsync(string? query);
         Task<IEnumerable<Product>> GetProductsFromIdArrayAsync(IEnumerable<Guid> productIds);
         Task<IEnumerable<Product>>? GetProductsByCategoryIdAsync(Guid categoryId);
         Task<Product> CreateProductAsync(Product newProduct);

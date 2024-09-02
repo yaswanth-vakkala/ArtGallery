@@ -19,8 +19,9 @@ export class ProductListComponent implements OnInit {
   products$?: Observable<Product[]>;
   productsCount: number = 0;
   pageNumber: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 2;
   paginationList: number[] = [];
+  query:string='';
   constructor(
     private productService: ProductService,
     private router: Router,
@@ -45,6 +46,7 @@ export class ProductListComponent implements OnInit {
     });
     this.products$ = this.productService.getAllProducts(undefined,undefined,undefined,this.pageNumber, this.pageSize);
     this.sharedService.message$.subscribe((query) => {
+      this.query = query;
       this.search(query);
     });
   }
@@ -71,10 +73,16 @@ export class ProductListComponent implements OnInit {
   }
 
   search(query: string){
-    this.products$ = this.productService.getAllProducts(query);
+    this.products$ = this.productService.getAllProducts(query, undefined, undefined, this.pageNumber, this.pageSize);
+    this.productService.getProductCount(query).subscribe({
+      next: (res) => {
+        this.productsCount = res;
+        this.paginationList = new Array(Math.ceil(res / this.pageSize));
+      }
+    });
   }
 
   sort(sortBy: string, sortOrder: string) {
-    this.products$ = this.productService.getAllProducts(sortBy, sortOrder);
+    this.products$ = this.productService.getAllProducts(this.query, sortBy, sortOrder, this.pageNumber, this.pageSize);
   }
 }

@@ -39,8 +39,15 @@ export class ProductService {
     });
   }
 
-  getProductCount(): Observable<number> {
-    return this.http.get<number>(`${environment.apiBaseUrl}/api/product/count`);
+  getProductCount(query?:string): Observable<number> {
+    let params = new HttpParams();
+
+    if(query){
+      params = params.set('query', query);
+    }
+    return this.http.get<number>(`${environment.apiBaseUrl}/api/product/count`,{
+      params: params,
+    });
   }
 
   getProductById(productId: string): Observable<Product> {

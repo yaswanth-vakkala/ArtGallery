@@ -49,9 +49,17 @@ namespace ArtGalleryAPI.Services.Implementation
             return product;
         }
 
-        public async Task<int> GetProductsCountAsync()
+        public async Task<int> GetProductsCountAsync(string? query)
         {
-            var productCount = await dbContext.Product.CountAsync();
+            var productCount = 0;
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                productCount = await dbContext.Product.Where(p => p.Name.Contains(query)).CountAsync();
+            }
+            else
+            {
+                productCount = await dbContext.Product.CountAsync();
+            }
             return productCount;
         }
 

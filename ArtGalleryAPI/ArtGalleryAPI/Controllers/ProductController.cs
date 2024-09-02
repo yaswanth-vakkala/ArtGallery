@@ -61,11 +61,11 @@ namespace ArtGalleryAPI.Controllers
 
         [HttpGet]
         [Route("count")]
-        public async Task<IActionResult> GetProductsCount()
+        public async Task<IActionResult> GetProductsCount([FromQuery] string query=null)
         {
             try
             {
-                var productCount = await productService.GetProductsCountAsync();
+                var productCount = await productService.GetProductsCountAsync(query);
                 return Ok(productCount);
             }catch(Exception e)
             {
