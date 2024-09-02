@@ -13,17 +13,23 @@
 </div>
 
 <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-4 ml-16 mt-4">
+
+  <!-- @if (products$ | async; as products) -->
   @if (products$ | async; as products) {
     @for (product of products; track product.productId) {
-      <app-product-card
-        id="{{ product.productId }}"
-        title="{{ product.name }}"
-        description="{{ product.description }}"
-        imageUrl="{{ product.imageUrl }}"
-        price="{{ product.price }}"
-      />
-    }
-  } @else {
+        <!-- @if(searchText=='' || product.name.toLowerCase().includes(searchText)){ -->
+        <app-product-card
+          id="{{ product.productId }}"
+          title="{{ product.name }}"
+          description="{{ product.description }}"
+          imageUrl="{{ product.imageUrl }}"
+          price="{{ product.price }}"
+        />
+        <!-- } -->
+     }
+    
+  } 
+  @else {
     <h1>Nothing to show!</h1>
   }
 </div>

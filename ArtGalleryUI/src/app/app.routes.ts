@@ -15,6 +15,7 @@ import { AddressListComponent } from './features/checkout/address-list/address-l
 import { OrdersListComponent } from './features/orders/orders-list/orders-list.component';
 import { OrderItemDetailComponent } from './features/orderItem/order-item-detail/order-item-detail.component';
 import { StatisticsComponent } from './features/statistics/statistics/statistics.component';
+import { CreateProductComponent } from './features/products/create-product/create-product.component';
 
 
 export const routes: Routes = [
@@ -82,4 +83,8 @@ export const routes: Routes = [
     path: 'user/address/:userId',
     component: AddressListComponent,
   },
+  {
+    path:'admin/product/add',
+    component:CreateProductComponent,
+  }
 ];

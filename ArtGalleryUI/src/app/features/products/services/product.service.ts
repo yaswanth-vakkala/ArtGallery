@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 import { environment } from '../../../../environments/environment.development';
+import { CreateProduct } from '../models/create-product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,12 @@ export class ProductService {
   getProductById(productId: string): Observable<Product> {
     return this.http.get<Product>(
       `${environment.apiBaseUrl}/api/product/${productId}`,
+    );
+  }
+  createProduct(model: CreateProduct): Observable<void>{
+    return this.http.post<void>(
+      `${environment.apiBaseUrl}/api/product?addAuth=true`,
+      model
     );
   }
 }

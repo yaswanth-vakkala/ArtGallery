@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { SharedService } from '../../../common/services/shared.service';
 import { ProductCardComponent } from '../product-card/product-card.component';
+// import { SearchComponent } from "../../search/search.component";
 
 @Component({
   selector: 'app-product-list',
@@ -23,6 +24,13 @@ export class ProductListComponent implements OnInit {
   ) {
     
   }
+
+  // searchText:string='';
+
+  // onSearchTextEntered(searchValue: string){
+  //   this.searchText=searchValue;
+  //   // console.log(this.searchText);
+  // }
 
   ngOnInit(): void {
     this.products$ = this.productService.getAllProducts();
