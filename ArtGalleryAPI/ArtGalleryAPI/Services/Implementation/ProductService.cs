@@ -15,8 +15,9 @@ namespace ArtGalleryAPI.Services.Implementation
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync(string? query = null, string? sortBy = null, string? sortOrder = null)
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(int pageNumber, int pageSize, string? query = null, string? sortBy = null, string? sortOrder = null)
         {
+            var skipResults = (pageNumber - 1) * pageSize;
             var products = dbContext.Product.Include(c => c.Category).AsQueryable();
 
             if (string.IsNullOrWhiteSpace(query) == false)
@@ -36,6 +37,8 @@ namespace ArtGalleryAPI.Services.Implementation
                     products = isDesc ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name);
                 }
             }
+
+            products = products.Skip(skipResults).Take(pageSize);
             
             return await products.ToListAsync();
         }
@@ -44,6 +47,12 @@ namespace ArtGalleryAPI.Services.Implementation
         {
             var product = await dbContext.Product.Include(c => c.Category).SingleOrDefaultAsync(product => product.ProductId == productId);
             return product;
+        }
+
+        public async Task<int> GetProductsCountAsync()
+        {
+            var productCount = await dbContext.Product.CountAsync();
+            return productCount;
         }
 
         public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(Guid categoryId)

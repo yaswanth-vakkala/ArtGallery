@@ -17,6 +17,10 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 })
 export class ProductListComponent implements OnInit {
   products$?: Observable<Product[]>;
+  productsCount: number = 0;
+  pageNumber: number = 1;
+  pageSize: number = 5;
+  paginationList: number[] = [];
   constructor(
     private productService: ProductService,
     private router: Router,
@@ -33,10 +37,37 @@ export class ProductListComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-    this.products$ = this.productService.getAllProducts();
+    this.productService.getProductCount().subscribe({
+      next: (res) => {
+        this.productsCount = res;
+        this.paginationList = new Array(Math.ceil(res / this.pageSize));
+      }
+    });
+    this.products$ = this.productService.getAllProducts(undefined,undefined,undefined,this.pageNumber, this.pageSize);
     this.sharedService.message$.subscribe((query) => {
       this.search(query);
     });
+  }
+
+  getPage(pageNumber: number) {
+    this.pageNumber = pageNumber;
+    this.products$ = this.productService.getAllProducts(undefined,undefined,undefined,this.pageNumber, this.pageSize);
+  }
+
+  getPreviousPage() {
+    if (this.pageNumber - 1 < 1) {
+      return;
+    }
+    this.pageNumber -= 1;
+    this.products$ = this.productService.getAllProducts(undefined,undefined,undefined,this.pageNumber, this.pageSize);
+  }
+
+  getNextPage() {
+    if (this.pageNumber + 1 > this.paginationList.length) {
+      return;
+    }
+    this.pageNumber += 1;
+    this.products$ = this.productService.getAllProducts(undefined,undefined,undefined,this.pageNumber, this.pageSize);
   }
 
   search(query: string){

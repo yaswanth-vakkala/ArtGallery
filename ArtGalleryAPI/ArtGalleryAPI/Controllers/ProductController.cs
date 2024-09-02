@@ -28,11 +28,12 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>list of all products</returns>
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts([FromQuery] string? query, [FromQuery] string? sortBy, [FromQuery] string? sortOrder)
+        public async Task<IActionResult> GetAllProducts([FromQuery] string? query, [FromQuery] string? sortBy, [FromQuery] string? sortOrder
+            ,[FromQuery] int pageNumber=1, [FromQuery] int pageSize=2)
         {
             try
             {
-                var products = await productService.GetAllProductsAsync(query, sortBy, sortOrder);
+                var products = await productService.GetAllProductsAsync(pageNumber, pageSize, query, sortBy, sortOrder);
                 List<ProductDto> result = new List<ProductDto>();
                 foreach (Product product in products)
                 {
@@ -55,6 +56,20 @@ namespace ArtGalleryAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("count")]
+        public async Task<IActionResult> GetProductsCount()
+        {
+            try
+            {
+                var productCount = await productService.GetProductsCountAsync();
+                return Ok(productCount);
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
