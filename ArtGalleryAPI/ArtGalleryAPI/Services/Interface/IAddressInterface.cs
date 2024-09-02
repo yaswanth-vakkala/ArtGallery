@@ -10,5 +10,6 @@ namespace ArtGalleryAPI.Services.Interface
         Task<Address> AddAddressAsync(Address newAddress);
         Task<Address>? UpdateAddressAsync(Guid addressId, UpdateAddressDto updatedAddress);
         Task<bool> DeleteAddressAsync(Guid addressId);
+        Task<IEnumerable<Address>> GetAddressesByUserIdAsync(string userId);
     }
 }

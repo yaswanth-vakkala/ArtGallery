@@ -64,7 +64,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>filtered order</returns>
         [HttpGet]
         [Route("{orderId:Guid}")]
-        public async Task<IActionResult> GetorderById([FromRoute] Guid orderId)
+        public async Task<IActionResult> GetOrderById([FromRoute] Guid orderId)
         {
             try
             {
@@ -84,6 +84,33 @@ namespace ArtGalleryAPI.Controllers
             }
         }
 
+
+        /// <summary>
+        /// returns the filtered order's record based on user id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>filtered orders</returns>
+        [HttpGet]
+        [Route("user/{userId}")]
+        public async Task<IActionResult> GetOrdersByUserId([FromRoute] string userId)
+        {
+            try
+            {
+                var orders = await orderService.GetOrdersByUserIdAsync(userId);
+                if (orders == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(orders);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         /// <summary>
         /// add's a new order to db

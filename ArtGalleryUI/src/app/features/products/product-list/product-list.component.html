@@ -1,74 +1,67 @@
-<!-- <div class="container">
-  <h1 class="mt-3">Products List</h1>
-  <div class="d-flex justify-content-end mt-3">
-    <a [routerLink]="['/admin/categories/add']" class="btn btn-secondary"
-      >Add Product</a
+<div class="text-end mr-28">
+  <details class="dropdown dropdown-end">
+    <summary class="btn m-1">Sort By</summary>
+    <ul
+      class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
     >
-  </div>
-  <div class="container">
-    @if (products$ | async; as products) {
-      <table class="table table-bordered mt-3">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (product of products; track product.productId) {
-            <tr>
-              <td>{{ product.productId }}</td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.description }}</td>
-              <th>
-                <div class="d-flex justify-content-around">
-                  <a
-                    class="btn btn-secondary"
-                    [routerLink]="['/admin/categories/edit', product.productId]"
-                  >
-                    <i class="bi bi-pencil"></i>
-                  </a>
-                </div>
-              </th>
-            </tr>
-          }
-        </tbody>
-      </table>
-    }
-  </div>
+      <li><a (click)="sort('Price', 'asc')">Price (asc)</a></li>
+      <li><a (click)="sort('Price', 'desc')">Price (desc)</a></li>
+      <li><a (click)="sort('Name', 'asc')">Name (asc)</a></li>
+      <li><a (click)="sort('Name', 'desc')">Name (desc)</a></li>
+    </ul>
+  </details>
 </div>
 
-@if (products$ | async; as products) {
-  @for (product of products; track product.productId) {
-    <div class="my-3 p-3 rounded">
-      <a href="{{ product.productId }}">
-        <img src="{{ product.imageUrl }}" alt="{{ product.name }}" />
-      </a>
-      <a href="">
-        <div>
-          <strong>{{ product.name }}</strong>
-        </div>
-      </a>
-      <h3>
-        {{ product.price }}
-      </h3>
-    </div>
-  }
-} -->
 <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-4 ml-16 mt-4">
+
+  <!-- @if (products$ | async; as products) -->
   @if (products$ | async; as products) {
     @for (product of products; track product.productId) {
-      <app-product-card
-        id="{{ product.productId }}"
-        title="{{ product.name }}"
-        description="{{ product.description }}"
-        imageUrl="{{ product.imageUrl }}"
-        price="{{ product.price }}"
-      />
-    }
-  } @else {
+        <!-- @if(searchText=='' || product.name.toLowerCase().includes(searchText)){ -->
+        <app-product-card
+          id="{{ product.productId }}"
+          title="{{ product.name }}"
+          description="{{ product.description }}"
+          imageUrl="{{ product.imageUrl }}"
+          price="{{ product.price }}"
+        />
+        <!-- } -->
+     }
+    
+  } 
+  @else {
     <h1>Nothing to show!</h1>
   }
 </div>
+
+@if(products$){
+  <div class="flex justify-center mt-5 mb-10">
+    <div class="join">
+      <button class="join-item btn" (click)="getPage(1)">«</button>
+      <button class="join-item btn" (click)="getPreviousPage()">&lt;</button>
+      <button class="join-item btn btn-active" (click)="getPage(this.pageNumber)">{{this.pageNumber}}</button>
+      @if(this.pageNumber + 1 <= this.paginationList.length){
+        <button class="join-item btn" (click)="getPage(this.pageNumber+1)">{{this.pageNumber+1}}</button>
+      }
+      @if(this.pageNumber + 2 <= this.paginationList.length){
+        <button class="join-item btn" (click)="getPage(this.pageNumber+2)">{{this.pageNumber+2}}</button>
+      }
+      @if(this.pageNumber + 3 <= this.paginationList.length){
+        <button class="join-item btn" (click)="getPage(this.pageNumber+3)">{{this.pageNumber+3}}</button>
+      }
+      @if(this.pageNumber + 4 <= this.paginationList.length){
+        <button class="join-item btn" (click)="getPage(this.pageNumber+4)">{{this.pageNumber+4}}</button>
+      }
+      <!-- @for(item of paginationList; track $index; let  i = $index){
+        @if(i+1 == this.pageNumber){
+          <button class="join-item btn btn-active" (click)="getPage(i + 1)">{{i+1}}</button>
+        }@else {
+          <button class="join-item btn" (click)="getPage(i + 1)">{{i+1}}</button>
+        }
+      } -->
+
+      <button class="join-item btn" (click)="getNextPage()">&gt;</button>
+      <button class="join-item btn" (click)="getPage(this.paginationList.length)">»</button>
+    </div>
+  </div>
+}

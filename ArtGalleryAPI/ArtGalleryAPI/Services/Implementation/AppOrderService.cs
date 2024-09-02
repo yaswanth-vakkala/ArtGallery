@@ -30,6 +30,41 @@ namespace ArtGalleryAPI.Services.Implementation
             var order = await dbContext.AppOrder.SingleOrDefaultAsync(o => o.OrderId == orderId);
             return order;
         }
+
+        public async Task<IEnumerable<AppOrdersFullDto>>? GetOrdersByUserIdAsync(string userId)
+        {
+            List<AppOrdersFullDto> appOrdersFull = new List<AppOrdersFullDto>();
+            var orders = await dbContext.AppOrder.Where(o => o.AppUserId == userId).ToListAsync();
+            foreach (var order in orders)
+            {
+                var orderItems = await dbContext.OrderItem.Where(o => o.OrderId == order.OrderId).ToListAsync();
+                List<OrderItemsFullDto> orderItemsFulls = new List<OrderItemsFullDto>();
+                foreach (var orderItem in orderItems)
+                {
+                    var product = await dbContext.Product.SingleOrDefaultAsync(p => p.ProductId == orderItem.ProductId);
+                    orderItemsFulls.Add(new OrderItemsFullDto
+                    {
+                        OrderItemId = orderItem.OrderItemId,
+                        Status = orderItem.Status,
+                        ProductCost = orderItem.ProductCost,
+                        ShippingCost = orderItem.ShippingCost,
+                        TaxCost = orderItem.TaxCost,
+                        OrderId = orderItem.OrderId,
+                        Product = product
+                    });
+                }
+                appOrdersFull.Add(new AppOrdersFullDto()
+                {
+                    AddressId = order.AddressId,
+                    PaymentId = order.PaymentId,
+                    AppUserId = order.AppUserId,
+                    CreatedAt = order.CreatedAt,
+                    OrderId = order.OrderId,
+                    OrderItems = orderItemsFulls
+                });
+            }
+            return appOrdersFull;
+        }
         public async Task<AppOrder> CreateOrderAsync(AppOrder newOrder)
         {
             await dbContext.AppOrder.AddAsync(newOrder);

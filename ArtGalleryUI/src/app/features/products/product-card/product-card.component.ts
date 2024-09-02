@@ -26,7 +26,7 @@ export class ProductCardComponent implements OnDestroy {
   model?: Cart;
 
   constructor(
-    private cardService: CartService,
+    private cartService: CartService,
     private cookieService: CookieService,
   ) {}
 
@@ -42,7 +42,7 @@ export class ProductCardComponent implements OnDestroy {
       appUserId: appUserId,
       productId: productId,
     };
-    this.addCartSubscription = this.cardService.addCart(this.model).subscribe({
+    this.addCartSubscription = this.cartService.addCart(this.model).subscribe({
       next: (res) => {},
     });
   }

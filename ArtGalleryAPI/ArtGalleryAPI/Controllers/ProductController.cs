@@ -28,11 +28,12 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>list of all products</returns>
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<IActionResult> GetAllProducts([FromQuery] string? query, [FromQuery] string? sortBy, [FromQuery] string? sortOrder
+            ,[FromQuery] int pageNumber=1, [FromQuery] int pageSize=2)
         {
             try
             {
-                var products = await productService.GetAllProductsAsync();
+                var products = await productService.GetAllProductsAsync(pageNumber, pageSize, query, sortBy, sortOrder);
                 List<ProductDto> result = new List<ProductDto>();
                 foreach (Product product in products)
                 {
@@ -55,6 +56,20 @@ namespace ArtGalleryAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("count")]
+        public async Task<IActionResult> GetProductsCount()
+        {
+            try
+            {
+                var productCount = await productService.GetProductsCountAsync();
+                return Ok(productCount);
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
@@ -294,6 +309,30 @@ namespace ArtGalleryAPI.Controllers
             try
             {
                 var deleteStatus = await productService.DeleteProductAsync(productId);
+                return Ok(deleteStatus);
+            }
+            catch (InvalidDeletionException de)
+            {
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// delete product's in db based on id's
+        /// </summary>
+        /// <param name="productIds"></param>
+        /// <returns>bool representing state of operation</returns>
+        [HttpPost]
+        [Route("deleteproducts")]
+        public async Task<IActionResult> DeleteProducts([FromBody] Guid[] productIds)
+        {
+            try
+            {
+                var deleteStatus = await productService.DeleteProductsAsync(productIds);
                 return Ok(deleteStatus);
             }
             catch (InvalidDeletionException de)

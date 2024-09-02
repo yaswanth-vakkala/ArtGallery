@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { AddAddress } from '../models/add-address.model';
 import { UpdateAddress } from '../models/update-address.model';
+import { AddressList } from '../models/address-list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,12 @@ export class AddressService {
     getAddressById(addressId: string): Observable<Address> {
       return this.http.get<Address>(
         `${environment.apiBaseUrl}/api/address/${addressId}`
+      );
+    }
+
+    getAddressesByUserId(userId:string): Observable<AddressList[]>{
+      return this.http.get<AddressList[]>(
+        `${environment.apiBaseUrl}/api/address/appuser/${userId}`
       );
     }
 

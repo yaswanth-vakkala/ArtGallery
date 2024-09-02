@@ -15,16 +15,44 @@ namespace ArtGalleryAPI.Services.Implementation
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(int pageNumber, int pageSize, string? query = null, string? sortBy = null, string? sortOrder = null)
         {
-            var products = await dbContext.Product.Include(c => c.Category).ToListAsync();
-            return products;
+            var skipResults = (pageNumber - 1) * pageSize;
+            var products = dbContext.Product.Include(c => c.Category).AsQueryable();
+
+            if (string.IsNullOrWhiteSpace(query) == false)
+            {
+                products = products.Where(x => x.Name.Contains(query));
+            }
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (string.Equals(sortBy,"Price", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    products = isDesc ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
+                } else if (string.Equals(sortBy, "Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    products = isDesc ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name);
+                }
+            }
+
+            products = products.Skip(skipResults).Take(pageSize);
+            
+            return await products.ToListAsync();
         }
 
         public async Task<Product>? GetProductByIdAsync(Guid productId)
         {
             var product = await dbContext.Product.Include(c => c.Category).SingleOrDefaultAsync(product => product.ProductId == productId);
             return product;
+        }
+
+        public async Task<int> GetProductsCountAsync()
+        {
+            var productCount = await dbContext.Product.CountAsync();
+            return productCount;
         }
 
         public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
@@ -84,6 +112,20 @@ namespace ArtGalleryAPI.Services.Implementation
                 await dbContext.SaveChangesAsync();
                 return true;
             }
+        }
+
+        public async Task<bool> DeleteProductsAsync(Guid[] productIds)
+        {
+            foreach (var productId in productIds)
+            {
+                var products = await dbContext.Product.Where(p => p.ProductId == productId).ToListAsync();
+                foreach (var product in products)
+                {
+                    product.Status = "Deleted";
+                }
+            }
+            await dbContext.SaveChangesAsync();
+            return true;
         }
     }
 }
