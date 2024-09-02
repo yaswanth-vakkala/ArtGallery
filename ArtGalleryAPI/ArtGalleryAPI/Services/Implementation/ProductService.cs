@@ -15,9 +15,15 @@ namespace ArtGalleryAPI.Services.Implementation
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync(string? sortBy = null, string? sortOrder = null)
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(string? query = null, string? sortBy = null, string? sortOrder = null)
         {
             var products = dbContext.Product.Include(c => c.Category).AsQueryable();
+
+            if (string.IsNullOrWhiteSpace(query) == false)
+            {
+                products = products.Where(x => x.Name.Contains(query));
+            }
+
             if (string.IsNullOrWhiteSpace(sortBy) == false)
             {
                 if (string.Equals(sortBy,"Price", StringComparison.OrdinalIgnoreCase))

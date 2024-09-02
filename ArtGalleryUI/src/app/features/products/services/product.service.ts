@@ -10,8 +10,13 @@ import { environment } from '../../../../environments/environment.development';
 export class ProductService {
   constructor(private http: HttpClient) {}
 
-  getAllProducts(sortBy?:string, sortOrder?:string): Observable<Product[]> {
+  getAllProducts(query?:string, sortBy?:string, sortOrder?:string): Observable<Product[]> {
     let params = new HttpParams();
+
+    if(query){
+      params = params.set('query', query);
+    }
+
     if(sortBy){
       params = params.set('sortBy', sortBy);
     }
