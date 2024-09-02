@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
   products$?: Observable<Product[]>;
   productsCount: number = 0;
   pageNumber: number = 1;
-  pageSize: number = 2;
+  pageSize: number = 8;
   paginationList: number[] = [];
   query: string = '';
   sortBy: string = '';

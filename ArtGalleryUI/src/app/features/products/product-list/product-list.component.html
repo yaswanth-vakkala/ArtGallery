@@ -37,12 +37,23 @@
     <div class="join">
       <button class="join-item btn" (click)="getPage(1)">«</button>
       <button class="join-item btn" (click)="getPreviousPage()">&lt;</button>
+      @if (this.pageNumber - 2 > 0) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber - 2)">
+          {{ this.pageNumber - 2 }}
+        </button>
+      }
+      @if (this.pageNumber - 1 > 0) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber - 1)">
+          {{ this.pageNumber - 1 }}
+        </button>
+      }
       <button
         class="join-item btn btn-active"
         (click)="getPage(this.pageNumber)"
       >
         {{ this.pageNumber }}
       </button>
+
       @if (this.pageNumber + 1 <= this.paginationList.length) {
         <button class="join-item btn" (click)="getPage(this.pageNumber + 1)">
           {{ this.pageNumber + 1 }}
@@ -58,11 +69,11 @@
           {{ this.pageNumber + 3 }}
         </button>
       }
-      @if (this.pageNumber + 4 <= this.paginationList.length) {
+      <!-- @if (this.pageNumber + 4 <= this.paginationList.length) {
         <button class="join-item btn" (click)="getPage(this.pageNumber + 4)">
           {{ this.pageNumber + 4 }}
         </button>
-      }
+      } -->
       <!-- @for(item of paginationList; track $index; let  i = $index){
         @if(i+1 == this.pageNumber){
           <button class="join-item btn btn-active" (click)="getPage(i + 1)">{{i+1}}</button>
