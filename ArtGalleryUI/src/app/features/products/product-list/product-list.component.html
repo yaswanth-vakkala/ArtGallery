@@ -10,47 +10,58 @@
       <li><a (click)="sort('Name', 'desc')">Name (desc)</a></li>
     </ul>
   </details>
+  <button class="btn ghost" (click)="clearFilters()">Clear Filters</button>
 </div>
 
 <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-4 ml-16 mt-4">
-
   <!-- @if (products$ | async; as products) -->
   @if (products$ | async; as products) {
     @for (product of products; track product.productId) {
-        <!-- @if(searchText=='' || product.name.toLowerCase().includes(searchText)){ -->
-        <app-product-card
-          id="{{ product.productId }}"
-          title="{{ product.name }}"
-          description="{{ product.description }}"
-          imageUrl="{{ product.imageUrl }}"
-          price="{{ product.price }}"
-        />
-        <!-- } -->
-     }
-    
-  } 
-  @else {
+      <!-- @if(searchText=='' || product.name.toLowerCase().includes(searchText)){ -->
+      <app-product-card
+        id="{{ product.productId }}"
+        title="{{ product.name }}"
+        description="{{ product.description }}"
+        imageUrl="{{ product.imageUrl }}"
+        price="{{ product.price }}"
+      />
+      <!-- } -->
+    }
+  } @else {
     <h1>Nothing to show!</h1>
   }
 </div>
 
-@if(products$){
+@if (products$) {
   <div class="flex justify-center mt-5 mb-10">
     <div class="join">
       <button class="join-item btn" (click)="getPage(1)">«</button>
       <button class="join-item btn" (click)="getPreviousPage()">&lt;</button>
-      <button class="join-item btn btn-active" (click)="getPage(this.pageNumber)">{{this.pageNumber}}</button>
-      @if(this.pageNumber + 1 <= this.paginationList.length){
-        <button class="join-item btn" (click)="getPage(this.pageNumber+1)">{{this.pageNumber+1}}</button>
+      <button
+        class="join-item btn btn-active"
+        (click)="getPage(this.pageNumber)"
+      >
+        {{ this.pageNumber }}
+      </button>
+      @if (this.pageNumber + 1 <= this.paginationList.length) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber + 1)">
+          {{ this.pageNumber + 1 }}
+        </button>
       }
-      @if(this.pageNumber + 2 <= this.paginationList.length){
-        <button class="join-item btn" (click)="getPage(this.pageNumber+2)">{{this.pageNumber+2}}</button>
+      @if (this.pageNumber + 2 <= this.paginationList.length) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber + 2)">
+          {{ this.pageNumber + 2 }}
+        </button>
       }
-      @if(this.pageNumber + 3 <= this.paginationList.length){
-        <button class="join-item btn" (click)="getPage(this.pageNumber+3)">{{this.pageNumber+3}}</button>
+      @if (this.pageNumber + 3 <= this.paginationList.length) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber + 3)">
+          {{ this.pageNumber + 3 }}
+        </button>
       }
-      @if(this.pageNumber + 4 <= this.paginationList.length){
-        <button class="join-item btn" (click)="getPage(this.pageNumber+4)">{{this.pageNumber+4}}</button>
+      @if (this.pageNumber + 4 <= this.paginationList.length) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber + 4)">
+          {{ this.pageNumber + 4 }}
+        </button>
       }
       <!-- @for(item of paginationList; track $index; let  i = $index){
         @if(i+1 == this.pageNumber){
@@ -61,7 +72,12 @@
       } -->
 
       <button class="join-item btn" (click)="getNextPage()">&gt;</button>
-      <button class="join-item btn" (click)="getPage(this.paginationList.length)">»</button>
+      <button
+        class="join-item btn"
+        (click)="getPage(this.paginationList.length)"
+      >
+        »
+      </button>
     </div>
   </div>
 }

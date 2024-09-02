@@ -21,14 +21,14 @@ export class ProductListComponent implements OnInit {
   pageNumber: number = 1;
   pageSize: number = 2;
   paginationList: number[] = [];
-  query:string='';
+  query: string = '';
+  sortBy: string = '';
+  sortOrder: string = '';
   constructor(
     private productService: ProductService,
     private router: Router,
-    private sharedService: SharedService
-  ) {
-    
-  }
+    private sharedService: SharedService,
+  ) {}
 
   // searchText:string='';
 
@@ -42,9 +42,15 @@ export class ProductListComponent implements OnInit {
       next: (res) => {
         this.productsCount = res;
         this.paginationList = new Array(Math.ceil(res / this.pageSize));
-      }
+      },
     });
-    this.products$ = this.productService.getAllProducts(undefined,undefined,undefined,this.pageNumber, this.pageSize);
+    this.products$ = this.productService.getAllProducts(
+      undefined,
+      undefined,
+      undefined,
+      this.pageNumber,
+      this.pageSize,
+    );
     this.sharedService.message$.subscribe((query) => {
       this.query = query;
       this.search(query);
@@ -53,7 +59,13 @@ export class ProductListComponent implements OnInit {
 
   getPage(pageNumber: number) {
     this.pageNumber = pageNumber;
-    this.products$ = this.productService.getAllProducts(undefined,undefined,undefined,this.pageNumber, this.pageSize);
+    this.products$ = this.productService.getAllProducts(
+      this.query,
+      this.sortBy,
+      this.sortOrder,
+      this.pageNumber,
+      this.pageSize,
+    );
   }
 
   getPreviousPage() {
@@ -61,7 +73,13 @@ export class ProductListComponent implements OnInit {
       return;
     }
     this.pageNumber -= 1;
-    this.products$ = this.productService.getAllProducts(undefined,undefined,undefined,this.pageNumber, this.pageSize);
+    this.products$ = this.productService.getAllProducts(
+      this.query,
+      this.sortBy,
+      this.sortOrder,
+      this.pageNumber,
+      this.pageSize,
+    );
   }
 
   getNextPage() {
@@ -69,20 +87,50 @@ export class ProductListComponent implements OnInit {
       return;
     }
     this.pageNumber += 1;
-    this.products$ = this.productService.getAllProducts(undefined,undefined,undefined,this.pageNumber, this.pageSize);
+    this.products$ = this.productService.getAllProducts(
+      this.query,
+      this.sortBy,
+      this.sortOrder,
+      this.pageNumber,
+      this.pageSize,
+    );
   }
 
-  search(query: string){
-    this.products$ = this.productService.getAllProducts(query, undefined, undefined, this.pageNumber, this.pageSize);
+  search(query: string) {
+    this.products$ = this.productService.getAllProducts(
+      query,
+      undefined,
+      undefined,
+      this.pageNumber,
+      this.pageSize,
+    );
+    this.query = query;
     this.productService.getProductCount(query).subscribe({
       next: (res) => {
         this.productsCount = res;
         this.paginationList = new Array(Math.ceil(res / this.pageSize));
-      }
+      },
     });
   }
 
   sort(sortBy: string, sortOrder: string) {
-    this.products$ = this.productService.getAllProducts(this.query, sortBy, sortOrder, this.pageNumber, this.pageSize);
+    this.sortBy = sortBy;
+    this.sortOrder = sortOrder;
+    this.products$ = this.productService.getAllProducts(
+      this.query,
+      sortBy,
+      sortOrder,
+      this.pageNumber,
+      this.pageSize,
+    );
+  }
+
+  clearFilters() {
+    window.location.reload();
+    // this.router
+    //   .navigateByUrl('/admin/categories', { skipLocationChange: true })
+    //   .then(() => {
+    //     this.router.navigate([`/`]);
+    //   });
   }
 }
