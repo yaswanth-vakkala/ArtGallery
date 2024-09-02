@@ -34,7 +34,7 @@ namespace ArtGalleryAPI.Services.Implementation
         public async Task<IEnumerable<AppOrdersFullDto>>? GetOrdersByUserIdAsync(string userId)
         {
             List<AppOrdersFullDto> appOrdersFull = new List<AppOrdersFullDto>();
-            var orders = await dbContext.AppOrder.Where(o => o.AppUserId == userId).ToListAsync();
+            var orders = await dbContext.AppOrder.Where(o => o.AppUserId == userId).OrderByDescending(o => o.CreatedAt).ToListAsync();
             foreach (var order in orders)
             {
                 var orderItems = await dbContext.OrderItem.Where(o => o.OrderId == order.OrderId).ToListAsync();
