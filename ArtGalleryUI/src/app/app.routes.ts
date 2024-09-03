@@ -16,6 +16,9 @@ import { OrdersListComponent } from './features/orders/orders-list/orders-list.c
 import { OrderItemDetailComponent } from './features/orderItem/order-item-detail/order-item-detail.component';
 import { StatisticsComponent } from './features/statistics/statistics/statistics.component';
 import { CreateProductComponent } from './features/products/create-product/create-product.component';
+import { UserListComponent } from './features/user/user-list/user-list.component';
+import { AddUserComponent } from './features/user/add-user/add-user.component';
+import { EditUserComponent } from './features/user/edit-user/edit-user.component';
 
 
 export const routes: Routes = [
@@ -46,6 +49,18 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'admin/users',
+    component : UserListComponent,
+  },
+  {
+    path: 'admin/users/add',
+    component: AddUserComponent
+  },
+  {
+    path: 'admin/users/edit/:id',
+    component: EditUserComponent
   },
   {
     path: 'admin/categories',

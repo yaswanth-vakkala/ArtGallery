@@ -23,16 +23,37 @@ namespace ArtGalleryAPI.Controllers
         /// </summary>
         /// <returns>list of all users</returns>
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers([FromQuery] string? query, [FromQuery] string? sortBy, [FromQuery] string? sortOrder
+            , [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
-                var users = await appUserService.GetAllUsersAsync();
+                var users = await appUserService.GetAllUsersAsync(pageNumber, pageSize, query, sortBy, sortOrder);
                 return Ok(users);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// get count of all users
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("count")]
+        public async Task<IActionResult> GetUserCount([FromQuery] string query = null)
+        {
+            try
+            {
+                var userCount = await appUserService.GetUserCountAsync(query);
+                return Ok(userCount);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 

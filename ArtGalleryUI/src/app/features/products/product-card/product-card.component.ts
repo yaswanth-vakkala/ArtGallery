@@ -21,6 +21,7 @@ export class ProductCardComponent implements OnDestroy {
   @Input() description: string = '';
   @Input() imageUrl: string = '';
   @Input() price: string = '';
+  addedToCart:boolean = false;
 
   private addCartSubscription?: Subscription;
   model?: Cart;
@@ -43,7 +44,9 @@ export class ProductCardComponent implements OnDestroy {
       productId: productId,
     };
     this.addCartSubscription = this.cartService.addCart(this.model).subscribe({
-      next: (res) => {},
+      next: (res) => {
+        this.addedToCart = true;
+      },
     });
   }
 

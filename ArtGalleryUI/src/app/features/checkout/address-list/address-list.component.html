@@ -1,9 +1,15 @@
 <div class="overflow-x-auto w-[60%] mx-auto">
   <div class="flex justify-between">
     <h1 class="my-5 font-bold text-2xl">My Addresses</h1>
-    <a [routerLink]="['/user/address/add']" class="btn btn-primary my-5"
-      >Add Address</a
-    >
+    @if (parentComponent === "CartList") {
+      <a [routerLink]="['/user/address/',userId]" class="btn btn-primary my-5"
+        >Manage Addresses</a
+      >
+    }@else{
+      <a [routerLink]="['/user/address/add']" class="btn btn-primary my-5"
+        >Add Address</a
+      >
+    }
   </div>
   @if (model) {
     <!-- <table class="table">

@@ -59,6 +59,11 @@ namespace ArtGalleryAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// get count of the total proucts
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("count")]
         public async Task<IActionResult> GetProductsCount([FromQuery] string query=null)
