@@ -35,7 +35,7 @@ export class CreateProductComponent implements OnDestroy
     .createProduct(this.model)
     .subscribe({
       next:(response)=>{
-        this.router.navigateByUrl('/admin/product/add');
+        this.router.navigateByUrl('/admin/products');
       },
     });
   }
