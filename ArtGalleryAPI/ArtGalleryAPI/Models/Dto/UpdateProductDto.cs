@@ -31,6 +31,6 @@ namespace ArtGalleryAPI.Models.Dto
         [Required]
         public required Guid CategoryId { get; set; }
 
-        public Category Category { get; set; }
+        //public Category Category { get; set; }
     }
 }

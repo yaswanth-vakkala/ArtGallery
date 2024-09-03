@@ -19,6 +19,8 @@ import { CreateProductComponent } from './features/products/create-product/creat
 import { UserListComponent } from './features/user/user-list/user-list.component';
 import { AddUserComponent } from './features/user/add-user/add-user.component';
 import { EditUserComponent } from './features/user/edit-user/edit-user.component';
+import { AllProductsComponent } from './features/products/all-products/all-products.component';
+import { EditProductComponent } from './features/products/edit-product/edit-product.component';
 
 
 export const routes: Routes = [
@@ -101,5 +103,16 @@ export const routes: Routes = [
   {
     path:'admin/product/add',
     component:CreateProductComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path:'admin/product/edit/:productId',
+    component:EditProductComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path:'admin/products',
+    component:AllProductsComponent,
+    canActivate: [authGuard],
   }
 ];

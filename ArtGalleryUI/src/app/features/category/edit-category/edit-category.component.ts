@@ -40,7 +40,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
   }
 
   onEditCategorySubmit() {
-    if (this.categoryId && this.model?.name && this.model?.name) {
+    if (this.categoryId && this.model?.name) {
       this.editCategorySubscription = this.categoryService
         .editCategory(this.categoryId, this.model)
         .subscribe({

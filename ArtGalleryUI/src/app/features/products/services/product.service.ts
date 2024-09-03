@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 import { environment } from '../../../../environments/environment.development';
 import { CreateProduct } from '../models/create-product.model';
+import { EditCategory } from '../../category/models/edit-category.model';
+import { EditProduct } from '../models/edit-product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -59,6 +61,18 @@ export class ProductService {
     return this.http.post<void>(
       `${environment.apiBaseUrl}/api/product?addAuth=true`,
       model
+    );
+  }
+  editProduct(productId:string,model:EditProduct):Observable<Product>{
+    return this.http.put<Product>(
+      `${environment.apiBaseUrl}/api/product/${productId}?addAuth=true`,
+      model
+    );
+  }
+
+  deleteProduct(productId: string): Observable<boolean>{
+    return this.http.delete<boolean>(
+      `${environment.apiBaseUrl}/api/product/${productId}?addAuth=true`,
     );
   }
 }

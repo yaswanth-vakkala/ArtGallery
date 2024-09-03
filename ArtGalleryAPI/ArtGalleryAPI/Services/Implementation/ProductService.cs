@@ -96,10 +96,18 @@ namespace ArtGalleryAPI.Services.Implementation
             }
             else
             {
-                dbContext.Entry(product).CurrentValues.SetValues(updatedProduct);
-                product.Category = updatedProduct.Category;
-                await dbContext.SaveChangesAsync();
-                return product;
+                var category = await dbContext.Category.SingleOrDefaultAsync(category => category.CategoryId == updatedProduct.CategoryId);
+                if (category == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    dbContext.Entry(product).CurrentValues.SetValues(updatedProduct);
+                    product.Category = category;
+                    await dbContext.SaveChangesAsync();
+                    return product;
+                }
             }
         }
 
