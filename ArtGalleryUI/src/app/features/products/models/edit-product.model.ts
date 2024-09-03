@@ -6,6 +6,5 @@ export interface EditProduct {
   imageUrl: string;
   price: number;
   status: string;
-  modifiedAt: Date;
   categoryId: string;
 }

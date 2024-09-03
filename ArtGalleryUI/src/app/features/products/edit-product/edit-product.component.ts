@@ -31,7 +31,15 @@ export class EditProductComponent implements OnInit, OnDestroy{
         if(this.productId){
           this.productService.getProductById(this.productId).subscribe({
             next: (response)=>{
-              this.model=response;
+              this.model={
+                name:response.name,
+                description: response.description,
+                imageUrl: response.imageUrl,
+                price: response.price,
+                status: response.status,
+                categoryId: response.category.categoryId,
+              }
+              // console.log(this.model);
             },
           });
         }
