@@ -1,38 +1,39 @@
 <div class="text-end mr-28">
-  <details class="dropdown dropdown-end">
-    <summary class="btn m-1">Sort By</summary>
-    <ul
-      class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-    >
-      <li><a (click)="sort('Price', 'asc')">Price (asc)</a></li>
-      <li><a (click)="sort('Price', 'desc')">Price (desc)</a></li>
-      <li><a (click)="sort('Name', 'asc')">Name (asc)</a></li>
-      <li><a (click)="sort('Name', 'desc')">Name (desc)</a></li>
-    </ul>
-  </details>
+  @if (products$ && productsCount > 0) {
+    <details class="dropdown dropdown-end">
+      <summary class="btn m-1">Sort By</summary>
+      <ul
+        class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+      >
+        <li><a (click)="sort('Price', 'asc')">Price (asc)</a></li>
+        <li><a (click)="sort('Price', 'desc')">Price (desc)</a></li>
+        <li><a (click)="sort('Name', 'asc')">Name (asc)</a></li>
+        <li><a (click)="sort('Name', 'desc')">Name (desc)</a></li>
+      </ul>
+    </details>
+  }
   <button class="btn ghost" (click)="clearFilters()">Clear Filters</button>
 </div>
 
-<div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-4 ml-16 mt-4">
-  <!-- @if (products$ | async; as products) -->
-  @if (products$ | async; as products) {
-    @for (product of products; track product.productId) {
-      <!-- @if(searchText=='' || product.name.toLowerCase().includes(searchText)){ -->
-      <app-product-card
-        id="{{ product.productId }}"
-        title="{{ product.name }}"
-        description="{{ product.description }}"
-        imageUrl="{{ product.imageUrl }}"
-        price="{{ product.price }}"
-      />
-      <!-- } -->
+@if (products$ && productsCount > 0) {
+  <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-4 ml-16 mt-4">
+    <!-- @if (products$ | async; as products) -->
+    @if (products$ | async; as products) {
+      @for (product of products; track product.productId) {
+        <!-- @if(searchText=='' || product.name.toLowerCase().includes(searchText)){ -->
+        <app-product-card
+          id="{{ product.productId }}"
+          title="{{ product.name }}"
+          description="{{ product.description }}"
+          imageUrl="{{ product.imageUrl }}"
+          price="{{ product.price }}"
+        />
+        <!-- } -->
+      }
+    } @else {
+      <h1>Nothing to show!</h1>
     }
-  } @else {
-    <h1>Nothing to show!</h1>
-  }
-</div>
-
-@if (products$) {
+  </div>
   <div class="flex justify-center mt-5 mb-10">
     <div class="join">
       <button class="join-item btn" (click)="getPage(1)">«</button>
@@ -91,4 +92,6 @@
       </button>
     </div>
   </div>
+} @else {
+  <div class="font-bold text-4xl text-center mt-10">No Results</div>
 }

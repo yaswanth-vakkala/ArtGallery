@@ -1,4 +1,4 @@
-@if (model) {
+@if (model && model.length > 0) {
   <div class="sm:w-full md:w-[60%] mx-auto">
     <h1 class="font-bold text-2xl mb-4">My Orders</h1>
     @for (order of model; track order.orderId) {
@@ -57,5 +57,7 @@
     }
   </div>
 } @else {
-  No orders!
+  <div class="text-center font-bold text-2xl mt-10">
+    You have no orders!
+  </div>
 }

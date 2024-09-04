@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
 import { CartService } from '../services/cart.service';
 import { CartResponse } from '../models/cart-response.model';
 import { Product } from '../../products/models/product.model';
@@ -18,12 +18,19 @@ import { AddOrderItem } from '../../orders/models/add-orderItem.model';
 import { OrderItem } from '../../orders/models/orderItem.model';
 import { AddressListComponent } from '../../checkout/address-list/address-list.component';
 import { AddressList } from '../../checkout/models/address-list.model';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-cart-list',
   standalone: true,
-  imports: [RouterLink, AsyncPipe, NgOptimizedImage, AddressListComponent, FormsModule],
+  imports: [
+    RouterLink,
+    AsyncPipe,
+    NgOptimizedImage,
+    AddressListComponent,
+    FormsModule,
+    NgIf,
+  ],
   templateUrl: './cart-list.component.html',
   styleUrl: './cart-list.component.css',
 })
@@ -42,6 +49,7 @@ export class CartListComponent implements OnInit, OnDestroy {
   orderItems: AddOrderItem[] = [];
   addressFlag: boolean = false;
   addressId?: string;
+  isFormSubmitted: boolean = false;
   private paramsSubscription?: Subscription;
   private getCartsSubscription?: Subscription;
   private getProductsSubscription?: Subscription;
@@ -62,7 +70,7 @@ export class CartListComponent implements OnInit, OnDestroy {
       paymentDate: new Date(),
       cardNumber: '',
       cardHolderName: '',
-      expiryDate: new Date()
+      expiryDate: new Date(),
     };
     this.orderModel = {
       appUserId: '',
@@ -134,11 +142,19 @@ export class CartListComponent implements OnInit, OnDestroy {
   }
 
   onCheckout() {
+    if (this.addressFlag) {
+      this.isFormSubmitted = true;
+    }
     this.addressFlag = true;
     this.paymentModel.amount = this.totalCost;
-    if(!this.paymentModel.amount || !this.paymentModel.cardNumber || !this.paymentModel.cardHolderName
-      || !this.paymentModel.expiryDate || !this.paymentModel.paymentDate){
-      return
+    if (
+      !this.paymentModel.amount ||
+      !this.paymentModel.cardNumber ||
+      !this.paymentModel.cardHolderName ||
+      !this.paymentModel.expiryDate ||
+      !this.paymentModel.paymentDate
+    ) {
+      return;
     }
     if (!this.addressId) {
       return;
@@ -182,7 +198,9 @@ export class CartListComponent implements OnInit, OnDestroy {
                               .deleteProducts(this.productIds)
                               .subscribe({
                                 next: (res) => {
-                                  this.router.navigateByUrl(`/myorders/${userId}`);
+                                  this.router.navigateByUrl(
+                                    `/myorders/${userId}`,
+                                  );
                                 },
                               });
                           },

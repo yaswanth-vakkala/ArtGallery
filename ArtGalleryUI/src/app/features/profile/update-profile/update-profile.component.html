@@ -1,12 +1,12 @@
 <!-- <div class="container"> -->
 <div class="w-96 mx-auto">
+  @if (model) {
     <div class="m-6">
       <h1 class="text-4xl font-medium text-center">Update Profile</h1>
     </div>
-    @if(model){
     <div class="rounded-md shadow-md p-5 box">
-    <form #form="ngForm" (ngSubmit)="onUpdateProfileSubmit()">
-      <!-- <label class="input input-bordered flex items-center gap-2 mb-2"> -->
+      <form #form="ngForm" (ngSubmit)="onUpdateProfileSubmit(form)">
+        <!-- <label class="input input-bordered flex items-center gap-2 mb-2"> -->
         <!-- <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -22,68 +22,133 @@
         </svg> -->
         <!-- </label> -->
         <div class="flex w-[100%] justify-between mb-5">
-            <label class="form-control w-[47%]">
-              <div class="label">
-                <span class="label-text">First Name</span>
-              </div>
-              <input
-                type="text"
-                placeholder=""
-                class="input input-bordered w-full max-w-xs"
-                id="firstName"
-                name="firstName"
-                [(ngModel)]="model.firstName"
-              />
-            </label>
-            <label class="form-control w-[47%]">
-              <div class="label">
-                <span class="label-text">Last Name</span>
-              </div>
-              <input
-                type="text"
-                placeholder=""
-                class="input input-bordered w-full max-w-xs"
-                id="lastName"
-                name="lastName"
-                [(ngModel)]="model.lastName"
-              />
-            </label>
-          </div>
-          <div class="flex w-[100%] justify-between mb-5">
-            <label class="form-control w-[47%]">
-              <div class="label">
-                <span class="label-text">Country Code</span>
-              </div>
-              <input
-                type="text"
-                placeholder=""
-                class="input input-bordered w-full max-w-xs"
-                id="countryCode"
-                name="countryCode"
-                [(ngModel)]="model.countryCode"
-              />
-            </label>
-            <label class="form-control w-[47%]">
-              <div class="label">
-                <span class="label-text">Phone Number</span>
-              </div>
-              <input
-                type="text"
-                placeholder=""
-                class="input input-bordered w-full max-w-xs"
-                id="phoneNumber"
-                name="phoneNumber"
-                [(ngModel)]="model.phoneNumber"
-              />
-            </label>
+          <label class="form-control w-[47%]">
+            <div class="label">
+              <span class="label-text">First Name</span>
+            </div>
+            <input
+              type="text"
+              placeholder=""
+              class="input input-bordered w-full max-w-xs"
+              id="firstName"
+              name="firstName"
+              required
+              minlength="2"
+              maxlength="50"
+              #firstName="ngModel"
+              [(ngModel)]="model.firstName"
+            />
+          </label>
+          <label class="form-control w-[47%]">
+            <div class="label">
+              <span class="label-text">Last Name</span>
+            </div>
+            <input
+              type="text"
+              placeholder=""
+              class="input input-bordered w-full max-w-xs"
+              id="lastName"
+              name="lastName"
+              maxlength="50"
+              #lastName="ngModel"
+              [(ngModel)]="model.lastName"
+            />
+          </label>
         </div>
-          <div class="m-5">
-            <button class="btn btn-primary w-full rounded-full text-lg font-medium">
-              Update
-            </button>
+        <div class="flex w-[100%] justify-between mb-5">
+          <label class="form-control w-[47%]">
+            <div class="label">
+              <span class="label-text">Country Code</span>
+            </div>
+            <input
+              type="text"
+              placeholder=""
+              class="input input-bordered w-full max-w-xs"
+              id="countryCode"
+              name="countryCode"
+              maxlength="6"
+              #countryCode="ngModel"
+              [(ngModel)]="model.countryCode"
+            />
+          </label>
+
+          <label class="form-control w-[47%]">
+            <div class="label">
+              <span class="label-text">Phone Number</span>
+            </div>
+            <input
+              type="text"
+              placeholder=""
+              class="input input-bordered w-full max-w-xs"
+              id="phoneNumber"
+              name="phoneNumber"
+              maxlength="15"
+              #phoneNumber="ngModel"
+              pattern="^\+?[1-9]\d{1,14}$"
+              [(ngModel)]="model.phoneNumber"
+            />
+          </label>
+        </div>
+        <div *ngIf="isFormSubmitted && firstName.invalid" class="text-red-700">
+          <div *ngIf="firstName.hasError('required')">
+            FirstName is required.
           </div>
-        </form> 
-    </div>  
-    }@else{Not found!}  
+          <div *ngIf="firstName.hasError('minlength')">
+            FirstName must be at least 2 characters.
+          </div>
+          <div *ngIf="firstName.hasError('maxlength')">
+            FirstName must be at most 50 characters.
+          </div>
+        </div>
+        <div
+          *ngIf="isFormSubmitted && phoneNumber.invalid"
+          class="text-red-700"
+        >
+          <div *ngIf="phoneNumber.hasError('maxlength')">
+            Phone Number must be at most 15 characters.
+          </div>
+          <div *ngIf="phoneNumber.hasError('pattern')">
+            Invalid phone number!
+          </div>
+        </div>
+        <div
+          *ngIf="isFormSubmitted && countryCode.invalid"
+          class="text-red-700"
+        >
+          <div *ngIf="countryCode.hasError('maxlength')">
+            CountryCode must be at most 6 characters.
+          </div>
+        </div>
+        <div *ngIf="isFormSubmitted && lastName.invalid" class="text-red-700">
+          <div *ngIf="lastName.hasError('maxlength')">
+            LastName must be at most 50 characters.
+          </div>
+        </div>
+        <div class="m-5">
+          <button
+            class="btn btn-primary w-full rounded-full text-lg font-medium"
+          >
+            Update
+          </button>
+        </div>
+      </form>
     </div>
+  } @else {
+    <div class="text-center mt-10 font-bold text-2xl">Profile not found!</div>
+  }
+</div>
 <!-- </div> -->
+@if (errMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-error">
+      <span>Update failed!</span>
+    </div>
+  </div>
+}
+@if (successMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-success">
+      <span>Updated successfully!</span>
+    </div>
+  </div>
+}

@@ -14,15 +14,18 @@ import { SharedService } from '../../services/shared.service';
 })
 export class NavbarComponent implements OnInit {
   user?: User;
-  query:string='';
-
+  query: string = '';
+  showSearchBox: boolean = false;
   constructor(
     private authService: AuthService,
     private router: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
   ) {}
 
   ngOnInit(): void {
+    this.router.events.subscribe(() => {
+      this.showSearchBox = this.router.url === '/';
+    });
     this.authService.user().subscribe({
       next: (response) => {
         this.user = response;
@@ -32,7 +35,7 @@ export class NavbarComponent implements OnInit {
     this.user = this.authService.getUser();
   }
 
-  onQuery(){
+  onQuery() {
     this.sharedService.sendMessage(this.query);
   }
 
