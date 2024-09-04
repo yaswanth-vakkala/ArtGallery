@@ -18,11 +18,12 @@ import { AddOrderItem } from '../../orders/models/add-orderItem.model';
 import { OrderItem } from '../../orders/models/orderItem.model';
 import { AddressListComponent } from '../../checkout/address-list/address-list.component';
 import { AddressList } from '../../checkout/models/address-list.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart-list',
   standalone: true,
-  imports: [RouterLink, AsyncPipe, NgOptimizedImage, AddressListComponent],
+  imports: [RouterLink, AsyncPipe, NgOptimizedImage, AddressListComponent, FormsModule],
   templateUrl: './cart-list.component.html',
   styleUrl: './cart-list.component.css',
 })
@@ -57,9 +58,11 @@ export class CartListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
   ) {
     this.paymentModel = {
-      amount: 1000,
-      paymentMethod: 'UPI',
+      amount: 0,
       paymentDate: new Date(),
+      cardNumber: '',
+      cardHolderName: '',
+      expiryDate: new Date()
     };
     this.orderModel = {
       appUserId: '',
@@ -127,11 +130,16 @@ export class CartListComponent implements OnInit, OnDestroy {
 
   selectAddress(address: AddressList) {
     this.addressId = address.addressId;
-    this.onCheckout();
+    // this.onCheckout();
   }
 
   onCheckout() {
     this.addressFlag = true;
+    this.paymentModel.amount = this.totalCost;
+    if(!this.paymentModel.amount || !this.paymentModel.cardNumber || !this.paymentModel.cardHolderName
+      || !this.paymentModel.expiryDate || !this.paymentModel.paymentDate){
+      return
+    }
     if (!this.addressId) {
       return;
     }
@@ -174,7 +182,7 @@ export class CartListComponent implements OnInit, OnDestroy {
                               .deleteProducts(this.productIds)
                               .subscribe({
                                 next: (res) => {
-                                  this.router.navigateByUrl('/');
+                                  this.router.navigateByUrl(`/myorders/${userId}`);
                                 },
                               });
                           },

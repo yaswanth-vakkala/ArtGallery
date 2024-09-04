@@ -16,8 +16,15 @@ namespace ArtGalleryAPI.Models.Domain
         public required DateTime PaymentDate { get; set; }
 
         [Required]
-        [MaxLength(100, ErrorMessage = "Payment method can have a maximum of 100 characters!")]
-        public required string PaymentMethod { get; set; }
+        [MaxLength(100, ErrorMessage = "Card Number can have a maximum of 100 characters!")]
+        public required string CardNumber { get; set; }
+
+        [Required]
+        [MaxLength(100, ErrorMessage = "Card Holder name can have a maximum of 100 characters!")]
+        public required string CardHolderName { get; set; }
+
+        [Required]
+        public required DateOnly ExpiryDate { get; set; }
 
         [Required]
         [MaxLength(30, ErrorMessage = "Payment status can have a maximum of 30 characters")]

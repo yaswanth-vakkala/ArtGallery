@@ -18,10 +18,15 @@ namespace ArtGalleryAPI.Models.Dto
 
 
         [Required]
-        [MaxLength(100, ErrorMessage = "Payment method can have a maximum of 100 characters!")]
-        public required string PaymentMethod { get; set; }
+        [MaxLength(100, ErrorMessage = "Card Number can have a maximum of 100 characters!")]
+        public required string CardNumber { get; set; }
 
+        [Required]
+        [MaxLength(100, ErrorMessage = "Card Holder name can have a maximum of 100 characters!")]
+        public required string CardHolderName { get; set; }
 
+        [Required]
+        public required string ExpiryDate { get; set; }
 
     }
 }

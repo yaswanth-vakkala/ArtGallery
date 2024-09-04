@@ -54,12 +54,20 @@
           {{ address.country }}
           <span>
             @if (parentComponent === "CartList") {
-              <button
-                class="btn btn-primary mr-3"
-                (click)="onAddressSelect(address)"
-              >
-                Select Address
-              </button>
+              @if(selectedAddress?.addressId ===address.addressId){
+                <button
+                  class="btn btn-primary mr-3 primary-outline"
+                >
+                  Selected
+                </button>
+              }@else {
+                <button
+                  class="btn btn-outline btn-primary mr-3"
+                  (click)="onAddressSelect(address)"
+                >
+                  Select Address
+                </button>
+              }
             }
             @if (!parentComponent) {
               <a

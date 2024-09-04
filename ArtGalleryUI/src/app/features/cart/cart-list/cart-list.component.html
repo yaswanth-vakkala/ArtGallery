@@ -93,9 +93,55 @@
     </div>
   </div>
 } @else {
-  <h1>cart is empty</h1>
 }
 
 @if (addressFlag) {
-  <app-address-list parentComponent="CartList" (addressSelectEvent)="selectAddress($event)"></app-address-list>
+<div class="flex w-full pr-24">
+  <div class="w-[70%]">
+    <app-address-list parentComponent="CartList" (addressSelectEvent)="selectAddress($event)"></app-address-list>
+  </div>
+  <div class="w-96">
+    <div class="mb-6 mt-5">
+      <h1 class="text-2xl font-bold">Payment Details</h1>
+    </div>
+    <form #form="ngForm">
+      <div class="mb-3">
+        <label class="input input-bordered flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            class="h-4 w-4 opacity-70">
+            <path
+              d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+          </svg>
+          <input type="text" class="grow" placeholder="Name" id="cardHolderName" name="cardHolderName"
+          [(ngModel)]="paymentModel.cardHolderName" />
+        </label>
+      </div>
+      <div class="mb-3">
+        <label class="input input-bordered flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+          </svg>          
+          <input type="text" class="grow" placeholder="Card Number" id="cardNumber" name="cardNumber"
+          [(ngModel)]="paymentModel.cardNumber"/>
+        </label>
+      </div>
+      <div class="flex">
+        <div class="w-[40%] pt-2 pl-5 font-medium">
+          Expiry:
+        </div>
+        <div>
+          <label class="input input-bordered flex items-center gap-2">
+            <input type="month" class="grow" placeholder="" min="2024-04"id="expiryDate" name="expiryDate"
+            [(ngModel)]="paymentModel.expiryDate"/>
+          </label>
+        </div>
+      </div>
+    </form>
+    <h1 class="my-5">Total Amount: <span class="font-bold">{{this.totalCost}}</span></h1>
+    <button class="btn btn-primary mx-auto" (click)="onCheckout()">Checkout</button>
+  </div>
+</div>
 }

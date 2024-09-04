@@ -17,6 +17,7 @@ export class AddressListComponent implements OnInit, OnDestroy{
   model?: AddressList[];
   @Input() parentComponent = '';
   @Output() addressSelectEvent = new EventEmitter<AddressList>();
+  selectedAddress? : AddressList;
   private getAddressesByUserIdSubscription?: Subscription;
   private paramsSubscription?: Subscription;
   private deleteAddressSubscription?: Subscription;
@@ -43,6 +44,7 @@ export class AddressListComponent implements OnInit, OnDestroy{
   }
 
   onAddressSelect(address:AddressList ){
+    this.selectedAddress = address;
     this.addressSelectEvent.emit(address);
   }
 

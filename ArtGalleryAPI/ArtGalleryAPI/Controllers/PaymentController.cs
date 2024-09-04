@@ -4,6 +4,7 @@ using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography.Xml;
 
 namespace ArtGalleryAPI.Controllers
 {
@@ -38,9 +39,10 @@ namespace ArtGalleryAPI.Controllers
                             PaymentId = payment.PaymentId,
                             Amount = payment.Amount,
                             PaymentDate = payment.PaymentDate,
-                            PaymentMethod = payment.PaymentMethod,
                             Status = payment.Status,
-
+                            CardNumber = payment.CardNumber,
+                            CardHolderName = payment.CardHolderName,
+                            ExpiryDate = payment.ExpiryDate
                         }
                         );
                 }
@@ -87,12 +89,15 @@ namespace ArtGalleryAPI.Controllers
 
             try
             {
+                var inputExpiryDate = payment.ExpiryDate.Split("-");
                 var newPayment = new Payment()
                 {
                     Amount = payment.Amount,
                     PaymentDate = payment.PaymentDate,
-                    PaymentMethod = payment.PaymentMethod,
-                    Status = "Success"
+                    Status = "Success",
+                    CardHolderName = payment.CardHolderName,
+                    CardNumber = payment.CardNumber,
+                    ExpiryDate = new DateOnly(Convert.ToInt32(inputExpiryDate[0]), Convert.ToInt32(inputExpiryDate[1]), 1)
                 };
 
                 var res = await paymentService.CreatePaymentAsync(newPayment);
