@@ -1,4 +1,4 @@
-<div class="container w-[90%] mx-auto">
+<div class="w-[95%] mx-auto">
     <h1 class="mt-5 font-bold text-2xl">Product List</h1>
     <div class="flex justify-end">
       <label class="input input-bordered mr-2 mt-5 flex items-center gap-2 info-outline input-info">
@@ -21,7 +21,7 @@
       >
     </div>
   </div>
-    <div class="container overflow-x-auto">
+    <div class="overflow-x-auto">
         @if (products$ | async; as products) {
           <table class="table table-zebra">
             <thead>
@@ -75,7 +75,7 @@
                     <tr class="hover">
                       <td>{{ product.productId }}</td>
                       <td>{{ product.name }}</td>
-                      <td class="truncate">{{ product.description }}</td>
+                      <td class="line-clamp-2">{{ product.description }}</td>
                       <td>{{ product.price }}</td>
                       <td>{{ product.status }}</td>
                       <td>{{ product.createdAt }}</td>
