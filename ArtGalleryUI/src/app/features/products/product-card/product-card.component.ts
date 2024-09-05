@@ -22,7 +22,7 @@ export class ProductCardComponent implements OnDestroy {
   @Input() imageUrl: string = '';
   @Input() price: string = '';
   addedToCart:boolean = false;
-
+  errMessage: boolean = false;
   private addCartSubscription?: Subscription;
   model?: Cart;
 
@@ -47,6 +47,12 @@ export class ProductCardComponent implements OnDestroy {
       next: (res) => {
         this.addedToCart = true;
       },
+      error: (err)=>{
+        this.errMessage = true;
+        setTimeout(() => {
+          this.errMessage = false;
+        }, 5000);
+      }
     });
   }
 

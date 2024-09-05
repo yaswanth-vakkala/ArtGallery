@@ -49,19 +49,21 @@ export class AddressListComponent implements OnInit, OnDestroy{
   }
 
   onDeleteClick(id: string) {
-    this.deleteAddressSubscription = this.addressService
+    if(confirm("Are you to delete the address?")){
+      this.deleteAddressSubscription = this.addressService
       .deleteAddress(id)
       .subscribe({
         next: (response) => {
           this.router
-            .navigateByUrl('/', { skipLocationChange: true })
-            .then(() => {
-              this.router.navigate([`user/address/${this.userId}`]);
-            });
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate([`user/address/${this.userId}`]);
+          });
         },
       });
-  }
-
+    }
+    }
+    
   ngOnDestroy(): void {
     this.paramsSubscription?.unsubscribe();
     this.getAddressesByUserIdSubscription?.unsubscribe();

@@ -121,7 +121,8 @@ export class AllProductsComponent implements OnInit, OnDestroy{
   }
 
   onDeleteClick(id: string){
-    this.deleteProductSubscription=this.productService
+    if(confirm("Are you to delete the product?")){
+      this.deleteProductSubscription=this.productService
       .deleteProduct(id)
       .subscribe({
         next:(response)=>{
@@ -131,8 +132,8 @@ export class AllProductsComponent implements OnInit, OnDestroy{
             this.router.navigate(['admin/products']);
           });
         },
-      });
-
+      }); 
+    }
   }
 
   ngOnDestroy(): void {

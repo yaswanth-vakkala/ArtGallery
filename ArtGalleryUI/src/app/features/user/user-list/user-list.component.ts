@@ -118,17 +118,19 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   onDeleteClick(id: string) {
-    this.deleteUserSubscription = this.userService
+    if(confirm("Are you to delete the user?")){
+      this.deleteUserSubscription = this.userService
       .deleteUser(id)
       .subscribe({
         next: (response) => {
           this.router
-            .navigateByUrl('/', { skipLocationChange: true })
-            .then(() => {
-              this.router.navigate(['admin/users']);
-            });
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['admin/users']);
+          });
         },
       });
+    }
   }
 
   ngOnDestroy(): void {

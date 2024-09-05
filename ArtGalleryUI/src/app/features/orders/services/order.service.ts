@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Order } from '../models/order.model';
@@ -13,7 +13,35 @@ export class OrderService {
 
   constructor(private http:HttpClient, private cookieService: CookieService) { }
 
-  getOrdersByUserId(userId:string): Observable<OrderFull[]>{
-    return this.http.get<OrderFull[]>(`${environment.apiBaseUrl}/api/apporder/user/${userId}`);
+  getOrdersByUserId(userId:string, pageNumber?: number, pageSize?: number): Observable<OrderFull[]>{
+    let params = new HttpParams();
+    if (pageNumber) {
+      params = params.set('pageNumber', pageNumber);
+    }
+    if (pageSize) {
+      params = params.set('pageSize', pageSize);
+    }
+    
+    return this.http.get<OrderFull[]>(`${environment.apiBaseUrl}/api/apporder/user/${userId}`,{
+      params: params
+    });
+  }
+
+  getAllOrders(pageNumber?: number, pageSize?: number): Observable<OrderFull[]>{
+    let params = new HttpParams();
+    if (pageNumber) {
+      params = params.set('pageNumber', pageNumber);
+    }
+    if (pageSize) {
+      params = params.set('pageSize', pageSize);
+    }
+    
+    return this.http.get<OrderFull[]>(`${environment.apiBaseUrl}/api/apporder`,{
+      params: params
+    });
+  }
+
+  getOrderCount(userId:string): Observable<number> {
+    return this.http.get<number>(`${environment.apiBaseUrl}/api/appOrder/count/${userId}`);
   }
 }

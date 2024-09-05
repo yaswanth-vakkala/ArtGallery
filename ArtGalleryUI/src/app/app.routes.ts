@@ -21,6 +21,7 @@ import { AddUserComponent } from './features/user/add-user/add-user.component';
 import { EditUserComponent } from './features/user/edit-user/edit-user.component';
 import { AllProductsComponent } from './features/products/all-products/all-products.component';
 import { EditProductComponent } from './features/products/edit-product/edit-product.component';
+import { AllOrdersComponent } from './features/orders/all-orders/all-orders.component';
 
 
 export const routes: Routes = [
@@ -51,6 +52,10 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'admin/orders',
+    component: AllOrdersComponent
   },
   {
     path: 'admin/users',

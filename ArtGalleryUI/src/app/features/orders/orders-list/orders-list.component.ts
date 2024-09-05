@@ -1,22 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { Order } from '../models/order.model';
 import { OrderService } from '../services/order.service';
 import { OrderFull } from '../models/order-full.model';
-import { NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-orders-list',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink],
+  imports: [NgOptimizedImage, RouterLink, AsyncPipe],
   templateUrl: './orders-list.component.html',
   styleUrl: './orders-list.component.css',
 })
 export class OrdersListComponent implements OnInit, OnDestroy {
-  model?: OrderFull[];
+  orders$?: Observable<OrderFull[]>;
+  orderCount : number = 0;
+  pageNumber: number = 1;
+  pageSize: number = 2;
+  paginationList: number[] = [];
   userId: any;
-  private getOrdersSubscription?: Subscription;
   private paramsSubscription?: Subscription;
 
   constructor(
@@ -30,20 +33,43 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       next: (res) => {
         this.userId = res.get('userId');
         if (this.userId) {
-          this.getOrdersSubscription = this.orderService
-            .getOrdersByUserId(this.userId)
-            .subscribe({
-              next: (res) => {
-                this.model = res;
-              },
-            });
+          this.orderService.getOrderCount(this.userId).subscribe({
+            next: (res) => {
+              this.orderCount = res;
+              this.paginationList = new Array(Math.ceil(res / this.pageSize));
+            }
+          });
+          this.orders$ = this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize);
         }
       },
     });
   }
+
+  getPage(pageNumber: number) {
+    this.pageNumber = pageNumber;
+    this.orders$ = this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize);
+  }
+
+  getPreviousPage() {
+    if (this.pageNumber - 1 < 1) {
+      return;
+    }
+    this.pageNumber -= 1;
+    this.orders$ = this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize);
+
+  }
+
+  getNextPage() {
+    if (this.pageNumber + 1 > this.paginationList.length) {
+      return;
+    }
+    this.pageNumber += 1;
+    this.orders$ = this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize);
+
+  }
+
   
   ngOnDestroy(): void {
-    this.getOrdersSubscription?.unsubscribe();
     this.paramsSubscription?.unsubscribe();
   }
 }
