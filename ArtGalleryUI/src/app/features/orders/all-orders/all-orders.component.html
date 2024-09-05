@@ -1,1 +1,165 @@
-<p>all-orders works!</p>
+@if (orders$ | async; as orders) {
+  <div class="sm:w-full md:w-[60%] mx-auto">
+    <h1 class="font-bold text-2xl mb-4">My Orders</h1>
+    <div class="flex justify-end">
+      <label
+        class="input input-bordered mr-2 mt-5 flex items-center gap-2 info-outline input-info"
+      >
+        <input
+          type="text"
+          class="grow"
+          placeholder="Search"
+          [(ngModel)]="query"
+          (keyup)="search(query)"
+        />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          class="h-4 w-4 opacity-70"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </label>
+      <details class="dropdown dropdown-end">
+        <summary class="btn mt-5 mr-2">Sort By</summary>
+        <ul
+          class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+        >
+          <li><a (click)="sort('date', 'asc')">Date (asc)</a></li>
+          <li><a (click)="sort('date', 'desc')">Date (desc)</a></li>
+        </ul>
+      </details>
+      <button class="btn ghost mt-5 mr-2" (click)="clearFilters()">
+        Clear Filters
+      </button>
+    </div>
+    @for (order of orders; track order.orderId) {
+      <div class="bg-base-100 shadow-xl rounded-3xl mb-5 p-5">
+        <div class="mb-5">
+          <span>
+            Order Id: <span class="font-medium">{{ order.orderId }}</span>
+          </span>
+          <span class="ml-5"
+            >User Id:
+            <span class="font-medium">{{ order.appUserId }}</span></span
+          >
+          <div class="">
+            Placed on:
+            <span class="font-medium">{{
+              order.createdAt | date: "dd/MM/yyyy"
+            }}</span>
+          </div>
+          <hr class="mt-3" />
+        </div>
+        @for (orderItem of order.orderItems; track orderItem.orderItemId) {
+          <div class="flex justify-between mb-5">
+            <div class="w-[20%] cursor-pointer">
+              <a [routerLink]="['/products', orderItem.product.productId]">
+                <img
+                  [ngSrc]="orderItem.product.imageUrl"
+                  [alt]="orderItem.product.name"
+                  width="150"
+                  height="150"
+                />
+              </a>
+            </div>
+            <div class="w-[80%] ml-5 flex justify-between">
+              <div>
+                <p class="font-bold text-lg">
+                  <a [routerLink]="['/products', orderItem.product.productId]">
+                    {{ orderItem.product.name }}
+                  </a>
+                </p>
+                <p class="font-medium">
+                  ${{
+                    orderItem.productCost +
+                      orderItem.shippingCost +
+                      orderItem.taxCost
+                  }}
+                  = ${{ orderItem.productCost }} + ${{
+                    orderItem.shippingCost
+                  }}
+                  (shipping) + ${{ orderItem.taxCost }} (tax)
+                </p>
+              </div>
+              <button
+                [routerLink]="['/orderItems', orderItem.orderItemId]"
+                class="btn btn-outline btn-info rounded-full"
+              >
+                Track Package
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+} @else {
+  <div class="text-center font-bold text-2xl mt-10">You have no orders!</div>
+}
+
+@if (orders$) {
+  <div class="flex justify-center mt-5 mb-10">
+    <div class="join">
+      <button class="join-item btn" (click)="getPage(1)">«</button>
+      <button class="join-item btn" (click)="getPreviousPage()">&lt;</button>
+      @if (this.pageNumber - 2 > 0) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber - 2)">
+          {{ this.pageNumber - 2 }}
+        </button>
+      }
+      @if (this.pageNumber - 1 > 0) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber - 1)">
+          {{ this.pageNumber - 1 }}
+        </button>
+      }
+      <button
+        class="join-item btn btn-active"
+        (click)="getPage(this.pageNumber)"
+      >
+        {{ this.pageNumber }}
+      </button>
+
+      @if (this.pageNumber + 1 <= this.paginationList.length) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber + 1)">
+          {{ this.pageNumber + 1 }}
+        </button>
+      }
+      @if (this.pageNumber + 2 <= this.paginationList.length) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber + 2)">
+          {{ this.pageNumber + 2 }}
+        </button>
+      }
+      @if (this.pageNumber + 3 <= this.paginationList.length) {
+        <button class="join-item btn" (click)="getPage(this.pageNumber + 3)">
+          {{ this.pageNumber + 3 }}
+        </button>
+      }
+      <!-- @if (this.pageNumber + 4 <= this.paginationList.length) {
+          <button class="join-item btn" (click)="getPage(this.pageNumber + 4)">
+            {{ this.pageNumber + 4 }}
+          </button>
+        } -->
+      <!-- @for(item of paginationList; track $index; let  i = $index){
+          @if(i+1 == this.pageNumber){
+            <button class="join-item btn btn-active" (click)="getPage(i + 1)">{{i+1}}</button>
+          }@else {
+            <button class="join-item btn" (click)="getPage(i + 1)">{{i+1}}</button>
+          }
+        } -->
+
+      <button class="join-item btn" (click)="getNextPage()">&gt;</button>
+      <button
+        class="join-item btn"
+        (click)="getPage(this.paginationList.length)"
+      >
+        »
+      </button>
+    </div>
+  </div>
+}

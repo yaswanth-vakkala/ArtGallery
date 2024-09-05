@@ -24,11 +24,12 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>list of all orders</returns>
 
         [HttpGet]
-        public async Task<IActionResult> GetAllOrders([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 8)
+        public async Task<IActionResult> GetAllOrders([FromQuery] string? query, [FromQuery] string? sortBy, [FromQuery] string? sortOrder
+            , [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 8)
         {
             try
             {
-                var orders = await orderService.GetAllOrdersAsync(pageNumber, pageSize);
+                var orders = await orderService.GetAllOrdersAsync(pageNumber, pageSize, query, sortBy, sortOrder);
                 return Ok(orders);
             }
             catch (Exception ex)
@@ -40,7 +41,7 @@ namespace ArtGalleryAPI.Controllers
         /// <summary>
         /// get count of the total orders
         /// </summary>
-        /// <param ></param>
+        /// <param name="userId" ></param>
         /// <returns></returns>
         [HttpGet]
         [Route("count/{userId:Guid}")]
@@ -49,6 +50,26 @@ namespace ArtGalleryAPI.Controllers
             try
             {
                 var orderCount = await orderService.GetOrderCountAsync(userId);
+                return Ok(orderCount);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// get count of the total orders
+        /// </summary>
+        /// <param></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("ordersCount")]
+        public async Task<IActionResult> GetOrdersCount([FromQuery] string query = null)
+        {
+            try
+            {
+                var orderCount = await orderService.GetOrdersCountAsync(query);
                 return Ok(orderCount);
             }
             catch (Exception e)

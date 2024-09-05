@@ -4,12 +4,12 @@ import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { Order } from '../models/order.model';
 import { OrderService } from '../services/order.service';
 import { OrderFull } from '../models/order-full.model';
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, DatePipe, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-orders-list',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink, AsyncPipe],
+  imports: [NgOptimizedImage, RouterLink, AsyncPipe, DatePipe],
   templateUrl: './orders-list.component.html',
   styleUrl: './orders-list.component.css',
 })
