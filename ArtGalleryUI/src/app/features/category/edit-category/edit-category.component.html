@@ -1,7 +1,7 @@
 <div class="container ml-[15%] mt-10 w-96">
   <h1 class="mt-5 text-2xl font-bold">Edit category</h1>
   @if (model) {
-    <form #form="ngForm" (ngSubmit)="onEditCategorySubmit()">
+    <form #form="ngForm" (ngSubmit)="onEditCategorySubmit(form)">
       <div class="mt-2">
         <div class="mt-3">
           <label class="form-control">
@@ -14,9 +14,22 @@
               class="input input-bordered w-full max-w-xs"
               id="name"
               name="name"
+              required
+              minlength="3"
+              maxlength="50"
+              #name="ngModel"
               [(ngModel)]="model.name"
             />
           </label>
+          <div *ngIf="isFormSubmitted && name.invalid" class="text-red-700">
+            <div *ngIf="name.hasError('required')">Category name is required.</div>
+            <div *ngIf="name.hasError('minlength')">
+              Name must be at least 3 characters.
+            </div>
+            <div *ngIf="name.hasError('maxlength')">
+              Name can be at most 50 characters.
+            </div>
+          </div> 
         </div>
 
         <div class="mt-3">
@@ -30,9 +43,16 @@
               class="input input-bordered w-full max-w-xs"
               id="description"
               name="description"
+              maxlength="500"
+              #description="ngModel"
               [(ngModel)]="model.description"
             />
           </label>
+          <div *ngIf="isFormSubmitted && description.invalid" class="text-red-700">
+            <div *ngIf="name.hasError('maxlength')">
+              Description can have at most 50 characters.
+            </div>
+        </div>
         </div>
         <div class="mt-3">
           <button type="submit" class="btn btn-primary">Edit</button>
@@ -43,3 +63,17 @@
     Not Found!
   }
 </div>
+@if (errMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-error">
+      <span>Could not update category</span>
+    </div>
+  </div>
+}
+@if (successMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-success">
+      <span>Category updated successfully!</span>
+    </div>
+  </div>
+}

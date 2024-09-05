@@ -33,7 +33,7 @@
               id="firstName"
               name="firstName"
               required
-              minlength="2"
+              minlength="4"
               maxlength="50"
               #firstName="ngModel"
               [(ngModel)]="model.firstName"
@@ -94,7 +94,7 @@
             FirstName is required.
           </div>
           <div *ngIf="firstName.hasError('minlength')">
-            FirstName must be at least 2 characters.
+            FirstName must be at least 4 characters.
           </div>
           <div *ngIf="firstName.hasError('maxlength')">
             FirstName must be at most 50 characters.

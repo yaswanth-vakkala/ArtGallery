@@ -1,20 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EditUser } from '../models/edit-user.model';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink,NgIf],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent implements OnInit, OnDestroy {
   userId: string | null = null;
   model?: EditUser;
+  errMessage: boolean = false;
+  isFormSubmitted:boolean = false;
+  successMessage: boolean = false;
   private editUserSubscription?: Subscription;
   private paramsSubscription?: Subscription;
 
@@ -39,14 +43,25 @@ export class EditUserComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEditUserSubmit() {
-    if (this.userId && this.model?.firstName) {
+  onEditUserSubmit(form:NgForm) {
+    this.isFormSubmitted = true;
+    if (this.userId && this.model?.firstName && form.valid) {
       this.editUserSubscription = this.userService
         .editUser(this.userId, this.model)
         .subscribe({
           next: (response) => {
+            this.successMessage = true;
+            setTimeout(() => {
+            this.successMessage = false;
+            }, 5000);
             this.router.navigateByUrl('/admin/users');
           },
+          error: (res) => {
+            this.errMessage = true;
+            setTimeout(() => {
+              this.errMessage = false;
+            }, 5000);
+          }
         });
     }
   }

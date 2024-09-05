@@ -1,20 +1,24 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CreateProduct } from '../models/create-product.model';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../services/product.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { NgIf, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-create-product',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgOptimizedImage, RouterLink,NgIf],
   templateUrl: './create-product.component.html',
   styleUrl: './create-product.component.css'
 })
 export class CreateProductComponent implements OnDestroy 
 {
   model:CreateProduct;
+  errMessage: boolean = false;
+  isFormSubmitted:boolean = false;
+  successMessage: boolean = false;
   private createProductSubscription?: Subscription;
 
   constructor(
@@ -25,19 +29,33 @@ export class CreateProductComponent implements OnDestroy
       name:'',
       description:'',
       imageUrl:'',
-      price:'',
+      price:0,
       categoryId:'',
     };
   }
 
-  onCreateProductSubmit(){
-    this.createProductSubscription=this.productService
+  onCreateProductSubmit(form:NgForm){
+    this.isFormSubmitted=true;
+    if(this.model.name && this.model.description && this.model.imageUrl && this.model.price && this.model.categoryId && form.valid){
+      this.createProductSubscription=this.productService
     .createProduct(this.model)
     .subscribe({
       next:(response)=>{
         this.router.navigateByUrl('/admin/products');
+        this.successMessage = true;
+          setTimeout(() => {
+          this.successMessage = false;
+          }, 5000);
       },
+      error: (res) => {
+        this.errMessage = true;
+        setTimeout(() => {
+          this.errMessage = false;
+        }, 5000);
+      }
     });
+    }
+    
   }
 
   ngOnDestroy(): void {

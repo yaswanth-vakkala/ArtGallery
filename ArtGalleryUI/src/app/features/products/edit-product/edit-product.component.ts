@@ -1,20 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { EditProduct } from '../models/edit-product.model';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../services/product.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { NgIf, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-edit-product',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgOptimizedImage, RouterLink,NgIf],
   templateUrl: './edit-product.component.html',
   styleUrl: './edit-product.component.css'
 })
 export class EditProductComponent implements OnInit, OnDestroy{
   productId: string | null=null;
   model?: EditProduct;
+  errMessage: boolean = false;
+  isFormSubmitted:boolean = false;
+  successMessage: boolean = false;
   private editProductSubscription?: Subscription;
   private paramsSubscription?: Subscription;
 
@@ -47,14 +51,25 @@ export class EditProductComponent implements OnInit, OnDestroy{
     })
   }
 
-  onEditProductSubmit(){
-    if(this.productId && this.model?.name && this.model?.description && this.model?.imageUrl && this.model?.price && this.model?.status && this.model?.categoryId){
+  onEditProductSubmit(form:NgForm){
+    this.isFormSubmitted=true;
+    if(this.productId && this.model?.name && this.model?.description && this.model?.imageUrl && this.model?.price && this.model?.status && this.model?.categoryId && form.valid){
       this.editProductSubscription=this.productService
       .editProduct(this.productId, this.model)
       .subscribe({
         next:(response)=>{
           this.router.navigateByUrl('/admin/products');
+          this.successMessage = true;
+          setTimeout(() => {
+          this.successMessage = false;
+          }, 5000);
         },
+        error: (res) => {
+          this.errMessage = true;
+          setTimeout(() => {
+            this.errMessage = false;
+          }, 5000);
+        }
       });
     }
   }
