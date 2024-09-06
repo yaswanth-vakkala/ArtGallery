@@ -19,7 +19,7 @@ export class CategoryService {
 
   getCategoryById(categoryId: string): Observable<Category> {
     return this.http.get<Category>(
-      `${environment.apiBaseUrl}/api/category/${categoryId}`
+      `${environment.apiBaseUrl}/api/category/${categoryId}?addAuth=true`
     );
   }
 

@@ -13,11 +13,11 @@ export class OrderItemService {
 
   getOrderItemByIdFull(orderItemId: string): Observable<OrderItemFull> {
     return this.http.get<OrderItemFull>(
-      `${environment.apiBaseUrl}/api/orderItem/product/${orderItemId}`,
+      `${environment.apiBaseUrl}/api/orderItem/product/${orderItemId}?addAuth=true`,
     );
   }
 
   editOrderItem(orderItemId: string, orderItem:EditOrderItem): Observable<void>{
-    return this.http.put<void>(`${environment.apiBaseUrl}/api/orderitem/${orderItemId}`, orderItem);
+    return this.http.put<void>(`${environment.apiBaseUrl}/api/orderitem/${orderItemId}?addAuth=true`, orderItem);
   }
 }

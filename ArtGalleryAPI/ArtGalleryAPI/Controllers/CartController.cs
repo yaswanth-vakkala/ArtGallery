@@ -2,6 +2,7 @@
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -26,6 +27,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{userId}")]
+        [Authorize]
         public async Task<IActionResult> GetAllCartsForUser([FromRoute] string userId)
         {
             try
@@ -45,6 +47,7 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="newCart"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateCart(AddCartDto newCart)
         {
             if (!ModelState.IsValid)
@@ -77,6 +80,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>bool representing state of operation</returns>
         [HttpDelete]
         [Route("{cartId:Guid}")]
+        [Authorize]
         public async Task<IActionResult> DeleteCart([FromRoute] Guid cartId)
         {
             try
@@ -97,6 +101,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>bool representing state of operation</returns>
         [HttpPost]
         [Route("deleteCarts")]
+        [Authorize]
         public async Task<IActionResult> DeleteCarts([FromBody] Guid[] cartIds)
         {
             try

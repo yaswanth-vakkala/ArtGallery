@@ -2,6 +2,7 @@
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
 using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -123,6 +124,7 @@ namespace ArtGalleryAPI.Controllers
 
         [HttpPost]
         [Route("admin/register")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> RegisterForAdmin([FromBody] RegisterRequestDto request)
         {
             var user = new AppUser()
@@ -185,6 +187,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("admin/addAdmin/{userId}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> AddAdminRole([FromRoute] string userId)
         {
             try
@@ -227,6 +230,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("admin/removeAdmin/{userId}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> RemoveAdminRole([FromRoute] string userId)
         {
             try

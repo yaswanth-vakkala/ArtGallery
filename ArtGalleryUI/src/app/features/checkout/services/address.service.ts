@@ -16,18 +16,18 @@ export class AddressService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
     getAllAddresses(): Observable<Address[]>{
-      return this.http.get<Address[]>(`${environment.apiBaseUrl}/api/address`);
+      return this.http.get<Address[]>(`${environment.apiBaseUrl}/api/address?addAuth=true`);
     }
 
     getAddressById(addressId: string): Observable<Address> {
       return this.http.get<Address>(
-        `${environment.apiBaseUrl}/api/address/${addressId}`
+        `${environment.apiBaseUrl}/api/address/${addressId}?addAuth=true`
       );
     }
 
     getAddressesByUserId(userId:string): Observable<AddressList[]>{
       return this.http.get<AddressList[]>(
-        `${environment.apiBaseUrl}/api/address/appuser/${userId}`
+        `${environment.apiBaseUrl}/api/address/appuser/${userId}?addAuth=true`
       );
     }
 

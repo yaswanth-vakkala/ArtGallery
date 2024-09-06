@@ -42,6 +42,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>filtered category</returns>
         [HttpGet]
         [Route("{categoryId:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> GetCategoryById([FromRoute] Guid categoryId)
         {
             try
@@ -69,6 +70,7 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="category"></param>
         /// <returns>new category</returns>
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> AddCategory([FromBody] AddCategoryDto category)
         {
             if (!ModelState.IsValid)
@@ -101,6 +103,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>updated category</returns>
         [HttpPut]
         [Route("{categoryId:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateCategory([FromRoute] Guid categoryId, [FromBody] UpdateCategoryDto updatedCategory)
         {
             try

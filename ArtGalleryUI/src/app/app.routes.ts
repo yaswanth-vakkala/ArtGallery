@@ -44,7 +44,8 @@ export const routes: Routes = [
   },
   {
     path: 'admin/orderItems/edit/:orderItemId',
-    component: EditOrderItemComponent
+    component: EditOrderItemComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'cart/:userId',
@@ -60,19 +61,23 @@ export const routes: Routes = [
   },
   {
     path: 'admin/orders',
-    component: AllOrdersComponent
+    component: AllOrdersComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'admin/users',
     component : UserListComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'admin/users/add',
-    component: AddUserComponent
+    component: AddUserComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'admin/users/edit/:id',
-    component: EditUserComponent
+    component: EditUserComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'admin/categories',
