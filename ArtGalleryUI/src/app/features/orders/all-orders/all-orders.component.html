@@ -1,6 +1,6 @@
 @if (orders$ | async; as orders) {
   <div class="sm:w-full md:w-[60%] mx-auto">
-    <h1 class="font-bold text-2xl mb-4">My Orders</h1>
+    <h1 class="font-bold text-2xl mb-4">All Orders</h1>
     <div class="flex justify-end">
       <label
         class="input input-bordered mr-2 mt-5 flex items-center gap-2 info-outline input-info"
@@ -87,12 +87,20 @@
                   (shipping) + ${{ orderItem.taxCost }} (tax)
                 </p>
               </div>
-              <button
-                [routerLink]="['/orderItems', orderItem.orderItemId]"
-                class="btn btn-outline btn-info rounded-full"
-              >
-                Track Package
-              </button>
+              <div>
+                <button
+                  [routerLink]="['/admin/orderItems/edit', orderItem.orderItemId]"
+                  class="btn btn-outline btn-warning rounded-full mr-2"
+                >
+                  Update
+                </button>
+                <button
+                  [routerLink]="['/orderItems', orderItem.orderItemId]"
+                  class="btn btn-outline btn-info rounded-full"
+                >
+                  Track
+                </button>
+              </div>
             </div>
           </div>
         }

@@ -176,7 +176,7 @@ export class CartListComponent implements OnInit, OnDestroy {
               next: (res) => {
                 for (let i = 0; i < this.products.length; i++) {
                   this.orderItemModel = {
-                    status: 'Order Placed',
+                    status: 'Ordered',
                     productCost: this.products[i].price,
                     shippingCost: this.shippingCost,
                     taxCost:

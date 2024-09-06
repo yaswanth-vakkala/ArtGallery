@@ -28,9 +28,13 @@ namespace ArtGalleryAPI.Services.Implementation
             {
                 if (string.Equals(sortBy, "date", StringComparison.OrdinalIgnoreCase))
                 {
-                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
-                    orders = isDesc ? orders.OrderByDescending(o => o.CreatedAt).ToList() : orders.OrderBy(o => o.CreatedAt).ToList();
+                    var isAsc = string.Equals(sortOrder, "asc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    orders = isAsc ? orders.OrderBy(o => o.CreatedAt).ToList() : orders.OrderByDescending(o => o.CreatedAt).ToList();
                 }
+            }
+            else
+            {
+                orders = orders.OrderByDescending(o => o.CreatedAt).ToList();
             }
             foreach (var order in orders)
             {
