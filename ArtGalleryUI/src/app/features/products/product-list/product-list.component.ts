@@ -2,10 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../models/product.model';
 import { Observable, Subscription } from 'rxjs';
 import { ProductService } from '../services/product.service';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { SharedService } from '../../../common/services/shared.service';
 import { ProductCardComponent } from '../product-card/product-card.component';
+import { CategoryService } from '../../category/services/category.service';
+import { Category } from '../../category/models/category.model';
 // import { SearchComponent } from "../../search/search.component";
 
 @Component({
@@ -17,6 +19,8 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 })
 export class ProductListComponent implements OnInit {
   products$?: Observable<Product[]>;
+  categories$?:Observable<Category[]>;
+  productsByCategory$?:Observable<Product[]>;
   productsCount: number = 0;
   pageNumber: number = 1;
   pageSize: number = 8;
@@ -24,8 +28,13 @@ export class ProductListComponent implements OnInit {
   query: string = '';
   sortBy: string = '';
   sortOrder: string = '';
+  private paramsSubscription?: Subscription;
+  private getProductsByCategoryIdSubscription?: Subscription;
+  categoryId!: string
+
   constructor(
     private productService: ProductService,
+    private categoryService: CategoryService,
     private router: Router,
     private sharedService: SharedService,
   ) {}
@@ -51,6 +60,8 @@ export class ProductListComponent implements OnInit {
       this.pageNumber,
       this.pageSize,
     );
+    this.categories$ = this.categoryService.getAllCategories();
+   
     this.sharedService.message$.subscribe((query) => {
       this.query = query;
       this.search(query);
@@ -123,6 +134,12 @@ export class ProductListComponent implements OnInit {
       this.pageNumber,
       this.pageSize,
     );
+  }
+
+  displayByCategoryName(event: any){
+    const selectedValue=event.target.value;
+    this.products$=this.productService.getProductsByCategoryId(selectedValue);
+
   }
 
   clearFilters() {

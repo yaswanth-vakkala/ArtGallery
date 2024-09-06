@@ -1,5 +1,14 @@
 <div class="text-end mr-28">
   @if (products$ && productsCount > 0) {
+    
+    <select class="select select-ghost max-w-xs"  (change)='displayByCategoryName($event)'>
+      <option disabled selected>View by Category</option>
+      @if (categories$ | async; as categories) {
+        @for(category of categories; track category.categoryId){
+        <option [value]="category.categoryId">{{category.name}}</option>
+        }
+      }
+    </select>
     <details class="dropdown dropdown-end">
       <summary class="btn m-1">Sort By</summary>
       <ul

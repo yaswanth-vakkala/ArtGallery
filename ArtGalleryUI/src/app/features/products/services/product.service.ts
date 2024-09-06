@@ -57,6 +57,11 @@ export class ProductService {
       `${environment.apiBaseUrl}/api/product/${productId}`,
     );
   }
+
+  getProductsByCategoryId(categoryId: string): Observable<Product[]>{
+    return this.http.get<Product[]>(`${environment.apiBaseUrl}/api/product/products/${categoryId}`);
+  }
+
   createProduct(model: CreateProduct): Observable<void>{
     return this.http.post<void>(
       `${environment.apiBaseUrl}/api/product?addAuth=true`,
