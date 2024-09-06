@@ -1,12 +1,14 @@
 ﻿using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArtGalleryAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Writer")]
     public class StatisticsController : ControllerBase
     {
         private readonly IStatisticsService statisticsService;

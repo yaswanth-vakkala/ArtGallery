@@ -3,6 +3,7 @@ using ArtGalleryAPI.Data;
 using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -123,6 +124,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>filtered product</returns>
         [HttpPost]
         [Route("cart")]
+        [Authorize]
         public async Task<IActionResult> GetProductsFromIdArray([FromBody] ProductsIdListRequest productIds)
         {
             try
@@ -208,6 +210,7 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="product"></param>
         /// <returns>new product</returns>
         [HttpPost]
+        [Authorize(Roles ="Writer")]
         public async Task<IActionResult> AddProduct([FromBody] AddProductDto product)
         {
             if (!ModelState.IsValid)
@@ -251,6 +254,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>updated product</returns>
         [HttpPut]
         [Route("{productId:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateProduct([FromRoute] Guid productId, [FromBody] UpdateProductDto product)
         {
             try
@@ -309,6 +313,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>bool representing state of operation</returns>
         [HttpDelete]
         [Route("{productId:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteProduct([FromRoute] Guid productId)
         {
             try
@@ -333,6 +338,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>bool representing state of operation</returns>
         [HttpPost]
         [Route("deleteproducts")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteProducts([FromBody] Guid[] productIds)
         {
             try

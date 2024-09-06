@@ -35,6 +35,7 @@ export class NavbarComponent implements OnInit {
     this.user = this.authService.getUser();
   }
 
+
   onQuery() {
     this.sharedService.sendMessage(this.query);
   }

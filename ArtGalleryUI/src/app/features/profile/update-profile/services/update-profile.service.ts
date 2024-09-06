@@ -21,7 +21,7 @@ export class UpdateProfileService {
   // }
   getuserById(userId: string): Observable<UserProfile> {
     return this.http.get<UserProfile>(
-      `${environment.apiBaseUrl}/api/AppUser/${userId}`
+      `${environment.apiBaseUrl}/api/AppUser/${userId}?addAuth=true`
     );
   }
 

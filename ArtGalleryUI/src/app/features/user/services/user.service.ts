@@ -37,7 +37,7 @@ export class UserService {
       params = params.set('pageSize', pageSize);
     }
 
-    return this.http.get<AppUser[]>(`${environment.apiBaseUrl}/api/appUser`,{
+    return this.http.get<AppUser[]>(`${environment.apiBaseUrl}/api/appUser?addAuth=true`,{
       params: params
     });
   }
@@ -48,21 +48,21 @@ export class UserService {
     if(query){
       params = params.set('query', query);
     }
-    return this.http.get<number>(`${environment.apiBaseUrl}/api/appuser/count`,{
+    return this.http.get<number>(`${environment.apiBaseUrl}/api/appuser/count?addAuth=true`,{
       params: params,
     });
   }
 
   getUserById(userId:string):Observable<AppUser>{
-    return this.http.get<AppUser>(`${environment.apiBaseUrl}/api/appUser/${userId}`);
+    return this.http.get<AppUser>(`${environment.apiBaseUrl}/api/appUser/${userId}?addAuth=true`);
   }
 
   addUser(user:AddUser): Observable<void>{
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/auth/admin/register`, user);
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/auth/admin/register?addAuth=true`, user);
   }
 
   editUser(userId: string, user:EditUser): Observable<AppUser>{
-    return this.http.put<AppUser>(`${environment.apiBaseUrl}/api/appUser/${userId}`, user);
+    return this.http.put<AppUser>(`${environment.apiBaseUrl}/api/appUser/${userId}?addAuth=true`, user);
   }
 
   deleteUser(userId: string): Observable<boolean> {
