@@ -49,9 +49,17 @@ namespace ArtGalleryAPI.Services.Implementation
             return product;
         }
 
-        public async Task<int> GetProductsCountAsync()
+        public async Task<int> GetProductsCountAsync(string? query)
         {
-            var productCount = await dbContext.Product.CountAsync();
+            var productCount = 0;
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                productCount = await dbContext.Product.Where(p => p.Name.Contains(query)).CountAsync();
+            }
+            else
+            {
+                productCount = await dbContext.Product.CountAsync();
+            }
             return productCount;
         }
 
@@ -88,10 +96,18 @@ namespace ArtGalleryAPI.Services.Implementation
             }
             else
             {
-                dbContext.Entry(product).CurrentValues.SetValues(updatedProduct);
-                product.Category = updatedProduct.Category;
-                await dbContext.SaveChangesAsync();
-                return product;
+                var category = await dbContext.Category.SingleOrDefaultAsync(category => category.CategoryId == updatedProduct.CategoryId);
+                if (category == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    dbContext.Entry(product).CurrentValues.SetValues(updatedProduct);
+                    product.Category = category;
+                    await dbContext.SaveChangesAsync();
+                    return product;
+                }
             }
         }
 

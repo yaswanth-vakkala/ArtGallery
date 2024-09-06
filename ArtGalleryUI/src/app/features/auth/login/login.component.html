@@ -1,8 +1,8 @@
 <div class="w-72 mx-auto mt-[5%]">
   <div class="m-6">
-    <h1 class="text-4xl font-medium text-center">Log In</h1>
+    <h1 class="text-4xl font-medium text-center">Login</h1>
   </div>
-  <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+  <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
     <label class="input input-bordered flex items-center gap-2 mb-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -18,14 +18,29 @@
         />
       </svg>
       <input
-        type="text"
+        type="email"
         class="grow"
         placeholder="Email"
         id="email"
         name="email"
+        required
+        minlength="9"
+        maxlength="100"
         [(ngModel)]="model.email"
+        pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+        #email="ngModel"
       />
     </label>
+    <div *ngIf="isFormSubmitted && email.invalid" class="text-red-700">
+      <div *ngIf="email.hasError('required')">Email is required.</div>
+      <div *ngIf="email.hasError('minlength')">
+        Email must be at least 9 characters.
+      </div>
+      <div *ngIf="email.hasError('maxlength')">
+        Email must be at most 100 characters.
+      </div>
+      <div *ngIf="email.hasError('pattern')">Invalid email!</div>
+    </div>
     <label class="input input-bordered flex items-center gap-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -45,9 +60,22 @@
         placeholder="password"
         id="password"
         name="password"
+        required
+        minlength="8"
+        maxlength="24"
+        #password="ngModel"
         [(ngModel)]="model.password"
       />
     </label>
+    <div *ngIf="isFormSubmitted && password.invalid" class="text-red-700">
+      <div *ngIf="password.hasError('required')">Password is required.</div>
+      <div *ngIf="password.hasError('minlength')">
+        Password must be at least 8 characters long.
+      </div>
+      <div *ngIf="password.hasError('maxlength')">
+        Password must be at most 24 characters long.
+      </div>
+    </div>
     <div class="m-5">
       <button class="btn btn-primary w-full rounded-full text-lg font-medium">
         Login
@@ -59,3 +87,10 @@
     </p>
   </form>
 </div>
+@if (errMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-error">
+      <span>Invalid login info!</span>
+    </div>
+  </div>
+}

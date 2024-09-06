@@ -5,17 +5,37 @@
         >Order Id: <span class="font-bold"> {{ model.orderId }}</span></span
       >
       <span class="font-medium"
-        >model Id:<span class="font-bold"> {{ model.orderItemId }}</span></span
+        >OrderItem Id:<span class="font-bold"> {{ model.orderItemId }}</span></span
       >
     </div>
 
     <div class="my-16 text-center">
       <p class="text-2xl my-5">Order Status</p>
       <ul class="steps steps-vertical lg:steps-horizontal">
-        <li class="step step-primary">Ordered</li>
-        <li class="step">Shipped</li>
-        <li class="step">Out For Delivery</li>
-        <li class="step">Delivered</li>
+        @if(model.status === "Ordered"){
+          <li class="step step-primary">Ordered</li>
+          <li class="step">Shipped</li>
+          <li class="step">Out For Delivery</li>
+          <li class="step">Delivered</li>
+        }
+        @if(model.status === "Shipped"){
+          <li class="step step-primary">Ordered</li>
+          <li class="step step-primary">Shipped</li>
+          <li class="step">Out For Delivery</li>
+          <li class="step">Delivered</li>
+        }
+        @if(model.status === "Out For Delivery"){
+          <li class="step step-primary">Ordered</li>
+          <li class="step step-primary">Shipped</li>
+          <li class="step step-primary">Out For Delivery</li>
+          <li class="step">Delivered</li>
+        }
+        @if(model.status === "Delivered"){
+          <li class="step step-primary">Ordered</li>
+          <li class="step step-primary">Shipped</li>
+          <li class="step step-primary">Out For Delivery</li>
+          <li class="step step-primary">Delivered</li>
+        }
       </ul>
     </div>
 

@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { LoginRequest } from '../models/login-request.model';
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router, RouterLink } from '@angular/router';
-import { NgOptimizedImage } from '@angular/common';
+import { NgIf, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, NgOptimizedImage, RouterLink],
+  imports: [FormsModule, NgOptimizedImage, RouterLink, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
   model: LoginRequest;
+  errMessage: boolean = false;
+  isFormSubmitted:boolean = false;
   constructor(
     private authService: AuthService,
     private cookieService: CookieService,
@@ -26,7 +28,11 @@ export class LoginComponent {
     };
   }
 
-  onFormSubmit(): void {
+  onFormSubmit(form:NgForm): void {
+    this.isFormSubmitted = true;
+    if(!this.model.email || !this.model.password || form.invalid){
+      return;
+    }
     this.authService.login(this.model).subscribe({
       next: (response) => {
         this.cookieService.set(
@@ -45,6 +51,12 @@ export class LoginComponent {
         });
         this.router.navigateByUrl('/');
       },
+      error: (res) => {
+        this.errMessage = true;
+        setTimeout(() =>{
+          this.errMessage=false;
+        },5000);
+      }
     });
   }
 }

@@ -2,7 +2,7 @@
   <div class="m-6">
     <h1 class="text-4xl font-medium text-center">Register</h1>
   </div>
-  <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+  <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
     <label class="input input-bordered flex items-center gap-2 mb-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -18,15 +18,30 @@
         />
       </svg>
       <input
-        type="text"
+        type="email"
         class="grow"
         placeholder="Email"
         id="email"
         name="email"
+        required
+        minlength="9"
+        maxlength="100"
+        #email="ngModel"
+        pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
         [(ngModel)]="model.email"
       />
     </label>
-    <div class="flex w-[100%] justify-between mb-5">
+    <div *ngIf="isFormSubmitted && email.invalid" class="text-red-700">
+      <div *ngIf="email.hasError('required')">Email is required.</div>
+      <div *ngIf="email.hasError('minlength')">
+        Email must be at least 9 characters.
+      </div>
+      <div *ngIf="email.hasError('maxlength')">
+        Email must be at most 100 characters.
+      </div>
+      <div *ngIf="email.hasError('pattern')">Invalid email!</div>
+    </div>
+    <div class="flex w-[100%] justify-between">
       <label class="form-control w-[47%]">
         <div class="label">
           <span class="label-text">First Name</span>
@@ -37,9 +52,14 @@
           class="input input-bordered w-full max-w-xs"
           id="firstName"
           name="firstName"
+          required
+          minlength="4"
+          maxlength="50"
+          #firstName="ngModel"
           [(ngModel)]="model.firstName"
         />
       </label>
+
       <label class="form-control w-[47%]">
         <div class="label">
           <span class="label-text">Last Name</span>
@@ -50,11 +70,27 @@
           class="input input-bordered w-full max-w-xs"
           id="lastName"
           name="lastName"
+          maxlength="50"
+          #lastName="ngModel"
           [(ngModel)]="model.lastName"
         />
       </label>
     </div>
-    <label class="input input-bordered flex items-center gap-2 mb-5">
+    <div *ngIf="isFormSubmitted && firstName.invalid" class="text-red-700">
+      <div *ngIf="firstName.hasError('required')">FirstName is required.</div>
+      <div *ngIf="firstName.hasError('minlength')">
+        FirstName must be at least 4 characters.
+      </div>
+      <div *ngIf="firstName.hasError('maxlength')">
+        FirstName must be at most 50 characters.
+      </div>
+    </div>
+    <div *ngIf="isFormSubmitted && lastName.invalid" class="text-red-700">
+      <div *ngIf="lastName.hasError('maxlength')">
+        LastName must be at most 50 characters.
+      </div>
+    </div>
+    <label class="input input-bordered flex items-center gap-2 mt-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -73,10 +109,27 @@
         placeholder="password"
         id="password"
         name="password"
+        required
+        minlength="8"
+        maxlength="24"
+        #password="ngModel"
         [(ngModel)]="model.password"
       />
     </label>
-    <label class="input input-bordered flex items-center gap-2">
+    <div
+      *ngIf="(isFormSubmitted && password.invalid) || passwordMismatch"
+      class="text-red-700"
+    >
+      <div *ngIf="password.hasError('required')">Password is required.</div>
+      <div *ngIf="password.hasError('minlength')">
+        Password must be at least 8 characters.
+      </div>
+      <div *ngIf="password.hasError('maxlength')">
+        Password must be at most 24 characters.
+      </div>
+      <div *ngIf="passwordMismatch">Passwords must match!</div>
+    </div>
+    <label class="input input-bordered flex items-center gap-2 mt-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -95,9 +148,28 @@
         placeholder="Confirm Password"
         id="confirmPassword"
         name="confirmPassword"
+        required
+        minlength="8"
+        maxlength="24"
+        #cPassword="ngModel"
         [(ngModel)]="confirmPassword"
       />
     </label>
+    <div
+      *ngIf="(isFormSubmitted && password.invalid) || passwordMismatch"
+      class="text-red-700"
+    >
+      <div *ngIf="cPassword.hasError('required')">
+        Confirm password is required.
+      </div>
+      <div *ngIf="cPassword.hasError('minlength')">
+        Confirm password must be at least 8 characters.
+      </div>
+      <div *ngIf="cPassword.hasError('maxlength')">
+        Confirm Password must be at most 24 characters.
+      </div>
+      <div *ngIf="passwordMismatch">Passwords must match!</div>
+    </div>
     <div class="m-5">
       <button class="btn btn-primary w-full rounded-full text-lg font-medium">
         Register
@@ -109,3 +181,17 @@
     </p> -->
   </form>
 </div>
+@if (errMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-error">
+      <span>Registration failed!</span>
+    </div>
+  </div>
+}
+@if (successMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-success">
+      <span>Updated successfully!</span>
+    </div>
+  </div>
+}

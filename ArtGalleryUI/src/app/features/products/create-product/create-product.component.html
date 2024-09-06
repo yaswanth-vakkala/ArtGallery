@@ -1,6 +1,6 @@
 <div class="container ml-[15%] mt-10 w-96">
     <h1 class="mt-5 text-2xl font-bold">Add Product</h1>
-    <form #form="ngForm" (ngSubmit)="onCreateProductSubmit()">
+    <form #form="ngForm" (ngSubmit)="onCreateProductSubmit(form)">
       <div class="mt-2">
         <div class="mt-3">
           <label class="form-control">
@@ -13,9 +13,22 @@
               class="input input-bordered w-full max-w-xs"
               id="name"
               name="name"
+              required
+              minlength="3"
+              maxlength="100"
+              #name="ngModel"
               [(ngModel)]="model.name"
             />
           </label>
+          <div *ngIf="isFormSubmitted && name.invalid" class="text-red-700">
+            <div *ngIf="name.hasError('required')">Product name is required.</div>
+            <div *ngIf="name.hasError('minlength')">
+              Name must be at least 3 characters.
+            </div>
+            <div *ngIf="name.hasError('maxlength')">
+              Name must be at most 100 characters.
+            </div>
+        </div>
         </div>
   
         <div class="mt-3">
@@ -29,9 +42,18 @@
               class="input input-bordered w-full max-w-xs"
               id="description"
               name="description"
+              required
+              maxlength="4000"
+              #description="ngModel"
               [(ngModel)]="model.description"
             />
           </label>
+          <div *ngIf="isFormSubmitted && description.invalid" class="text-red-700">
+            <div *ngIf="description.hasError('required')">Description is required.</div>
+            <div *ngIf="description.hasError('maxlength')">
+              Description must be at most 4000 characters.
+            </div>
+          </div>
         </div>
 
         <div class="mt-3">
@@ -43,11 +65,20 @@
                 type="text"
                 placeholder=""
                 class="input input-bordered w-full max-w-xs"
-                id="description"
-                name="description"
+                id="imageUrl"
+                name="imageUrl"
+                required
+                #imageUrl="ngModel"
+                maxlength="4000"
                 [(ngModel)]="model.imageUrl"
               />
             </label>
+            <div *ngIf="isFormSubmitted && imageUrl.invalid" class="text-red-700">
+              <div *ngIf="imageUrl.hasError('required')">ImageURL is required.</div>
+              <div *ngIf="imageUrl.hasError('maxlength')">
+                ImageURL must be at most 4000 characters.
+              </div>
+            </div>
           </div>
 
           <div class="mt-3">
@@ -59,11 +90,16 @@
                 type="text"
                 placeholder=""
                 class="input input-bordered w-full max-w-xs"
-                id="description"
-                name="description"
+                id="price"
+                name="price"
+                required
+                #price="ngModel"
                 [(ngModel)]="model.price"
               />
             </label>
+            <div *ngIf="isFormSubmitted && price.invalid" class="text-red-700">
+              <div *ngIf="price.hasError('required')">Price is required.</div>
+            </div>
           </div>
 
           <div class="mt-3">
@@ -75,11 +111,16 @@
                 type="text"
                 placeholder=""
                 class="input input-bordered w-full max-w-xs"
-                id="description"
-                name="description"
+                id="categoryId"
+                name="categoryId"
+                required
+                #categoryId="ngModel"
                 [(ngModel)]="model.categoryId"
               />
             </label>
+            <div *ngIf="isFormSubmitted && categoryId.invalid" class="text-red-700">
+              <div *ngIf="categoryId.hasError('required')">CategoryID is required.</div>
+            </div>
           </div>
 
         <div class="mt-3">
@@ -88,3 +129,17 @@
       </div>
     </form>
   </div>
+  @if (errMessage) {
+    <div class="toast toast-top toast-end">
+      <div class="alert alert-error">
+        <span>Could not add product!</span>
+      </div>
+    </div>
+  }
+  @if (successMessage) {
+    <div class="toast toast-top toast-end">
+      <div class="alert alert-success">
+        <span>Product added successfully!</span>
+      </div>
+    </div>
+  }

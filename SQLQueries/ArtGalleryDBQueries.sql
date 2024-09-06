@@ -19,8 +19,8 @@ ProductId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Product(ProductId), CreatedAt 
 create table WishList(WishListId uniqueidentifier PRIMARY KEY default newid(), AppUserId NVARCHAR(450) FOREIGN key REFERENCES AspNetUsers(Id),
 ProductId UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Product(ProductId), CreatedAt datetime2 not null);
 
-create table Payment(PaymentId uniqueidentifier primary key default newid(), Amount decimal(13,3) not null, PaymentDate datetime2 not null,
-PaymentMethod nvarchar(100) not null, Status nvarchar(30) not null);
+create table Payment(PaymentId uniqueidentifier primary key default newid(), Amount decimal(13,3) not null, PaymentDate datetime2 not null, 
+Status nvarchar(30) not null, CardNumber nvarchar(100) not null, CardHolderName nvarchar(100) not null, ExpiryDate datetime2 not null);
 
 create table AppOrder(OrderId uniqueidentifier primary key default newid(), AppUserId NVARCHAR(450) foreign key references AspNetUsers(Id), 
 PaymentId uniqueidentifier foreign key references Payment(PaymentId), AddressId uniqueidentifier foreign key references Address(AddressId), 

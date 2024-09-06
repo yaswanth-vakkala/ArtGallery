@@ -29,7 +29,7 @@ namespace ArtGalleryAPI.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts([FromQuery] string? query, [FromQuery] string? sortBy, [FromQuery] string? sortOrder
-            ,[FromQuery] int pageNumber=1, [FromQuery] int pageSize=2)
+            ,[FromQuery] int pageNumber=1, [FromQuery] int pageSize=8)
         {
             try
             {
@@ -59,13 +59,18 @@ namespace ArtGalleryAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// get count of the total proucts
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("count")]
-        public async Task<IActionResult> GetProductsCount()
+        public async Task<IActionResult> GetProductsCount([FromQuery] string query=null)
         {
             try
             {
-                var productCount = await productService.GetProductsCountAsync();
+                var productCount = await productService.GetProductsCountAsync(query);
                 return Ok(productCount);
             }catch(Exception e)
             {
@@ -259,14 +264,14 @@ namespace ArtGalleryAPI.Controllers
                     Status = product.Status,
                     ModifiedAt = DateTime.UtcNow,
                     CategoryId = product.CategoryId,
-                    Category = null,
+                    //Category = null,
                 };
 
-                var existingCategory = await categoryService.GetCategoryByIdAsync(product.CategoryId);
+                /*var existingCategory = await categoryService.GetCategoryByIdAsync(product.CategoryId);
                 if (existingCategory != null)
                 {
                     newProduct.Category = existingCategory;
-                }
+                }*/
 
                 var res = await productService.UpdateProductAsync(productId, newProduct);
 
@@ -285,7 +290,7 @@ namespace ArtGalleryAPI.Controllers
                         Price = res.Price,
                         Status = res.Status,
                         CreatedAt = res.CreatedAt,
-                        Category = res.Category,
+                        //Category = res.Category,
                     };
                     return Ok(result);
                 }

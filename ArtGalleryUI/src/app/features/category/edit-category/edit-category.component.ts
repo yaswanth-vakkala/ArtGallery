@@ -1,20 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { EditCategory } from '../models/edit-category.model';
 import { Subscription } from 'rxjs';
 import { CategoryService } from '../services/category.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-edit-category',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLink,NgIf],
   templateUrl: './edit-category.component.html',
   styleUrl: './edit-category.component.css',
 })
 export class EditCategoryComponent implements OnInit, OnDestroy {
   categoryId: string | null = null;
   model?: EditCategory;
+  errMessage: boolean = false;
+  isFormSubmitted:boolean = false;
+  successMessage: boolean = false;
   private editCategorySubscription?: Subscription;
   private paramsSubscription?: Subscription;
 
@@ -39,14 +43,25 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEditCategorySubmit() {
-    if (this.categoryId && this.model?.name && this.model?.name) {
+  onEditCategorySubmit(form:NgForm) {
+    this.isFormSubmitted = true;
+    if (this.categoryId && this.model?.name  && form.valid) {
       this.editCategorySubscription = this.categoryService
         .editCategory(this.categoryId, this.model)
         .subscribe({
           next: (response) => {
             this.router.navigateByUrl('/admin/categories');
+            this.successMessage = true;
+            setTimeout(() => {
+            this.successMessage = false;
+            }, 5000);
           },
+          error: (res) => {
+            this.errMessage = true;
+            setTimeout(() => {
+              this.errMessage = false;
+            }, 5000);
+          }
         });
     }
   }

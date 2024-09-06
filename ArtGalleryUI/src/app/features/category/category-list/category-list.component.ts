@@ -26,19 +26,21 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   }
 
   onDeleteClick(id: string) {
-    this.deleteCategorySubscription = this.categoryService
+    if(confirm("Are you to delete the category?")){
+      this.deleteCategorySubscription = this.categoryService
       .deleteCategory(id)
       .subscribe({
         next: (response) => {
           this.router
-            .navigateByUrl('/', { skipLocationChange: true })
-            .then(() => {
-              this.router.navigate(['admin/categories']);
-            });
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['admin/categories']);
+          });
         },
       });
-  }
-
+    }
+    }
+    
   ngOnDestroy(): void {
     this.deleteCategorySubscription?.unsubscribe();
   }

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 import { environment } from '../../../../environments/environment.development';
 import { CreateProduct } from '../models/create-product.model';
+import { EditCategory } from '../../category/models/edit-category.model';
+import { EditProduct } from '../models/edit-product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -39,8 +41,15 @@ export class ProductService {
     });
   }
 
-  getProductCount(): Observable<number> {
-    return this.http.get<number>(`${environment.apiBaseUrl}/api/product/count`);
+  getProductCount(query?:string): Observable<number> {
+    let params = new HttpParams();
+
+    if(query){
+      params = params.set('query', query);
+    }
+    return this.http.get<number>(`${environment.apiBaseUrl}/api/product/count`,{
+      params: params,
+    });
   }
 
   getProductById(productId: string): Observable<Product> {
@@ -48,10 +57,27 @@ export class ProductService {
       `${environment.apiBaseUrl}/api/product/${productId}`,
     );
   }
+
+  getProductsByCategoryId(categoryId: string): Observable<Product[]>{
+    return this.http.get<Product[]>(`${environment.apiBaseUrl}/api/product/products/${categoryId}`);
+  }
+
   createProduct(model: CreateProduct): Observable<void>{
     return this.http.post<void>(
       `${environment.apiBaseUrl}/api/product?addAuth=true`,
       model
+    );
+  }
+  editProduct(productId:string,model:EditProduct):Observable<Product>{
+    return this.http.put<Product>(
+      `${environment.apiBaseUrl}/api/product/${productId}?addAuth=true`,
+      model
+    );
+  }
+
+  deleteProduct(productId: string): Observable<boolean>{
+    return this.http.delete<boolean>(
+      `${environment.apiBaseUrl}/api/product/${productId}?addAuth=true`,
     );
   }
 }

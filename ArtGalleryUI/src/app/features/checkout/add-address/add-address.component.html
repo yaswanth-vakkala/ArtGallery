@@ -1,102 +1,210 @@
 <!-- <div class="grid grid-cols-1 gap4 lg:id-cols-12 px-5 lg:px-20" > -->
-    <!-- <div class="col-span-1 lg:col-span-5"> -->
-        <!-- <div class="rounded-md shadow-md h-[32.2rem] overflow-y-scroll hide-scroller box py-5">
+<!-- <div class="col-span-1 lg:col-span-5"> -->
+<!-- <div class="rounded-md shadow-md h-[32.2rem] overflow-y-scroll hide-scroller box py-5">
             <div class="p-5 py-7 cursor-pointer">
                 
             </div>
         </div> -->
-        <div class="w-96 mx-auto">
-          <div class="m-6">
-            <h1 class="text-4xl font-medium text-center">Add Address</h1>
+<div class="w-96 mx-auto">
+  <div class="m-6">
+    <h1 class="text-4xl font-medium text-center">Add Address</h1>
+  </div>
+  <div class="rounded-md shadow-md p-5 box">
+    <form #form="ngForm" (ngSubmit)="onAddAddressSubmit(form)">
+      <div class="mt-2">
+        <div class="mt-3">
+          <!-- <label class="form-label" for="addressLine"> Address Line: </label> -->
+          <label class="form-control w-full max-w-xs">
+            <div class="label">
+              <span class="label-text">Address Line</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Type here"
+              name="addressLine"
+              id="addressLine"
+              class="input input-bordered w-full max-w-lg"
+              required
+              maxlength="500"
+              #addressLine="ngModel"
+              [(ngModel)]="model.addressLine"
+              required
+            />
+          </label>
+        </div>
+        <div
+          *ngIf="isFormSubmitted && addressLine.invalid"
+          class="text-red-700"
+        >
+          <div *ngIf="addressLine.hasError('required')">
+            AddressLine is required.
           </div>
-        <div class="rounded-md shadow-md p-5 box">
-            <form #form="ngForm" (ngSubmit)="onAddAddressSubmit()">
-                <div class="mt-2">
-                  <div class="mt-3">
-                    <!-- <label class="form-label" for="addressLine"> Address Line: </label> -->
-                    <label class="form-control w-full max-w-xs">
-                      <div class="label">
-                        <span class="label-text">Address Line</span>
-                  
-                      </div>
-                      <input type="text" placeholder="Type here" name="addressLine" id="addressLine" class="input input-bordered w-full max-w-lg" [(ngModel)]="model.addressLine" required/>
-                      
-                    </label>
-                  </div>
-                </div>
-                <div class="mt-2">
-                    <div class="mt-3">
-                      <label class="form-control w-full max-w-xs">
-                        <div class="label">
-                          <span class="label-text">Pin Code</span>
-                    
-                        </div>
-                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="pinCode" id="pinCode" [(ngModel)]="model.pinCode" />
-                        
-                      </label>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <div class="mt-3">
-                      <label class="form-control w-full max-w-xs">
-                        <div class="label">
-                          <span class="label-text">City</span>
-                    
-                        </div>
-                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="city" id="city" [(ngModel)]="model.city" />
-                        
-                      </label>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <div class="mt-3">
-                      <label class="form-control w-full max-w-xs">
-                        <div class="label">
-                          <span class="label-text">Landmark</span>
-                    
-                        </div>
-                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-sm" name="landmark" id="landmark" [(ngModel)]="model.landmark" />
-                        
-                      </label>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <div class="mt-3">
-                      <label class="form-control">
-                        <div class="label">
-                          <span class="label-text">Country</span>
-                    
-                        </div>
-                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" name="country" id="country" [(ngModel)]="model.country" />
-                        
-                      </label>
-                    </div>
-                </div>
-                <!-- <div class="mt-2">-->
-                    <div class="flex w-[100%] justify-between mb-5">
-                      <label class="form-control w-[33%]">
-                        <div class="label">
-                          <span class="label-text">Country Code</span>
-                    
-                        </div>
-                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" name="countryCode" id="countryCode" [(ngModel)]="model.countryCode" />
-                        
-                      </label>
-                    <!-- </div> -->
-                <!-- </div> -->
-                <!-- <div class="mt-2">
+          <div *ngIf="addressLine.hasError('maxlength')">
+            AddressLine must be at most 500 characters.
+          </div>
+        </div>
+      </div>
+      <div class="mt-2">
+        <div class="mt-3">
+          <label class="form-control w-full max-w-xs">
+            <div class="label">
+              <span class="label-text">Pin Code</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Type here"
+              class="input input-bordered w-full max-w-sm"
+              name="pinCode"
+              id="pinCode"
+              required
+              maxlength="12"
+              #pinCode="ngModel"
+              [(ngModel)]="model.pinCode"
+            />
+          </label>
+        </div>
+        <div *ngIf="isFormSubmitted && pinCode.invalid" class="text-red-700">
+          <div *ngIf="pinCode.hasError('required')">PinCode is required.</div>
+          <div *ngIf="pinCode.hasError('maxlength')">
+            PinCode must be at most 12 characters.
+          </div>
+        </div>
+      </div>
+      <div class="mt-2">
+        <div class="mt-3">
+          <label class="form-control w-full max-w-xs">
+            <div class="label">
+              <span class="label-text">City</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Type here"
+              class="input input-bordered w-full max-w-sm"
+              name="city"
+              id="city"
+              required
+              maxlength="100"
+              #city="ngModel"
+              [(ngModel)]="model.city"
+            />
+          </label>
+        </div>
+        <div *ngIf="isFormSubmitted && city.invalid" class="text-red-700">
+          <div *ngIf="city.hasError('required')">City is required.</div>
+          <div *ngIf="city.hasError('maxlength')">
+            City must be at most 100 characters.
+          </div>
+        </div>
+      </div>
+      <div class="mt-2">
+        <div class="mt-3">
+          <label class="form-control w-full max-w-xs">
+            <div class="label">
+              <span class="label-text">Landmark</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Type here"
+              class="input input-bordered w-full max-w-sm"
+              name="landmark"
+              id="landmark"
+              maxlength="100"
+              #landmark="ngModel"
+              [(ngModel)]="model.landmark"
+            />
+          </label>
+        </div>
+        <div *ngIf="isFormSubmitted && landmark.invalid" class="text-red-700">
+          <div *ngIf="landmark.hasError('maxlength')">
+            Landmark must be at most 100 characters.
+          </div>
+        </div>
+      </div>
+      <div class="mt-2">
+        <div class="mt-3">
+          <label class="form-control">
+            <div class="label">
+              <span class="label-text">Country</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Type here"
+              class="input input-bordered w-full max-w-xs"
+              name="country"
+              id="country"
+              required
+              maxlength="100"
+              #country="ngModel"
+              [(ngModel)]="model.country"
+            />
+          </label>
+        </div>
+        <div *ngIf="isFormSubmitted && country.invalid" class="text-red-700">
+          <div *ngIf="country.hasError('required')">Country is required.</div>
+          <div *ngIf="country.hasError('maxlength')">
+            Country must be at most 100 characters.
+          </div>
+        </div>
+      </div>
+      <!-- <div class="mt-2">-->
+      <div class="flex w-[100%] justify-between mb-5">
+        <label class="form-control w-[33%]">
+          <div class="label">
+            <span class="label-text">Country Code</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            class="input input-bordered w-full max-w-xs"
+            name="countryCode"
+            id="countryCode"
+            required
+            maxlength="12"
+            #countryCode="ngModel"
+            [(ngModel)]="model.countryCode"
+          />
+        </label>
+        <!-- </div> -->
+        <!-- </div> -->
+        <!-- <div class="mt-2">
                     <div class="mt-3"> -->
-                      <label class="form-control w-[60%]">
-                        <div class="label">
-                          <span class="label-text">Phone Number</span>
-                    
-                        </div>
-                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" name="phoneNumber" id="phoneNumber" [(ngModel)]="model.phoneNumber" />
-                        
-                      </label>
-                    </div>
-                <!-- </div> -->
-                <!-- <div class="mt-2">
+        <label class="form-control w-[60%]">
+          <div class="label">
+            <span class="label-text">Phone Number</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            class="input input-bordered w-full max-w-xs"
+            name="phoneNumber"
+            id="phoneNumber"
+            required
+            maxlength="15"
+            pattern="^\+?[1-9]\d{1,14}$"
+            #phoneNumber="ngModel"
+            [(ngModel)]="model.phoneNumber"
+          />
+        </label>
+      </div>
+      <div *ngIf="isFormSubmitted && phoneNumber.invalid" class="text-red-700">
+        <div *ngIf="phoneNumber.hasError('maxlength')">
+          Phone Number must be at most 15 characters.
+        </div>
+        <div *ngIf="phoneNumber.hasError('required')">
+          Phone Number is required.
+        </div>
+        <div *ngIf="phoneNumber.hasError('pattern')">Invalid phone number!</div>
+      </div>
+      <div *ngIf="isFormSubmitted && countryCode.invalid" class="text-red-700">
+        <div *ngIf="countryCode.hasError('required')">
+          Country Code is required.
+        </div>
+        <div *ngIf="countryCode.hasError('maxlength')">
+          CountryCode must be at most 6 characters.
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- <div class="mt-2">
                   <div class="mt-3">
                     <label class="form-control w-full max-w-xs">
                       <div class="label">
@@ -108,11 +216,30 @@
                     </label>
                   </div>
               </div> -->
-                <div class="mt-3">
-                  <button type="submit" class="btn btn-primary w-full text-lg font-medium">Add</button>
-                </div>
-            </form>
-        </div>
+      <div class="mt-3">
+        <button
+          type="submit"
+          class="btn btn-primary w-full text-lg font-medium"
+        >
+          Add
+        </button>
+      </div>
+    </form>
+  </div>
 
-
-<!-- </div> -->
+  <!-- </div> -->
+  @if (successMessage) {
+    <div class="toast toast-top toast-end">
+      <div class="alert alert-success">
+        <span>Updated successfully!</span>
+      </div>
+    </div>
+  }
+  @if (errMessage) {
+    <div class="toast toast-top toast-end">
+      <div class="alert alert-error">
+        <span>Update failed!</span>
+      </div>
+    </div>
+  }
+</div>

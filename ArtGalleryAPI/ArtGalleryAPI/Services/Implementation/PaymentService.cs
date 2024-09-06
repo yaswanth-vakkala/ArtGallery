@@ -1,6 +1,8 @@
 ﻿using ArtGalleryAPI.Data;
 using ArtGalleryAPI.Models.Domain;
+using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace ArtGalleryAPI.Services.Implementation
 {
@@ -12,11 +14,53 @@ namespace ArtGalleryAPI.Services.Implementation
         {
             this.dbContext = dbContext;
         }
+
+        public async Task<IEnumerable<Payment>> GetAllPaymentsAsync()
+        {
+            var payments = await dbContext.Payment.ToListAsync();
+            return payments;
+        }
+
+        public async Task<Payment>? GetPaymentByIdAsync(Guid paymentId)
+        {
+            var payment = await dbContext.Payment.SingleOrDefaultAsync(payment => payment.PaymentId == paymentId);
+            return payment;
+        }
+
         public async Task<Payment> CreatePaymentAsync(Payment payment)
         {
             await dbContext.Payment.AddAsync(payment);
             await dbContext.SaveChangesAsync();
             return payment;
+        }
+
+        public async Task<bool> DeletePaymentAsync(Guid paymentId)
+        {
+            var payment = await dbContext.Payment.SingleOrDefaultAsync(payment => payment.PaymentId == paymentId);
+            if (payment == null)
+            {
+                return false;
+            }
+            else
+            {
+                dbContext.Payment.Remove(payment);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+        }
+        public async Task<Payment>? UpdatePaymentAsync(Guid paymentId, UpdatePaymentDto updatedPayment)
+        {
+            var payment = await dbContext.Payment.SingleOrDefaultAsync(payment => payment.PaymentId == paymentId);
+            if (payment == null)
+            {
+                return null;
+            }
+            else
+            {
+                dbContext.Entry(payment).CurrentValues.SetValues(updatedPayment);
+                await dbContext.SaveChangesAsync();
+                return payment;
+            }
         }
     }
 }

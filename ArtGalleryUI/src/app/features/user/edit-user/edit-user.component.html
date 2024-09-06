@@ -1,0 +1,137 @@
+<div class="container ml-[15%] mt-10 w-96">
+    <h1 class="mt-5 text-2xl font-bold">Edit user</h1>
+    @if (model) {
+      <form #form="ngForm" (ngSubmit)="onEditUserSubmit(form)">
+        <div class="mt-2">
+          <div class="mt-3">
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">FirstName</span>
+              </div>
+              <input
+                type="text"
+                placeholder=""
+                class="input input-bordered w-full max-w-xs"
+                id="firstName"
+                name="firstName"
+                minlength="4"
+                maxlength="50"
+                #firstName="ngModel"
+                [(ngModel)]="model.firstName"
+              />
+            </label>
+            <div *ngIf="isFormSubmitted && firstName.invalid" class="text-red-700">
+              <div *ngIf="firstName.hasError('required')">FirstName is required.</div>
+              <div *ngIf="firstName.hasError('minlength')">
+                FirstName must be at least 4 characters.
+              </div>
+              <div *ngIf="firstName.hasError('maxlength')">
+                FirstName must be at most 50 characters.
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">LastName</span>
+              </div>
+              <input
+                type="text"
+                placeholder=""
+                class="input input-bordered w-full max-w-xs"
+                id="lastName"
+                name="lastName"
+                maxlength="50"
+                #lastName="ngModel"
+                [(ngModel)]="model.lastName"
+              />
+            </label>
+            <div *ngIf="isFormSubmitted && lastName.invalid" class="text-red-700">
+              <div *ngIf="lastName.hasError('maxlength')">
+                LastName can have at most 50 characters.
+              </div>
+            </div>
+          </div>
+  
+          <div class="mt-3">
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">CountryCode</span>
+              </div>
+              <input
+                type="text"
+                placeholder=""
+                class="input input-bordered w-full max-w-xs"
+                id="countryCode"
+                name="countryCode"
+                maxlength="6"
+                #countryCode="ngModel"
+                [(ngModel)]="model.countryCode"
+              />
+            </label>
+            <div
+          *ngIf="isFormSubmitted && countryCode.invalid"
+          class="text-red-700"
+        >
+          <div *ngIf="countryCode.hasError('maxlength')">
+            CountryCode must be at most 6 characters.
+          </div>
+        </div>
+          </div>
+          <div class="mt-3">
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">PhoneNumber</span>
+              </div>
+              <input
+                type="text"
+                placeholder=""
+                class="input input-bordered w-full max-w-xs"
+                id="phoneNumber"
+                name="phoneNumber"
+                minlength="10"
+                maxlength="15"
+                #phoneNumber="ngModel"
+                pattern="^\+?[1-9]\d{1,14}$"
+                [(ngModel)]="model.phoneNumber"
+              />
+            </label>
+            <div
+          *ngIf="isFormSubmitted && phoneNumber.invalid"
+          class="text-red-700"
+        >
+        <div *ngIf="phoneNumber.hasError('minlength')">
+          Phone Number is not valid.
+        </div>
+          <div *ngIf="phoneNumber.hasError('maxlength')">
+            Phone Number must be at most 15 characters.
+          </div>
+          <div *ngIf="phoneNumber.hasError('pattern')">
+            Invalid phone number!
+          </div>
+        </div>
+          </div>
+          <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Edit</button>
+          </div>
+        </div>
+      </form>
+    } @else {
+      Not Found!
+    }
+  </div>
+  @if (errMessage) {
+    <div class="toast toast-top toast-end">
+      <div class="alert alert-error">
+        <span>Could not edit user!</span>
+      </div>
+    </div>
+  }
+  @if (successMessage) {
+    <div class="toast toast-top toast-end">
+      <div class="alert alert-success">
+        <span>User updated successfully!</span>
+      </div>
+    </div>
+  }
+  

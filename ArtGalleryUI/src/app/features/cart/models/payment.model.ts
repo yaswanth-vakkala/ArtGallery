@@ -1,6 +1,8 @@
 export interface Payment{
     paymentId: string,
     amount: number,
-    paymentMethod: string,
-    paymentDate: Date
+    paymentDate: Date,
+    cardNumber: string,
+    cardHolderName: string, 
+    expiryDate: Date
 }

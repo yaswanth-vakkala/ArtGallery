@@ -16,16 +16,53 @@ namespace ArtGalleryAPI.Services.Implementation
             this.dbcontext = dbcontext;
         }
 
-        public async Task<IEnumerable<AppUser>> GetAllUsersAsync()
+        public async Task<IEnumerable<AppUser>> GetAllUsersAsync(int pageNumber, int pageSize, string? query = null, string? sortBy = null, string? sortOrder = null)
         {
-            var users = await dbcontext.Users.ToListAsync();
-            return users;
+            var skipResults = (pageNumber - 1) * pageSize;
+            var users = dbcontext.Users.AsQueryable();
+
+            if (string.IsNullOrWhiteSpace(query) == false)
+            {
+                users = users.Where(x => x.Email.Contains(query) || x.FirstName.Contains(query) || x.LastName.Contains(query));
+            }
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (string.Equals(sortBy, "Email", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    users = isDesc ? users.OrderByDescending(u => u.Email) : users.OrderBy(u => u.Email);
+                }
+                else if (string.Equals(sortBy, "FirstName", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    users = isDesc ? users.OrderByDescending(u => u.FirstName) : users.OrderBy(u => u.FirstName);
+                }
+            }
+
+            users = users.Skip(skipResults).Take(pageSize);
+
+            return await users.ToListAsync();
         }
 
         public async Task<AppUser>? GetUserByIdAsync(string userId)
         {
             var user = await dbcontext.Users.SingleOrDefaultAsync(u => u.Id == userId);
             return user;
+        }
+
+        public async Task<int> GetUserCountAsync(string? query)
+        {
+            var userCount = 0;
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                userCount = await dbcontext.Users.Where(u => u.FirstName.Contains(query) || u.Email.Contains(query)).CountAsync();
+            }
+            else
+            {
+                userCount = await dbcontext.Users.CountAsync();
+            }
+            return userCount;
         }
 
         public async Task<AppUser>? GetUserByEmailAsync(string email)

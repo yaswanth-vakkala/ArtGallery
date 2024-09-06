@@ -1,7 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
 import { CartService } from '../services/cart.service';
 import { CartResponse } from '../models/cart-response.model';
 import { Product } from '../../products/models/product.model';
@@ -10,11 +16,21 @@ import { AddPayment } from '../models/add-payment.model';
 import { AddOrder } from '../../orders/models/add-order.model';
 import { AddOrderItem } from '../../orders/models/add-orderItem.model';
 import { OrderItem } from '../../orders/models/orderItem.model';
+import { AddressListComponent } from '../../checkout/address-list/address-list.component';
+import { AddressList } from '../../checkout/models/address-list.model';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-cart-list',
   standalone: true,
-  imports: [RouterLink, AsyncPipe, NgOptimizedImage],
+  imports: [
+    RouterLink,
+    AsyncPipe,
+    NgOptimizedImage,
+    AddressListComponent,
+    FormsModule,
+    NgIf,
+  ],
   templateUrl: './cart-list.component.html',
   styleUrl: './cart-list.component.css',
 })
@@ -31,6 +47,9 @@ export class CartListComponent implements OnInit, OnDestroy {
   orderModel: AddOrder;
   orderItemModel: AddOrderItem;
   orderItems: AddOrderItem[] = [];
+  addressFlag: boolean = false;
+  addressId?: string;
+  isFormSubmitted: boolean = false;
   private paramsSubscription?: Subscription;
   private getCartsSubscription?: Subscription;
   private getProductsSubscription?: Subscription;
@@ -47,9 +66,11 @@ export class CartListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
   ) {
     this.paymentModel = {
-      amount: 1000,
-      paymentMethod: 'UPI',
+      amount: 0,
       paymentDate: new Date(),
+      cardNumber: '',
+      cardHolderName: '',
+      expiryDate: new Date(),
     };
     this.orderModel = {
       appUserId: '',
@@ -115,8 +136,30 @@ export class CartListComponent implements OnInit, OnDestroy {
       });
   }
 
+  selectAddress(address: AddressList) {
+    this.addressId = address.addressId;
+    // this.onCheckout();
+  }
+
   onCheckout() {
-    const address = '57bc13ad-ba39-4bc0-8991-08dcc8125004';
+    if (this.addressFlag) {
+      this.isFormSubmitted = true;
+    }
+    this.addressFlag = true;
+    this.paymentModel.amount = this.totalCost;
+    if (
+      !this.paymentModel.amount ||
+      !this.paymentModel.cardNumber ||
+      !this.paymentModel.cardHolderName ||
+      !this.paymentModel.expiryDate ||
+      !this.paymentModel.paymentDate
+    ) {
+      return;
+    }
+    if (!this.addressId) {
+      return;
+    }
+    const address = this.addressId;
     const userId = localStorage.getItem('user-id');
     this.createPaymentSubscription = this.cartService
       .createPayment(this.paymentModel)
@@ -133,7 +176,7 @@ export class CartListComponent implements OnInit, OnDestroy {
               next: (res) => {
                 for (let i = 0; i < this.products.length; i++) {
                   this.orderItemModel = {
-                    status: 'Order Placed',
+                    status: 'Ordered',
                     productCost: this.products[i].price,
                     shippingCost: this.shippingCost,
                     taxCost:
@@ -155,7 +198,9 @@ export class CartListComponent implements OnInit, OnDestroy {
                               .deleteProducts(this.productIds)
                               .subscribe({
                                 next: (res) => {
-                                  this.router.navigateByUrl('/');
+                                  this.router.navigateByUrl(
+                                    `/myorders/${userId}`,
+                                  );
                                 },
                               });
                           },

@@ -16,6 +16,13 @@ import { OrdersListComponent } from './features/orders/orders-list/orders-list.c
 import { OrderItemDetailComponent } from './features/orderItem/order-item-detail/order-item-detail.component';
 import { StatisticsComponent } from './features/statistics/statistics/statistics.component';
 import { CreateProductComponent } from './features/products/create-product/create-product.component';
+import { UserListComponent } from './features/user/user-list/user-list.component';
+import { AddUserComponent } from './features/user/add-user/add-user.component';
+import { EditUserComponent } from './features/user/edit-user/edit-user.component';
+import { AllProductsComponent } from './features/products/all-products/all-products.component';
+import { EditProductComponent } from './features/products/edit-product/edit-product.component';
+import { AllOrdersComponent } from './features/orders/all-orders/all-orders.component';
+import { EditOrderItemComponent } from './features/orderItem/edit-order-item/edit-order-item.component';
 
 
 export const routes: Routes = [
@@ -36,6 +43,10 @@ export const routes: Routes = [
     component: OrderItemDetailComponent
   },
   {
+    path: 'admin/orderItems/edit/:orderItemId',
+    component: EditOrderItemComponent
+  },
+  {
     path: 'cart/:userId',
     component: CartListComponent
   },
@@ -46,6 +57,22 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'admin/orders',
+    component: AllOrdersComponent
+  },
+  {
+    path: 'admin/users',
+    component : UserListComponent,
+  },
+  {
+    path: 'admin/users/add',
+    component: AddUserComponent
+  },
+  {
+    path: 'admin/users/edit/:id',
+    component: EditUserComponent
   },
   {
     path: 'admin/categories',
@@ -86,5 +113,16 @@ export const routes: Routes = [
   {
     path:'admin/product/add',
     component:CreateProductComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path:'admin/product/edit/:productId',
+    component:EditProductComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path:'admin/products',
+    component:AllProductsComponent,
+    canActivate: [authGuard],
   }
 ];

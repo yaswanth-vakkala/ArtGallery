@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderItemFull } from '../models/orderItem-full.model';
 import { environment } from '../../../../environments/environment.development';
+import { EditOrderItem } from '../models/edit-orderItem.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,5 +15,9 @@ export class OrderItemService {
     return this.http.get<OrderItemFull>(
       `${environment.apiBaseUrl}/api/orderItem/product/${orderItemId}`,
     );
+  }
+
+  editOrderItem(orderItemId: string, orderItem:EditOrderItem): Observable<void>{
+    return this.http.put<void>(`${environment.apiBaseUrl}/api/orderitem/${orderItemId}`, orderItem);
   }
 }

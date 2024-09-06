@@ -24,16 +24,57 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>list of all orders</returns>
 
         [HttpGet]
-        public async Task<IActionResult> GetAllOrders()
+        public async Task<IActionResult> GetAllOrders([FromQuery] string? query, [FromQuery] string? sortBy, [FromQuery] string? sortOrder
+            , [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 8)
         {
             try
             {
-                var orders = await orderService.GetAllOrdersAsync();
+                var orders = await orderService.GetAllOrdersAsync(pageNumber, pageSize, query, sortBy, sortOrder);
                 return Ok(orders);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// get count of the total orders
+        /// </summary>
+        /// <param name="userId" ></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("count/{userId:Guid}")]
+        public async Task<IActionResult> GetOrderCount([FromRoute]string userId)
+        {
+            try
+            {
+                var orderCount = await orderService.GetOrderCountAsync(userId);
+                return Ok(orderCount);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// get count of the total orders
+        /// </summary>
+        /// <param></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("ordersCount")]
+        public async Task<IActionResult> GetOrdersCount([FromQuery] string query = null)
+        {
+            try
+            {
+                var orderCount = await orderService.GetOrdersCountAsync(query);
+                return Ok(orderCount);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
@@ -92,11 +133,11 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>filtered orders</returns>
         [HttpGet]
         [Route("user/{userId}")]
-        public async Task<IActionResult> GetOrdersByUserId([FromRoute] string userId)
+        public async Task<IActionResult> GetOrdersByUserId([FromRoute] string userId, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 8)
         {
             try
             {
-                var orders = await orderService.GetOrdersByUserIdAsync(userId);
+                var orders = await orderService.GetOrdersByUserIdAsync(userId, pageNumber, pageSize);
                 if (orders == null)
                 {
                     return NotFound();
