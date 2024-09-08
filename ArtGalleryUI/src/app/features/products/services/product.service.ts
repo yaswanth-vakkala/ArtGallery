@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment.development';
 import { CreateProduct } from '../models/create-product.model';
 import { EditCategory } from '../../category/models/edit-category.model';
 import { EditProduct } from '../models/edit-product.model';
+import { BulkProductsResponse } from '../models/bulk-products-response';
 
 @Injectable({
   providedIn: 'root',
@@ -78,6 +79,16 @@ export class ProductService {
       model,
     );
   }
+
+  addProductsBulk(selectedFile: File): Observable<BulkProductsResponse[]> {
+    const formData = new FormData();
+    formData.append('file', selectedFile, selectedFile.name);
+    return this.http.post<BulkProductsResponse[]>(
+      `${environment.apiBaseUrl}/api/product/addbulk?addAuth=true`,
+      formData,
+    );
+  }
+
   editProduct(productId: string, model: EditProduct): Observable<Product> {
     return this.http.put<Product>(
       `${environment.apiBaseUrl}/api/product/${productId}?addAuth=true`,

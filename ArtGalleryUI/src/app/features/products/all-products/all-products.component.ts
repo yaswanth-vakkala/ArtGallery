@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Product } from '../models/product.model';
 import { ProductService } from '../services/product.service';
 import { FormsModule } from '@angular/forms';
+import { BulkProductsResponse } from '../models/bulk-products-response';
 
 @Component({
   selector: 'app-all-products',
@@ -22,7 +23,9 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   query: string = '';
   sortBy: string = '';
   sortOrder: string = '';
+  selectedFile?: File;
   selectedProducts: Set<string> = new Set<string>();
+  addBulkProductsResponse?: BulkProductsResponse[];
   private deleteProductSubscription?: Subscription;
 
   constructor(
@@ -223,6 +226,53 @@ export class AllProductsComponent implements OnInit, OnDestroy {
           },
         });
     }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadFile() {
+    const maxFileSize = 4 * 1024 * 1024;
+    if (this.selectedFile) {
+      const validTypes = [
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      ];
+
+      if (!validTypes.includes(this.selectedFile.type)) {
+        alert('Please upload a valid Excel file (.xls or .xlsx).');
+        return;
+      }
+
+      if (this.selectedFile.size > maxFileSize) {
+        alert('File size exceeds 4MB. Please upload a smaller file.');
+        return;
+      }
+      this.productService.addProductsBulk(this.selectedFile).subscribe({
+        next: (res) => {
+          this.addBulkProductsResponse = res;
+        },
+      });
+    } else {
+      alert('No file selected!');
+    }
+  }
+
+  getSuccessCount(): number {
+    return this.addBulkProductsResponse!.filter(
+      (product) => product.status === 'success',
+    ).length;
+  }
+
+  getFailedCount(): number {
+    return this.addBulkProductsResponse!.filter(
+      (product) => product.status === 'failed',
+    ).length;
+  }
+
+  refreshPage() {
+    window.location.reload();
   }
 
   ngOnDestroy(): void {
