@@ -10,7 +10,7 @@ create table Category(CategoryId UNIQUEIDENTIFIER primary key default newsequent
 CreatedAt datetime2 not null, ModifiedAt datetime2, ModifiedBy nvarchar(100));
 
 create table Product(ProductId UNIQUEIDENTIFIER primary key DEFAULT newsequentialid(), Name nvarchar(100) not null, Description nvarchar(max) not null,
-ImageUrl nvarchar(max), Price decimal(13, 3) not null, Status nvarchar(30) not null,CategoryId UNIQUEIDENTIFIER foreign key references Category(CategoryId) on delete no action, 
+ImageUrl nvarchar(max), Price decimal(13, 3) not null, Status nvarchar(30) not null,CategoryId UNIQUEIDENTIFIER foreign key references Category(CategoryId), 
 CreatedAt datetime2 not null, ModifiedAt datetime2, ModifiedBy nvarchar(100));
 
 create table Cart(CartId uniqueidentifier primary key default newid(), AppUserId NVARCHAR(450) FOREIGN key REFERENCES AspNetUsers(Id) on delete cascade,
@@ -23,7 +23,7 @@ create table Payment(PaymentId uniqueidentifier primary key default newid(), Amo
 Status nvarchar(30) not null, CardNumber nvarchar(100) not null, CardHolderName nvarchar(100) not null, ExpiryDate datetime2 not null);
 
 create table AppOrder(OrderId uniqueidentifier primary key default newid(), AppUserId NVARCHAR(450) foreign key references AspNetUsers(Id) on delete set null, 
-PaymentId uniqueidentifier foreign key references Payment(PaymentId) on delete set null, AddressId uniqueidentifier foreign key references Address(AddressId) on delete set null, 
+PaymentId uniqueidentifier foreign key references Payment(PaymentId) on delete set null, AddressId uniqueidentifier foreign key references Address(AddressId), 
 CreatedAt datetime2 not null, ModifiedAt datetime2, ModifiedBy nvarchar(100));
 
 create table OrderItem(OrderItemId uniqueidentifier primary key default newid(),OrderId uniqueidentifier foreign key references AppOrder(OrderId) on delete cascade, 
