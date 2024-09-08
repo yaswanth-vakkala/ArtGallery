@@ -17,16 +17,17 @@ import { BulkAddResponse } from '../models/bulk-add-response';
   styleUrl: './user-list.component.css',
 })
 export class UserListComponent implements OnInit, OnDestroy {
-  users$?: Observable<AppUser[]>;
+  users?: AppUser[];
   userCount: number = 0;
   pageNumber: number = 1;
-  pageSize: number = 2;
+  pageSize: number = 3;
   paginationList: number[] = [];
   query: string = '';
   sortBy: string = '';
   sortOrder: string = '';
   selectedFile?: File;
   addBulkUsersResponse?: BulkAddResponse[];
+  selectedUsers: Set<string> = new Set<string>();
   private deleteUserSubscription?: Subscription;
 
   constructor(
@@ -42,24 +43,84 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.paginationList = new Array(Math.ceil(res / this.pageSize));
       },
     });
-    this.users$ = this.userService.getAllUsers(
-      undefined,
-      undefined,
-      undefined,
-      this.pageNumber,
-      this.pageSize,
-    );
+    this.userService
+      .getAllUsers(
+        undefined,
+        undefined,
+        undefined,
+        this.pageNumber,
+        this.pageSize,
+      )
+      .subscribe({
+        next: (res) => {
+          this.users = res;
+        },
+      });
+  }
+
+  toggleSelection(user: any) {
+    if (this.selectedUsers.has(user.id)) {
+      this.selectedUsers.delete(user.id);
+    } else {
+      this.selectedUsers.add(user.id);
+    }
+  }
+
+  isSelected(user: any): boolean {
+    return this.selectedUsers.has(user.id);
+  }
+
+  toggleSelectAll(event: any) {
+    if (event.target.checked) {
+      this.users?.forEach((user) => this.selectedUsers.add(user.id));
+    } else {
+      this.selectedUsers.clear();
+    }
+  }
+
+  areAllSelected(): boolean {
+    return this.users?.length === this.selectedUsers.size;
+  }
+
+  deleteSelectedUsers() {
+    if (confirm('Are you sure to delete the selected users?')) {
+      const userIdsArray = Array.from(this.selectedUsers);
+      this.userService.deleteUsersBulk(userIdsArray).subscribe({
+        next: (res) => {
+          this.userService
+            .getAllUsers(
+              this.query,
+              this.sortBy,
+              this.sortOrder,
+              this.pageNumber,
+              this.pageSize,
+            )
+            .subscribe({
+              next: (res) => {
+                this.users = res;
+              },
+            });
+          this.selectedUsers.clear();
+        },
+      });
+    }
   }
 
   getPage(pageNumber: number) {
     this.pageNumber = pageNumber;
-    this.users$ = this.userService.getAllUsers(
-      this.query,
-      this.sortBy,
-      this.sortOrder,
-      this.pageNumber,
-      this.pageSize,
-    );
+    this.userService
+      .getAllUsers(
+        this.query,
+        this.sortBy,
+        this.sortOrder,
+        this.pageNumber,
+        this.pageSize,
+      )
+      .subscribe({
+        next: (res) => {
+          this.users = res;
+        },
+      });
   }
 
   getPreviousPage() {
@@ -67,13 +128,19 @@ export class UserListComponent implements OnInit, OnDestroy {
       return;
     }
     this.pageNumber -= 1;
-    this.users$ = this.userService.getAllUsers(
-      this.query,
-      this.sortBy,
-      this.sortOrder,
-      this.pageNumber,
-      this.pageSize,
-    );
+    this.userService
+      .getAllUsers(
+        this.query,
+        this.sortBy,
+        this.sortOrder,
+        this.pageNumber,
+        this.pageSize,
+      )
+      .subscribe({
+        next: (res) => {
+          this.users = res;
+        },
+      });
   }
 
   getNextPage() {
@@ -81,23 +148,29 @@ export class UserListComponent implements OnInit, OnDestroy {
       return;
     }
     this.pageNumber += 1;
-    this.users$ = this.userService.getAllUsers(
-      this.query,
-      this.sortBy,
-      this.sortOrder,
-      this.pageNumber,
-      this.pageSize,
-    );
+    this.userService
+      .getAllUsers(
+        this.query,
+        this.sortBy,
+        this.sortOrder,
+        this.pageNumber,
+        this.pageSize,
+      )
+      .subscribe({
+        next: (res) => {
+          this.users = res;
+        },
+      });
   }
 
   search(query: string) {
-    this.users$ = this.userService.getAllUsers(
-      query,
-      undefined,
-      undefined,
-      this.pageNumber,
-      this.pageSize,
-    );
+    this.userService
+      .getAllUsers(query, undefined, undefined, this.pageNumber, this.pageSize)
+      .subscribe({
+        next: (res) => {
+          this.users = res;
+        },
+      });
     this.query = query;
     this.userService.getUserCount(query).subscribe({
       next: (res) => {
@@ -110,13 +183,19 @@ export class UserListComponent implements OnInit, OnDestroy {
   sort(sortBy: string, sortOrder: string) {
     this.sortBy = sortBy;
     this.sortOrder = sortOrder;
-    this.users$ = this.userService.getAllUsers(
-      this.query,
-      sortBy,
-      sortOrder,
-      this.pageNumber,
-      this.pageSize,
-    );
+    this.userService
+      .getAllUsers(
+        this.query,
+        sortBy,
+        sortOrder,
+        this.pageNumber,
+        this.pageSize,
+      )
+      .subscribe({
+        next: (res) => {
+          this.users = res;
+        },
+      });
   }
 
   clearFilters() {
@@ -129,7 +208,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   onDeleteClick(id: string) {
-    if (confirm('Are you to delete the user?')) {
+    if (confirm('Are you sure to delete the user?')) {
       this.deleteUserSubscription = this.userService.deleteUser(id).subscribe({
         next: (response) => {
           this.router

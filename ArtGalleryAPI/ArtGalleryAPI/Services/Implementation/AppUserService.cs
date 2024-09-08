@@ -2,6 +2,7 @@
 using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
+using Azure.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -99,6 +100,26 @@ namespace ArtGalleryAPI.Services.Implementation
                 await dbcontext.SaveChangesAsync();
                 return true;
             }
+        }
+
+        public async Task<bool> DeleteUsersBulkAsync(List<string> userIds)
+        {
+            await dbcontext.Users
+            .Where(user => userIds.Contains(user.Id))
+            .ExecuteDeleteAsync();
+            //foreach (var id in userIds)
+            //{
+            //    var user = await dbcontext.Users.SingleOrDefaultAsync(u => u.Id == id);
+            //    if (user == null)
+            //    {
+            //        continue;
+            //    }
+            //    else
+            //    {
+                    
+            //    }
+            //}
+            return true;
         }
     }
 }

@@ -88,10 +88,17 @@
       </div>
     </div>
     <div class="container overflow-x-auto">
-      @if (users$ | async; as users) {
+      @if (users) {
         <table class="table table-zebra">
           <thead>
             <tr>
+              <th>
+                <input
+                  type="checkbox"
+                  (change)="toggleSelectAll($event)"
+                  [checked]="areAllSelected()"
+                />
+              </th>
               <th>Id</th>
               <th>
                 <div class="flex">
@@ -185,6 +192,13 @@
           <tbody>
             @for (user of users; track user.id) {
               <tr class="hover">
+                <td>
+                  <input
+                    type="checkbox"
+                    [checked]="isSelected(user)"
+                    (change)="toggleSelection(user)"
+                  />
+                </td>
                 <td>{{ user.id }}</td>
                 <td>{{ user.firstName }} {{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
@@ -237,11 +251,14 @@
             }
           </tbody>
         </table>
+        <button class="btn btn-error mt-5" (click)="deleteSelectedUsers()" [disabled]="selectedUsers.size == 0">
+          Delete Selected Users
+        </button>
       }
     </div>
   </div>
 
-  @if (users$) {
+  @if (users) {
     <div class="flex justify-center mt-5 mb-10">
       <div class="join">
         <button class="join-item btn" (click)="getPage(1)">«</button>

@@ -101,4 +101,11 @@ export class UserService {
       `${environment.apiBaseUrl}/api/appUser/${userId}?addAuth=true`,
     );
   }
+
+  deleteUsersBulk(userids: string[]): Observable<void> {
+    return this.http.post<void>(
+      `${environment.apiBaseUrl}/api/appUser/delete/bulk?addAuth=true`,
+      userids,
+    );
+  }
 }

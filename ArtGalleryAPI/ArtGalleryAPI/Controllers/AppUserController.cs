@@ -164,5 +164,21 @@ namespace ArtGalleryAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("delete/bulk")]
+        [Authorize(Roles = "Writer")]
+        public async Task<IActionResult> DeleteUsersBulk([FromBody] List<string> userIds)
+        {
+            try
+            {
+                var deleteStatus = await appUserService.DeleteUsersBulkAsync(userIds);
+                return Ok(deleteStatus);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

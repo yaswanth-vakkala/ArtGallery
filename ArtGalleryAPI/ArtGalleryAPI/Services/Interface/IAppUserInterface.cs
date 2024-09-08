@@ -11,5 +11,6 @@ namespace ArtGalleryAPI.Services.Interface
         Task<AppUser>? GetUserByEmailAsync(string email);
         Task<AppUser>? UpdateUserAsync(string userId, UpdateAppUserDto updatedUser);
         Task<bool> DeleteUserAsync(string userId);
+        Task<bool> DeleteUsersBulkAsync(List<string> userIds);
     }
 }
