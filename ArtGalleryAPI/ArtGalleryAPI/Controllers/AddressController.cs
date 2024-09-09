@@ -75,8 +75,8 @@ namespace ArtGalleryAPI.Controllers
 
             try
             {
-                var userEmail = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").FirstOrDefault().Value;
-                if (userEmail != null)
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
+                if (uId != null)
                 {
                     var newAddress = new Address
                     {
@@ -87,7 +87,7 @@ namespace ArtGalleryAPI.Controllers
                         Country = address.Country,
                         CountryCode = address.CountryCode,
                         PhoneNumber = address.PhoneNumber,
-                        AppUserId = userEmail,
+                        AppUserId = uId,
                     };
                     await addressService.AddAddressAsync(newAddress);
                     var locationUri = Url.Action("GetAddressById", new { addressId = newAddress.AddressId });
