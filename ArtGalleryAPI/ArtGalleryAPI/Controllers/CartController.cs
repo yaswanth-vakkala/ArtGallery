@@ -32,6 +32,12 @@ namespace ArtGalleryAPI.Controllers
         {
             try
             {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
+                var isAdmin = User.IsInRole("Writer");
+                if(!isAdmin && uId != userId)
+                {
+                    return BadRequest();
+                }
                 var carts = await cartService.GetAllCartsForUserAsync(userId);
                 return Ok(carts);
             }
@@ -57,9 +63,10 @@ namespace ArtGalleryAPI.Controllers
 
             try
             {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
                 var cart = new Cart()
                 {
-                    AppUserId = newCart.AppUserId,
+                    AppUserId = uId,
                     ProductId = newCart.ProductId,
                     CreatedAt = DateTime.UtcNow,
                 };

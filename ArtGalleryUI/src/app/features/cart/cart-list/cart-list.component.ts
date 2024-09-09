@@ -141,9 +141,14 @@ export class CartListComponent implements OnInit, OnDestroy {
     // this.onCheckout();
   }
 
-  onCheckout() {
+  onCheckout(form?: NgForm) {
     if (this.addressFlag) {
       this.isFormSubmitted = true;
+    }
+    if (form) {
+      if (form.invalid) {
+        return;
+      }
     }
     this.addressFlag = true;
     this.paymentModel.amount = this.totalCost;

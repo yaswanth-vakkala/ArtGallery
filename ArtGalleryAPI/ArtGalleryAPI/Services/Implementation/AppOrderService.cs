@@ -2,17 +2,21 @@
 using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace ArtGalleryAPI.Services.Implementation
 {
     public class AppOrderService : IAppOrderInterface
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public AppOrderService(ApplicationDbContext dbContext)
+        public AppOrderService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             this.dbContext = dbContext;
+            this.httpContextAccessor = httpContextAccessor;
         }
         public async Task<IEnumerable<AppOrdersFullDto>> GetAllOrdersAsync(int pageNumber, int pageSize, string? query = null, string? sortBy = null, string? sortOrder = null)
         {
@@ -70,12 +74,25 @@ namespace ArtGalleryAPI.Services.Implementation
 
         public async Task<IEnumerable<OrderItem>> GetOrderItemsByOrderIdAsync(Guid orderId)
         {
+            var userId = httpContextAccessor.HttpContext?.User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
+            var order = await dbContext.AppOrder.FirstOrDefaultAsync(o => o.OrderId == orderId);
+            var isAdmin = httpContextAccessor.HttpContext.User.IsInRole("Writer");
+            if (order.AppUserId != userId || (userId != order.AppUserId && !isAdmin))
+            {
+                return null;
+            }
             var orderItems = await dbContext.OrderItem.Where(o => o.OrderId == orderId).ToListAsync();
             return orderItems;
         }
         public async Task<AppOrder>? GetOrderByIdAsync(Guid orderId)
         {
+            var userId = httpContextAccessor.HttpContext?.User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
             var order = await dbContext.AppOrder.SingleOrDefaultAsync(o => o.OrderId == orderId);
+            var isAdmin = httpContextAccessor.HttpContext.User.IsInRole("Writer");
+            if (userId != order.AppUserId || (userId != order.AppUserId && !isAdmin))
+            {
+                return null;
+            }
             return order;
         }
 

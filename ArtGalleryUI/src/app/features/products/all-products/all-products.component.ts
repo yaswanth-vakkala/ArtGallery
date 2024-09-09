@@ -18,7 +18,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   products?: Product[];
   productCount: number = 0;
   pageNumber: number = 1;
-  pageSize: number = 2;
+  pageSize: number = 5;
   paginationList: number[] = [];
   query: string = '';
   sortBy: string = '';

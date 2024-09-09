@@ -46,6 +46,7 @@ namespace ArtGalleryAPI
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
             builder.Services.AddScoped<IWishlistInterface, WishlistService>();
             builder.Services.AddSingleton<ILoggerInterface, LoggerManager>();
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddIdentityCore<AppUser>(options =>
             {

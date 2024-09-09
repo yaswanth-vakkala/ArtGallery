@@ -52,6 +52,11 @@ namespace ArtGalleryAPI.Controllers
         {
             try
             {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
+                if (uId != userId)
+                {
+                    return BadRequest();
+                }
                 var orderCount = await orderService.GetOrderCountAsync(userId);
                 return Ok(orderCount);
             }
@@ -110,6 +115,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>filtered order</returns>
         [HttpGet]
         [Route("{orderId:Guid}")]
+        [Authorize]
         public async Task<IActionResult> GetOrderById([FromRoute] Guid orderId)
         {
             try
@@ -143,6 +149,12 @@ namespace ArtGalleryAPI.Controllers
         {
             try
             {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
+                var isAdmin = User.IsInRole("Writer");
+                if (uId != userId && !isAdmin)
+                {
+                    return BadRequest();
+                }
                 var orders = await orderService.GetOrdersByUserIdAsync(userId, pageNumber, pageSize);
                 if (orders == null)
                 {
@@ -175,6 +187,12 @@ namespace ArtGalleryAPI.Controllers
 
             try
             {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
+                var isAdmin = User.IsInRole("Writer");
+                if (uId != order.AppUserId && !isAdmin)
+                {
+                    return BadRequest();
+                }
                 var neworder = new AppOrder
                 {
                     AddressId = order.AddressId,

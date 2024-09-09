@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   users?: AppUser[];
   userCount: number = 0;
   pageNumber: number = 1;
-  pageSize: number = 2;
+  pageSize: number = 5;
   paginationList: number[] = [];
   query: string = '';
   sortBy: string = '';

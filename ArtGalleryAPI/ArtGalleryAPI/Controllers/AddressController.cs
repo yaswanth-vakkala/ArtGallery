@@ -16,11 +16,13 @@ namespace ArtGalleryAPI.Controllers
     {
         private readonly IAddressInterface addressService;
         private readonly IAppUserInterface appUserService;
+        private readonly ILogger<AddressController> logger;
 
-        public AddressController(IAddressInterface addressService, IAppUserInterface appUserService)
+        public AddressController(IAddressInterface addressService, IAppUserInterface appUserService, ILogger<AddressController> logger)
         {
             this.addressService = addressService;
             this.appUserService = appUserService;
+            this.logger = logger;
         }
         [HttpGet]
         [Authorize(Roles = "Writer")]
@@ -33,6 +35,7 @@ namespace ArtGalleryAPI.Controllers
             }
             catch (Exception ex)
             {
+                logger.LogError(ex.ToString());
                 return BadRequest(ex.Message);
             }
         }
@@ -44,7 +47,9 @@ namespace ArtGalleryAPI.Controllers
             try
             {
                 var address = await addressService.GetAddressByIdAsync(addressId);
-                if (address == null)
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
+                var isAdmin = User.IsInRole("Writer");
+                if (address == null || (uId != address.AppUserId && !isAdmin))
                 {
                     return NotFound();
                 }
@@ -55,6 +60,7 @@ namespace ArtGalleryAPI.Controllers
             }
             catch (Exception ex)
             {
+                logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -69,8 +75,8 @@ namespace ArtGalleryAPI.Controllers
 
             try
             {
-                var user = await appUserService.GetUserByEmailAsync(address.userEmail);
-                if (user != null)
+                var userEmail = User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").FirstOrDefault().Value;
+                if (userEmail != null)
                 {
                     var newAddress = new Address
                     {
@@ -81,7 +87,7 @@ namespace ArtGalleryAPI.Controllers
                         Country = address.Country,
                         CountryCode = address.CountryCode,
                         PhoneNumber = address.PhoneNumber,
-                        AppUserId = user.Id,
+                        AppUserId = userEmail,
                     };
                     await addressService.AddAddressAsync(newAddress);
                     var locationUri = Url.Action("GetAddressById", new { addressId = newAddress.AddressId });
@@ -132,6 +138,7 @@ namespace ArtGalleryAPI.Controllers
             }
             catch (Exception ex)
             {
+                logger.LogError("custom logger");
                 return BadRequest(ex.Message);
             }
         }
@@ -142,6 +149,12 @@ namespace ArtGalleryAPI.Controllers
         {
             try
             {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
+                var isAdmin = User.IsInRole("Writer");
+                if(uId != userId)
+                {
+                    return BadRequest();
+                }
                 var addresses = await addressService.GetAddressesByUserIdAsync(userId);
                 if (addresses == null)
                 {
@@ -154,6 +167,7 @@ namespace ArtGalleryAPI.Controllers
             }
             catch (Exception ex)
             {
+                logger.LogError(ex.ToString());
                 return BadRequest(ex.Message);
             }
         }

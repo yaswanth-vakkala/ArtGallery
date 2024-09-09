@@ -71,8 +71,10 @@ namespace ArtGalleryAPI.Controllers
         {
             try
             {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
+                var isAdmin = User.IsInRole("Writer");
                 var user = await appUserService.GetUserByIdAsync(userId);
-                if (user == null)
+                if (user == null || (uId != userId && !isAdmin))
                 {
                     return NotFound();
                 }

@@ -93,10 +93,8 @@
     </div>
   </div>
 } @else {
-  @if(!addressFlag){
-    <div class="font-bold mt-10 text-2xl text-center">
-      No items in cart!
-    </div>
+  @if (!addressFlag) {
+    <div class="font-bold mt-10 text-2xl text-center">No items in cart!</div>
   }
 }
 
@@ -220,7 +218,7 @@
       <h1 class="my-5">
         Total Amount: <span class="font-bold">{{ this.totalCost }}</span>
       </h1>
-      <button class="btn btn-primary mx-auto" (click)="onCheckout()">
+      <button class="btn btn-primary mx-auto" (click)="onCheckout(form)">
         Checkout
       </button>
     </div>

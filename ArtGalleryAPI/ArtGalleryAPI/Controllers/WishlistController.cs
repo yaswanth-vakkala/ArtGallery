@@ -11,6 +11,7 @@ namespace ArtGalleryAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Writer")]
     public class WishlistController : ControllerBase
     {
         private readonly IWishlistInterface wishlistService;
