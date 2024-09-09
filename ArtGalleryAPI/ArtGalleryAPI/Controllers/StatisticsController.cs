@@ -32,6 +32,13 @@ namespace ArtGalleryAPI.Controllers
             return Ok(categoryOrderCounts);
         }
 
+        [HttpGet("customer-orders-monthwise")]
+        public async Task<ActionResult<Dictionary<string, Dictionary<string, int>>>> GetOrdersByCustomerIdMonthWise(string customerId)
+        {
+            var orderCountsByMonth=await statisticsService.GetOrdersByCustomerIdMonthWiseAsync(customerId);
+            return Ok(orderCountsByMonth);
+        }
+
         [HttpGet("monthly-sales")]
         public async Task<ActionResult<Dictionary<int, Dictionary<int, int>>>> GetMonthlySales()
         {

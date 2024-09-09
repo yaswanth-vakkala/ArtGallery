@@ -22,6 +22,10 @@ export class StatisticsService {
     return this.http.get<any>(`${this.apiUrl}/category-order-counts?addAuth=true`);
   }
 
+  // getOrdersByCustomerIdMonthWise(): Observable<any>{
+  //   return this.http.get<any>(`${this.apiUrl}/customer-orders-monthwise?addAuth=true`);
+  // }
+
   // Get monthly sales by year
   getMonthlySales(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/monthly-sales?addAuth=true`);

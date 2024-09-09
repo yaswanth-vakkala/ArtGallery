@@ -21,6 +21,7 @@ interface MonthData {
 export class StatisticsComponent implements OnInit {
   totalSales: number = 0;
   categoryOrderCounts: any;
+  ordersByCustomer: number=0;
   monthlySales: any;
   totalProductsSold: number = 0;
   topSellingProducts: TopSellingProductDto[] = [];
@@ -28,10 +29,12 @@ export class StatisticsComponent implements OnInit {
   
   private totalSalesChart!: Chart;
   private categoryOrderCountsChart!: Chart;
+  private ordersCountByCustomerChart!: Chart;
   private monthlySalesChart!: Chart;
   private totalProductsSoldChart!: Chart;
   private topSellingProductsChart!: Chart;
   private ordersInDateRangeChart!: Chart;
+ 
 
   constructor(private statisticsService: StatisticsService) {
     Chart.register(...registerables); // Register all chart types
@@ -40,6 +43,7 @@ export class StatisticsComponent implements OnInit {
   ngOnInit(): void {
     this.getTotalSales();
     this.getCategoryOrderCounts();
+    // this.getOrdersByCustomerIdMonthWise();
     this.getMonthlySales();
     this.getTotalProductsSold();
     this.getTopSellingProducts(5); // Get top 5 selling products
@@ -59,6 +63,13 @@ export class StatisticsComponent implements OnInit {
       this.updateCategoryOrderCountsChart();
     });
   }
+
+  // getOrdersByCustomerIdMonthWise(): void {
+  //   this.statisticsService.getOrdersByCustomerIdMonthWise().subscribe(counts => {
+  //     this.ordersByCustomer=counts;
+  //     // this.updateOrdersByCustomerIdMonthWiseChart();
+  //   });
+  // }
 
   getMonthlySales(): void {
     this.statisticsService.getMonthlySales().subscribe(sales => {
@@ -139,6 +150,36 @@ updateCategoryOrderCountsChart(): void {
       options: this.getDefaultOptions()
   });
 }
+
+// updateOrdersByCustomerIdMonthWiseChart(): void{
+//   this.destroyChart(this.ordersCountByCustomerChart);
+//   const ctx = document.getElementById('ordersByCustomer') as HTMLCanvasElement;
+//   this.ordersCountByCustomerChart = new Chart(ctx, {
+//       type: 'bar' as ChartType,
+//       data: {
+//           labels: ['Total Orders'],
+//           datasets: [{
+//               label: 'Orders Count',
+//               data: [this.ordersByCustomer],
+//               backgroundColor: 'rgba(75, 192, 192, 0.6)',
+//               barThickness: 20, // Adjust thickness here
+//           }]
+//       },
+//       options: this.getDefaultOptions({
+//           scales: {
+//               x: {
+//                   stacked: true, // Optional: If you want stacked bars
+//                   grid: {
+//                       display: false, // Hide grid lines if desired
+//                   }
+//               },
+//               y: {
+//                   beginAtZero: true
+//               }
+//           }
+//       })
+//   });
+// }
 
 // Update monthly sales chart
 updateMonthlySalesChart(monthData: { [year: string]: { [month: string]: number } }): void {
