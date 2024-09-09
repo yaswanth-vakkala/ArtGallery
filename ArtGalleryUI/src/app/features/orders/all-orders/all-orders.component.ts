@@ -80,7 +80,7 @@ export class AllOrdersComponent implements OnInit {
 
   search(query: string) {
     this.orders$ = this.orderService.getAllOrders(
-      this.pageNumber,
+      1,
       this.pageSize,
       query,
     );
@@ -88,6 +88,7 @@ export class AllOrdersComponent implements OnInit {
     this.orderService.getOrdersCount(query).subscribe({
       next: (res) => {
         this.orderCount = res;
+        this.pageNumber = 1;
         this.paginationList = new Array(Math.ceil(res / this.pageSize));
       },
     });
@@ -97,12 +98,13 @@ export class AllOrdersComponent implements OnInit {
     this.sortBy = sortBy;
     this.sortOrder = sortOrder;
     this.orders$ = this.orderService.getAllOrders(
-      this.pageNumber,
+      1,
       this.pageSize,
       this.query,
       sortBy,
       sortOrder,
     );
+    this.pageNumber = 1;
   }
 
   clearFilters() {

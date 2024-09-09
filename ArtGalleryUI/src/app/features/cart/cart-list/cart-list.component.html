@@ -168,11 +168,12 @@
             <input
               type="text"
               class="grow"
-              placeholder="Card Number"
               id="cardNumber"
               name="cardNumber"
               required
               maxlength="100"
+              placeholder="xxxx xxxx xxxx xxxx"
+              pattern="[0-9\s]{13,19}"
               #cardNumber="ngModel"
               [(ngModel)]="paymentModel.cardNumber"
             />
@@ -181,6 +182,9 @@
         <div *ngIf="isFormSubmitted && cardNumber.invalid" class="text-red-700">
           <div *ngIf="cardNumber.hasError('required')">
             Card No and expiry date is required.
+          </div>
+          <div *ngIf="cardNumber.hasError('pattern')">
+            Enter valid card number.
           </div>
           <div *ngIf="cardNumber.hasError('maxlength')">
             Card No must be at most 100 characters.

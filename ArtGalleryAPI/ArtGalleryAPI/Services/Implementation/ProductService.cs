@@ -51,6 +51,43 @@ namespace ArtGalleryAPI.Services.Implementation
             return products;
         }
 
+        public async Task<IEnumerable<Product>> GetAllProductsForAdminAsync(int pageNumber, int pageSize, string? query = null, string? sortBy = null, string? sortOrder = null, Guid? categoryId = null)
+        {
+            var skipResults = (pageNumber - 1) * pageSize;
+            IEnumerable<Product> products = Enumerable.Empty<Product>();
+            if (categoryId != null)
+            {
+                products = dbContext.Product.Include(c => c.Category).Where(p => p.Category.CategoryId == categoryId).AsQueryable();
+            }
+            else
+            {
+                products = dbContext.Product.Include(c => c.Category).AsQueryable();
+            }
+
+            if (string.IsNullOrWhiteSpace(query) == false)
+            {
+                products = products.Where(x => x.Name.Contains(query));
+            }
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (string.Equals(sortBy, "Price", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    products = isDesc ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
+                }
+                else if (string.Equals(sortBy, "Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    products = isDesc ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name);
+                }
+            }
+
+            products = products.Skip(skipResults).Take(pageSize);
+            products = products.ToList();
+            return products;
+        }
+
         public async Task<Product>? GetProductByIdAsync(Guid productId)
         {
             var product = await dbContext.Product.Include(c => c.Category).SingleOrDefaultAsync(product => product.ProductId == productId);
@@ -81,6 +118,35 @@ namespace ArtGalleryAPI.Services.Implementation
                 else
                 {
                     productCount = await products.Where(p => p.Status == "In Stock").CountAsync();
+                }
+            }
+            return productCount;
+        }
+
+        public async Task<int> GetProductsCountForAdminAsync(string? query, Guid? categoryId)
+        {
+            var productCount = 0;
+            if (categoryId == null)
+            {
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    productCount = await dbContext.Product.Where(p => p.Name.Contains(query)).CountAsync();
+                }
+                else
+                {
+                    productCount = await dbContext.Product.CountAsync();
+                }
+            }
+            else
+            {
+                var products = dbContext.Product.Where(p => p.Category.CategoryId == categoryId);
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    productCount = await products.Where(p => p.Name.Contains(query)).CountAsync();
+                }
+                else
+                {
+                    productCount = await products.CountAsync();
                 }
             }
             return productCount;

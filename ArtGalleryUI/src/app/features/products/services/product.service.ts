@@ -70,6 +70,62 @@ export class ProductService {
     );
   }
 
+  getAllProductsForAdmin(
+    query?: string,
+    sortBy?: string,
+    sortOrder?: string,
+    pageNumber?: number,
+    pageSize?: number,
+    categoryId?:string
+  ): Observable<Product[]> {
+    let params = new HttpParams();
+
+    if (query) {
+      params = params.set('query', query);
+    }
+
+    if (sortBy) {
+      params = params.set('sortBy', sortBy);
+    }
+
+    if (sortOrder) {
+      params = params.set('sortOrder', sortOrder);
+    }
+
+    if (pageNumber) {
+      params = params.set('pageNumber', pageNumber);
+    }
+    if (pageSize) {
+      params = params.set('pageSize', pageSize);
+    }
+
+    if(categoryId){
+      params = params.set("categoryId", categoryId);
+    }
+
+    return this.http.get<Product[]>(`${environment.apiBaseUrl}/api/product/admin/getAllProducts?addAuth=true`, {
+      params: params,
+    });
+  }
+
+  getProductCountForAdmin(query?: string, categoryId?:string): Observable<number> {
+    let params = new HttpParams();
+
+    if (query) {
+      params = params.set('query', query);
+    }
+
+    if(categoryId){
+      params = params.set("categoryId", categoryId);
+    }
+    return this.http.get<number>(
+      `${environment.apiBaseUrl}/api/product/admin/count?addAuth=true`,
+      {
+        params: params,
+      },
+    );
+  }
+
   getProductById(productId: string): Observable<Product> {
     return this.http.get<Product>(
       `${environment.apiBaseUrl}/api/product/${productId}`,

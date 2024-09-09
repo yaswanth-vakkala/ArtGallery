@@ -65,6 +65,47 @@ namespace ArtGalleryAPI.Controllers
         }
 
         /// <summary>
+        /// returns all the active products from the database
+        /// </summary>
+        /// <returns>list of all products</returns>
+
+        [HttpGet]
+        [Route("admin/getAllProducts")]
+        [Authorize(Roles ="Writer")]
+        public async Task<IActionResult> GetAllProductsForAdmin([FromQuery] string? query, [FromQuery] string? sortBy, [FromQuery] string? sortOrder, [FromQuery] Guid? categoryId
+            , [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 8)
+        {
+            try
+            {
+                var products = await productService.GetAllProductsForAdminAsync(pageNumber, pageSize, query, sortBy, sortOrder, categoryId);
+                List<ProductDto> result = new List<ProductDto>();
+                foreach (Product product in products)
+                {
+                    result.Add(
+                        new ProductDto()
+                        {
+                            ProductId = product.ProductId,
+                            Name = product.Name,
+                            Description = product.Description,
+                            ImageUrl = product.ImageUrl,
+                            Price = product.Price,
+                            Status = product.Status,
+                            CreatedAt = product.CreatedAt,
+                            ModifiedAt = product.ModifiedAt,
+                            ModifiedBy = product.ModifiedBy,
+                            Category = product.Category
+                        }
+                        );
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// get count of the total proucts
         /// </summary>
         /// <param name="query"></param>
@@ -78,6 +119,27 @@ namespace ArtGalleryAPI.Controllers
                 var productCount = await productService.GetProductsCountAsync(query, categoryId);
                 return Ok(productCount);
             }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// get count of the total proucts
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("admin/count")]
+        [Authorize(Roles = "Writer")]
+        public async Task<IActionResult> GetProductsCountForAdmin([FromQuery] string query = null, [FromQuery] Guid? categoryId = null)
+        {
+            try
+            {
+                var productCount = await productService.GetProductsCountForAdminAsync(query, categoryId);
+                return Ok(productCount);
+            }
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }

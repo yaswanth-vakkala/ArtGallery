@@ -34,14 +34,14 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.productService.getProductCount().subscribe({
+    this.productService.getProductCountForAdmin().subscribe({
       next: (res) => {
         this.productCount = res;
         this.paginationList = new Array(Math.ceil(res / this.pageSize));
       },
     });
     this.productService
-      .getAllProducts(
+      .getAllProductsForAdmin(
         undefined,
         undefined,
         undefined,
@@ -87,7 +87,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
       this.productService.deleteProductsBulk(productIdsArray).subscribe({
         next: (res) => {
           this.productService
-            .getAllProducts(
+            .getAllProductsForAdmin(
               this.query,
               this.sortBy,
               this.sortOrder,
@@ -108,7 +108,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   getPage(pageNumber: number) {
     this.pageNumber = pageNumber;
     this.productService
-      .getAllProducts(
+      .getAllProductsForAdmin(
         this.query,
         this.sortBy,
         this.sortOrder,
@@ -128,7 +128,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     }
     this.pageNumber -= 1;
     this.productService
-      .getAllProducts(
+      .getAllProductsForAdmin(
         this.query,
         this.sortBy,
         this.sortOrder,
@@ -148,7 +148,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     }
     this.pageNumber += 1;
     this.productService
-      .getAllProducts(
+      .getAllProductsForAdmin(
         this.query,
         this.sortBy,
         this.sortOrder,
@@ -164,7 +164,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
 
   search(query: string) {
     this.productService
-      .getAllProducts(
+      .getAllProductsForAdmin(
         query,
         undefined,
         undefined,
@@ -177,7 +177,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
         },
       });
     this.query = query;
-    this.productService.getProductCount(query).subscribe({
+    this.productService.getProductCountForAdmin(query).subscribe({
       next: (res) => {
         this.productCount = res;
         this.paginationList = new Array(Math.ceil(res / this.pageSize));
@@ -189,7 +189,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     this.sortBy = sortBy;
     this.sortOrder = sortOrder;
     this.productService
-      .getAllProducts(
+      .getAllProductsForAdmin(
         this.query,
         sortBy,
         sortOrder,
