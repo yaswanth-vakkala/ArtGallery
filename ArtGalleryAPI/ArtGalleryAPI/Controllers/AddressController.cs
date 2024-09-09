@@ -151,7 +151,7 @@ namespace ArtGalleryAPI.Controllers
             {
                 var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
                 var isAdmin = User.IsInRole("Writer");
-                if(uId != userId)
+                if(uId != userId && !isAdmin)
                 {
                     return BadRequest();
                 }
