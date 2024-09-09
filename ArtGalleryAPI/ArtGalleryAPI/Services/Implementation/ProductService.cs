@@ -30,7 +30,7 @@ namespace ArtGalleryAPI.Services.Implementation
 
             if (string.IsNullOrWhiteSpace(query) == false)
             {
-                products = products.Where(x => x.Name.Contains(query));
+                products = products.Where(x => x.Name.ToLower().Contains(query.ToLower()));
             }
 
             if (string.IsNullOrWhiteSpace(sortBy) == false)
@@ -66,7 +66,7 @@ namespace ArtGalleryAPI.Services.Implementation
 
             if (string.IsNullOrWhiteSpace(query) == false)
             {
-                products = products.Where(x => x.Name.Contains(query));
+                products = products.Where(x => x.Name.ToLower().Contains(query.ToLower()));
             }
 
             if (string.IsNullOrWhiteSpace(sortBy) == false)
@@ -101,7 +101,7 @@ namespace ArtGalleryAPI.Services.Implementation
             {
                 if (!string.IsNullOrWhiteSpace(query))
                 {
-                    productCount = await dbContext.Product.Where(p => p.Status == "In Stock" && p.Name.Contains(query)).CountAsync();
+                    productCount = await dbContext.Product.Where(p => p.Status == "In Stock" && p.Name.ToLower().Contains(query.ToLower())).CountAsync();
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace ArtGalleryAPI.Services.Implementation
                 var products = dbContext.Product.Where(p => p.Category.CategoryId == categoryId);
                 if (!string.IsNullOrWhiteSpace(query))
                 {
-                    productCount = await products.Where(p => p.Name.Contains(query) && p.Status == "In Stock").CountAsync();
+                    productCount = await products.Where(p => p.Name.ToLower().Contains(query.ToLower()) && p.Status == "In Stock").CountAsync();
                 }
                 else
                 {
@@ -130,7 +130,7 @@ namespace ArtGalleryAPI.Services.Implementation
             {
                 if (!string.IsNullOrWhiteSpace(query))
                 {
-                    productCount = await dbContext.Product.Where(p => p.Name.Contains(query)).CountAsync();
+                    productCount = await dbContext.Product.Where(p => p.Name.ToLower().Contains(query.ToLower())).CountAsync();
                 }
                 else
                 {
@@ -142,7 +142,7 @@ namespace ArtGalleryAPI.Services.Implementation
                 var products = dbContext.Product.Where(p => p.Category.CategoryId == categoryId);
                 if (!string.IsNullOrWhiteSpace(query))
                 {
-                    productCount = await products.Where(p => p.Name.Contains(query)).CountAsync();
+                    productCount = await products.Where(p => p.Name.ToLower().Contains(query.ToLower())).CountAsync();
                 }
                 else
                 {
