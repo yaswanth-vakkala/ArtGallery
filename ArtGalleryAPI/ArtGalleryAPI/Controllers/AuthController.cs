@@ -283,7 +283,7 @@ namespace ArtGalleryAPI.Controllers
                             res.status = "failed";
                             res.ErrorInfo = "mandatory fields are not filled";
                             addBulkUsersResponse.Add(res);
-                            continue;
+                            return BadRequest("Invalid file format!");
                         }
 
                         res.Email = reader.GetString(actualHeaders.IndexOf("email"));
@@ -297,7 +297,7 @@ namespace ArtGalleryAPI.Controllers
                             res.status = "failed";
                             res.ErrorInfo = "invalid email";
                             addBulkUsersResponse.Add(res);
-                            continue;
+                            return BadRequest("Invalid email!");
                         }
 
                         var user = new AppUser()
@@ -306,8 +306,8 @@ namespace ArtGalleryAPI.Controllers
                             Email = reader.GetString(actualHeaders.IndexOf("email")),
                             FirstName = reader.GetString(actualHeaders.IndexOf("firstname")),
                             LastName = reader.GetString(actualHeaders.IndexOf("lastname")),
-                            CountryCode = reader.GetString(actualHeaders.IndexOf("countrycode")),
-                            PhoneNumber = reader.GetString(actualHeaders.IndexOf("phonenumber")),
+                            CountryCode = reader.GetDouble(actualHeaders.IndexOf("countrycode")).ToString(),
+                            PhoneNumber = reader.GetDouble(actualHeaders.IndexOf("phonenumber")).ToString(),
                             Status = "Active",
                             CreatedAt = DateTime.UtcNow,
                         };

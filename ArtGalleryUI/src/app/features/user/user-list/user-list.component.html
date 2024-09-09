@@ -204,7 +204,7 @@
                 <td>{{ user.email }}</td>
                 <td>{{ user.status }}</td>
                 <td>{{ user.phoneNumber }}</td>
-                <td>{{ user.lastLoginAt | date: 'dd/MM/yyyy,hh:mm' }}</td>
+                <td>{{ user.lastLoginAt | date: "dd/MM/yyyy,hh:mm" }}</td>
                 <th>
                   <div class="flex justify-around">
                     <a
@@ -251,7 +251,11 @@
             }
           </tbody>
         </table>
-        <button class="btn btn-error mt-5" (click)="deleteSelectedUsers()" [disabled]="selectedUsers.size == 0">
+        <button
+          class="btn btn-error mt-5"
+          (click)="deleteSelectedUsers()"
+          [disabled]="selectedUsers.size == 0"
+        >
           Delete Selected Users
         </button>
       }
@@ -318,4 +322,12 @@
       </div>
     </div>
   }
+}
+
+@if (errMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-error">
+      <span>Invalid file format!</span>
+    </div>
+  </div>
 }

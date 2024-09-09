@@ -190,20 +190,24 @@
           <tbody>
             @for (product of products; track product.productId) {
               <tr class="hover">
-                <td>
-                  <input
-                    type="checkbox"
-                    [checked]="isSelected(product)"
-                    (change)="toggleSelection(product)"
-                  />
-                </td>
+                @if (product.status === "In Stock") {
+                  <td>
+                    <input
+                      type="checkbox"
+                      [checked]="isSelected(product)"
+                      (change)="toggleSelection(product)"
+                    />
+                  </td>
+                } @else {
+                  <td></td>
+                }
                 <td>{{ product.productId }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.status }}</td>
-                <td>{{ product.createdAt | date: 'dd/MM/yyyy'}}</td>
-                <td>{{ product.modifiedAt | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ product.createdAt | date: "dd/MM/yyyy" }}</td>
+                <td>{{ product.modifiedAt | date: "dd/MM/yyyy" }}</td>
                 <td>{{ product.modifiedBy }}</td>
                 <td>{{ product.category.name }}</td>
                 <th>
@@ -323,4 +327,12 @@
       </div>
     </div>
   }
+}
+
+@if (errMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-error">
+      <span>Invalid file format!</span>
+    </div>
+  </div>
 }

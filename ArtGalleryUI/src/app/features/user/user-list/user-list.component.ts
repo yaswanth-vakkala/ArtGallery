@@ -20,12 +20,13 @@ export class UserListComponent implements OnInit, OnDestroy {
   users?: AppUser[];
   userCount: number = 0;
   pageNumber: number = 1;
-  pageSize: number = 3;
+  pageSize: number = 2;
   paginationList: number[] = [];
   query: string = '';
   sortBy: string = '';
   sortOrder: string = '';
   selectedFile?: File;
+  errMessage: boolean = false;
   addBulkUsersResponse?: BulkAddResponse[];
   selectedUsers: Set<string> = new Set<string>();
   private deleteUserSubscription?: Subscription;
@@ -165,7 +166,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   search(query: string) {
     this.userService
-      .getAllUsers(query, undefined, undefined, this.pageNumber, this.pageSize)
+      .getAllUsers(query, undefined, undefined, 1, this.pageSize)
       .subscribe({
         next: (res) => {
           this.users = res;
@@ -174,6 +175,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.query = query;
     this.userService.getUserCount(query).subscribe({
       next: (res) => {
+        this.pageNumber = 1;
         this.userCount = res;
         this.paginationList = new Array(Math.ceil(res / this.pageSize));
       },
@@ -184,15 +186,10 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.sortBy = sortBy;
     this.sortOrder = sortOrder;
     this.userService
-      .getAllUsers(
-        this.query,
-        sortBy,
-        sortOrder,
-        this.pageNumber,
-        this.pageSize,
-      )
+      .getAllUsers(this.query, sortBy, sortOrder, 1, this.pageSize)
       .subscribe({
         next: (res) => {
+          this.pageNumber = 1;
           this.users = res;
         },
       });
@@ -245,6 +242,12 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.userService.addUsersBulk(this.selectedFile).subscribe({
         next: (res) => {
           this.addBulkUsersResponse = res;
+        },
+        error: (response) => {
+          this.errMessage = true;
+          setTimeout(() => {
+            this.errMessage = false;
+          }, 5000);
         },
       });
     } else {

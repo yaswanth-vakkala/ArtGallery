@@ -18,12 +18,13 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   products?: Product[];
   productCount: number = 0;
   pageNumber: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 2;
   paginationList: number[] = [];
   query: string = '';
   sortBy: string = '';
   sortOrder: string = '';
   selectedFile?: File;
+  errMessage: boolean = false;
   selectedProducts: Set<string> = new Set<string>();
   addBulkProductsResponse?: BulkProductsResponse[];
   private deleteProductSubscription?: Subscription;
@@ -164,13 +165,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
 
   search(query: string) {
     this.productService
-      .getAllProductsForAdmin(
-        query,
-        undefined,
-        undefined,
-        this.pageNumber,
-        this.pageSize,
-      )
+      .getAllProductsForAdmin(query, undefined, undefined, 1, this.pageSize)
       .subscribe({
         next: (res) => {
           this.products = res;
@@ -180,6 +175,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     this.productService.getProductCountForAdmin(query).subscribe({
       next: (res) => {
         this.productCount = res;
+        this.pageNumber = 1;
         this.paginationList = new Array(Math.ceil(res / this.pageSize));
       },
     });
@@ -189,18 +185,13 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     this.sortBy = sortBy;
     this.sortOrder = sortOrder;
     this.productService
-      .getAllProductsForAdmin(
-        this.query,
-        sortBy,
-        sortOrder,
-        this.pageNumber,
-        this.pageSize,
-      )
+      .getAllProductsForAdmin(this.query, sortBy, sortOrder, 1, this.pageSize)
       .subscribe({
         next: (res) => {
           this.products = res;
         },
       });
+    this.pageNumber = 1;
   }
 
   clearFilters() {
@@ -252,6 +243,12 @@ export class AllProductsComponent implements OnInit, OnDestroy {
       this.productService.addProductsBulk(this.selectedFile).subscribe({
         next: (res) => {
           this.addBulkProductsResponse = res;
+        },
+        error: (response) => {
+          this.errMessage = true;
+          setTimeout(() => {
+            this.errMessage = false;
+          }, 5000);
         },
       });
     } else {
