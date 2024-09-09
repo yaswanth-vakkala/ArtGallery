@@ -438,7 +438,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>bool representing state of operation</returns>
         [HttpDelete]
         [Route("{productId:Guid}")]
-        [Authorize(Roles = "Writer")]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct([FromRoute] Guid productId)
         {
             try
@@ -463,7 +463,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>bool representing state of operation</returns>
         [HttpPost]
         [Route("deleteproducts")]
-        [Authorize(Roles = "Writer")]
+        [Authorize]
         public async Task<IActionResult> DeleteProducts([FromBody] Guid[] productIds)
         {
             try

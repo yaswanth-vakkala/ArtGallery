@@ -18,7 +18,7 @@ namespace ArtGalleryAPI.Services.Implementation
         public async Task<IEnumerable<Product>> GetAllProductsAsync(int pageNumber, int pageSize, string? query = null, string? sortBy = null, string? sortOrder = null)
         {
             var skipResults = (pageNumber - 1) * pageSize;
-            var products = dbContext.Product.Include(c => c.Category).AsQueryable();
+            var products = dbContext.Product.Include(c => c.Category).Where(p => p.Status == "In Stock").AsQueryable();
 
             if (string.IsNullOrWhiteSpace(query) == false)
             {
