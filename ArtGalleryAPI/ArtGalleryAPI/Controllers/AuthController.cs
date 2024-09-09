@@ -1,4 +1,5 @@
-﻿using ArtGalleryAPI.Models.Domain;
+﻿using ArtGalleryAPI.Data;
+using ArtGalleryAPI.Models.Domain;
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Interface;
 using Azure.Core;
@@ -6,6 +7,7 @@ using ExcelDataReader;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ArtGalleryAPI.Controllers
 {
@@ -15,11 +17,14 @@ namespace ArtGalleryAPI.Controllers
     {
         private readonly UserManager<AppUser> userManager;
         private readonly ITokenInterface tokenService;
+        private readonly AuthDbContext authdbContext;
 
-        public AuthController(UserManager<AppUser> userManager, ITokenInterface tokenService)
+
+        public AuthController(UserManager<AppUser> userManager, ITokenInterface tokenService, AuthDbContext authdbContext)
         {
             this.userManager = userManager;
             this.tokenService = tokenService;
+            this.authdbContext = authdbContext;
         }
 
         /// <summary>
@@ -33,6 +38,8 @@ namespace ArtGalleryAPI.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
             var identityUser = await userManager.FindByEmailAsync(request.Email);
+            identityUser.LastLoginAt= DateTime.UtcNow;
+            
             if (identityUser is not null)
             {
                 // Check Password
@@ -52,7 +59,12 @@ namespace ArtGalleryAPI.Controllers
                         Roles = roles.ToList(),
                         Token = jwtToken
                     };
-
+                    var userid=authdbContext.Users.FirstOrDefault(u=>u.Id == identityUser.Id);
+                    if (userid != null)
+                    {
+                        userid.LastLoginAt= DateTime.UtcNow;
+                        await authdbContext.SaveChangesAsync();
+                    }
                     return Ok(response);
                 }
             }

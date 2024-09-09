@@ -204,7 +204,7 @@
                 <td>{{ user.email }}</td>
                 <td>{{ user.status }}</td>
                 <td>{{ user.phoneNumber }}</td>
-                <td>{{ user.lastLoginAt }}</td>
+                <td>{{ user.lastLoginAt | date: 'dd/MM/yyyy,hh:mm' }}</td>
                 <th>
                   <div class="flex justify-around">
                     <a

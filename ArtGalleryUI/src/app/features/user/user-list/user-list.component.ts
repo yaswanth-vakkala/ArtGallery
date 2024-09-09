@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { BulkAddResponse } from '../models/bulk-add-response';
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [RouterLink, AsyncPipe, FormsModule],
+  imports: [RouterLink, AsyncPipe, FormsModule, DatePipe],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css',
 })
