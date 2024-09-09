@@ -119,3 +119,18 @@
 </table> -->
   }
 </div>
+
+@if (successMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-success">
+      <span>Deleted successfully!</span>
+    </div>
+  </div>
+}
+@if (errMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-error">
+      <span>Deletion failed!</span>
+    </div>
+  </div>
+}

@@ -28,6 +28,7 @@ export class ProductListComponent implements OnInit {
   query: string = '';
   sortBy: string = '';
   sortOrder: string = '';
+  selectedCategory?:string;
   private paramsSubscription?: Subscription;
   private getProductsByCategoryIdSubscription?: Subscription;
   categoryId!: string
@@ -59,6 +60,7 @@ export class ProductListComponent implements OnInit {
       undefined,
       this.pageNumber,
       this.pageSize,
+      undefined
     );
     this.categories$ = this.categoryService.getAllCategories();
    
@@ -76,6 +78,7 @@ export class ProductListComponent implements OnInit {
       this.sortOrder,
       this.pageNumber,
       this.pageSize,
+      this.selectedCategory
     );
   }
 
@@ -90,6 +93,7 @@ export class ProductListComponent implements OnInit {
       this.sortOrder,
       this.pageNumber,
       this.pageSize,
+      this.selectedCategory
     );
   }
 
@@ -104,6 +108,7 @@ export class ProductListComponent implements OnInit {
       this.sortOrder,
       this.pageNumber,
       this.pageSize,
+      this.selectedCategory
     );
   }
 
@@ -114,12 +119,14 @@ export class ProductListComponent implements OnInit {
       undefined,
       this.pageNumber,
       this.pageSize,
+      this.selectedCategory
     );
     this.query = query;
-    this.productService.getProductCount(query).subscribe({
+    this.productService.getProductCount(query, this.selectedCategory).subscribe({
       next: (res) => {
         this.productsCount = res;
         this.paginationList = new Array(Math.ceil(res / this.pageSize));
+        this.pageNumber = 1;
       },
     });
   }
@@ -131,14 +138,25 @@ export class ProductListComponent implements OnInit {
       this.query,
       sortBy,
       sortOrder,
-      this.pageNumber,
+      1,
       this.pageSize,
+      this.selectedCategory
     );
+    this.pageNumber = 1;
   }
 
   displayByCategoryName(event: any){
-    const selectedValue=event.target.value;
-    this.products$=this.productService.getProductsByCategoryId(selectedValue);
+    this.selectedCategory=event.target.value;
+    if(this.selectedCategory){
+      this.products$=this.productService.getProductsByCategoryId(this.selectedCategory);
+      this.productService.getProductCount(undefined,this.selectedCategory).subscribe({
+        next: (res) => {
+          this.productsCount = res;
+          this.paginationList = new Array(Math.ceil(res / this.pageSize));
+          this.pageNumber = 1;
+        },
+      });
+    }
 
   }
 

@@ -31,12 +31,12 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>list of all products</returns>
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts([FromQuery] string? query, [FromQuery] string? sortBy, [FromQuery] string? sortOrder
-            ,[FromQuery] int pageNumber=1, [FromQuery] int pageSize=8)
+        public async Task<IActionResult> GetAllProducts([FromQuery] string? query, [FromQuery] string? sortBy, [FromQuery] string? sortOrder, [FromQuery] Guid? categoryId
+            , [FromQuery] int pageNumber=1, [FromQuery] int pageSize=8)
         {
             try
             {
-                var products = await productService.GetAllProductsAsync(pageNumber, pageSize, query, sortBy, sortOrder);
+                var products = await productService.GetAllProductsAsync(pageNumber, pageSize, query, sortBy, sortOrder, categoryId);
                 List<ProductDto> result = new List<ProductDto>();
                 foreach (Product product in products)
                 {
@@ -69,11 +69,11 @@ namespace ArtGalleryAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("count")]
-        public async Task<IActionResult> GetProductsCount([FromQuery] string query=null)
+        public async Task<IActionResult> GetProductsCount([FromQuery] string query=null, [FromQuery] Guid? categoryId = null)
         {
             try
             {
-                var productCount = await productService.GetProductsCountAsync(query);
+                var productCount = await productService.GetProductsCountAsync(query, categoryId);
                 return Ok(productCount);
             }catch(Exception e)
             {
@@ -350,7 +350,7 @@ namespace ArtGalleryAPI.Controllers
                             ImageUrl = reader.GetString(actualHeaders.IndexOf("imageurl")),
                             Price = (decimal)reader.GetDouble(actualHeaders.IndexOf("price")),
                             CategoryId = new Guid(reader.GetString(actualHeaders.IndexOf("categoryid"))),
-                            Status = "Active",
+                            Status = "In Stock",
                             CreatedAt = DateTime.UtcNow,
                         };
                         try

@@ -20,6 +20,7 @@ export class ProductService {
     sortOrder?: string,
     pageNumber?: number,
     pageSize?: number,
+    categoryId?:string
   ): Observable<Product[]> {
     let params = new HttpParams();
 
@@ -42,16 +43,24 @@ export class ProductService {
       params = params.set('pageSize', pageSize);
     }
 
+    if(categoryId){
+      params = params.set("categoryId", categoryId);
+    }
+
     return this.http.get<Product[]>(`${environment.apiBaseUrl}/api/product`, {
       params: params,
     });
   }
 
-  getProductCount(query?: string): Observable<number> {
+  getProductCount(query?: string, categoryId?:string): Observable<number> {
     let params = new HttpParams();
 
     if (query) {
       params = params.set('query', query);
+    }
+
+    if(categoryId){
+      params = params.set("categoryId", categoryId);
     }
     return this.http.get<number>(
       `${environment.apiBaseUrl}/api/product/count`,

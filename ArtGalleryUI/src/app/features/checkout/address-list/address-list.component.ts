@@ -18,6 +18,8 @@ export class AddressListComponent implements OnInit, OnDestroy{
   @Input() parentComponent = '';
   @Output() addressSelectEvent = new EventEmitter<AddressList>();
   selectedAddress? : AddressList;
+  successMessage: boolean = false;
+  errMessage : boolean = false;
   private getAddressesByUserIdSubscription?: Subscription;
   private paramsSubscription?: Subscription;
   private deleteAddressSubscription?: Subscription;
@@ -59,6 +61,16 @@ export class AddressListComponent implements OnInit, OnDestroy{
           .then(() => {
             this.router.navigate([`user/address/${this.userId}`]);
           });
+          this.successMessage = true;
+            setTimeout(() => {
+              this.successMessage = false;
+            }, 5000);
+        },
+        error: (response) => {
+          this.errMessage = true;
+          setTimeout(() => {
+            this.errMessage = false;
+          }, 5000);
         },
       });
     }
