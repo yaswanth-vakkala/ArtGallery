@@ -50,6 +50,8 @@ namespace ArtGalleryAPI.Controllers
                             Price = product.Price,
                             Status = product.Status,
                             CreatedAt = product.CreatedAt,
+                            ModifiedAt=product.ModifiedAt,
+                            ModifiedBy= product.ModifiedBy,
                             Category = product.Category
                         }
                         );
@@ -108,6 +110,8 @@ namespace ArtGalleryAPI.Controllers
                         Price = product.Price,
                         Status = product.Status,
                         CreatedAt = product.CreatedAt,
+                        ModifiedAt = product.ModifiedAt,
+                        ModifiedBy= product.ModifiedBy,
                         Category = product.Category
                     };
                     return Ok(response);
@@ -392,6 +396,7 @@ namespace ArtGalleryAPI.Controllers
                     Price = product.Price,
                     Status = product.Status,
                     ModifiedAt = DateTime.UtcNow,
+                    ModifiedBy= User.Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").FirstOrDefault().Value,
                     CategoryId = product.CategoryId,
                     //Category = null,
                 };
@@ -419,6 +424,8 @@ namespace ArtGalleryAPI.Controllers
                         Price = res.Price,
                         Status = res.Status,
                         CreatedAt = res.CreatedAt,
+                        ModifiedAt=res.ModifiedAt,
+                        ModifiedBy=res.ModifiedBy,
                         //Category = res.Category,
                     };
                     return Ok(result);

@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { BulkProductsResponse } from '../models/bulk-products-response';
 @Component({
   selector: 'app-all-products',
   standalone: true,
-  imports: [RouterLink, AsyncPipe, FormsModule],
+  imports: [RouterLink, AsyncPipe, FormsModule, DatePipe],
   templateUrl: './all-products.component.html',
   styleUrl: './all-products.component.css',
 })

@@ -50,7 +50,7 @@
     <h1 class="mt-5 font-bold text-2xl">Product List</h1>
     <div class="flex justify-between">
       <div class="mt-5">
-        <a class="btn btn-primary mr-2" (click)="uploadFile()">Add Users</a>
+        <a class="btn btn-primary mr-2" (click)="uploadFile()">Add Products</a>
         <input type="file" (change)="onFileSelected($event)" />
       </div>
       <div class="flex">
@@ -199,13 +199,13 @@
                 </td>
                 <td>{{ product.productId }}</td>
                 <td>{{ product.name }}</td>
-                <td class="line-clamp-2">{{ product.description }}</td>
+                <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.status }}</td>
-                <td>{{ product.createdAt }}</td>
-                <td>{{ product.modifiedAt }}</td>
+                <td>{{ product.createdAt | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ product.modifiedAt | date: 'dd/MM/yyyy'}}</td>
                 <td>{{ product.modifiedBy }}</td>
-                <td>{{ product.category }}</td>
+                <td>{{ product.category.name }}</td>
                 <th>
                   <div class="flex justify-around">
                     <a
