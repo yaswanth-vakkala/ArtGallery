@@ -38,7 +38,7 @@ namespace ArtGalleryAPI.Services.Implementation
             var cart = await dbContext.Cart.SingleOrDefaultAsync(c => c.CartId == cartId);
             var isAdmin = httpContextAccessor.HttpContext.User.IsInRole("Writer");
             var userId = httpContextAccessor.HttpContext?.User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
-            if (cart == null || (!isAdmin && cart.AppUserId != userId))
+            if (cart == null)
             {
                 return false;
             }
@@ -57,10 +57,6 @@ namespace ArtGalleryAPI.Services.Implementation
             foreach (var productId in productIds) {
                 var carts = await dbContext.Cart.Where(c => c.ProductId == productId).ToListAsync();
                 foreach (var cart in carts) { 
-                    if(!isAdmin && cart.AppUserId != userId)
-                    {
-                        return false;
-                    }
                     dbContext.Remove(cart);
                 }
             }

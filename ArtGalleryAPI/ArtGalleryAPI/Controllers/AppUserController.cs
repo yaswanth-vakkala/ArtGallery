@@ -124,7 +124,6 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>updated user</returns>
         [HttpPut]
         [Route("{userId}")]
-        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateUser([FromRoute] string userId, [FromBody] UpdateAppUserDto updatedAppUser)
         {
             try
