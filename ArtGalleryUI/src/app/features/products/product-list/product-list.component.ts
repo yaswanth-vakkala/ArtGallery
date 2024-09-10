@@ -18,7 +18,7 @@ import { Category } from '../../category/models/category.model';
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent implements OnInit {
-  products$?: Observable<Product[]>;
+  products?: Product[];
   categories$?:Observable<Category[]>;
   productsByCategory$?:Observable<Product[]>;
   productsCount: number = 0;
@@ -48,21 +48,25 @@ export class ProductListComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-    this.productService.getProductCount().subscribe({
-      next: (res) => {
-        this.productsCount = res;
-        this.paginationList = new Array(Math.ceil(res / this.pageSize));
-      },
-    });
-    this.products$ = this.productService.getAllProducts(
+    this.productService.getAllProducts(
       undefined,
       undefined,
       undefined,
       this.pageNumber,
       this.pageSize,
       undefined
-    );
-    this.categories$ = this.categoryService.getAllCategories();
+    ).subscribe({
+      next: (res) => {
+        this.products = res;
+        this.productService.getProductCount().subscribe({
+          next: (res) => {
+            this.productsCount = res;
+            this.paginationList = new Array(Math.ceil(res / this.pageSize));
+          },
+        });
+        this.categories$ = this.categoryService.getAllCategories();
+      }
+    });
    
     this.sharedService.message$.subscribe((query) => {
       this.query = query;
@@ -72,14 +76,18 @@ export class ProductListComponent implements OnInit {
 
   getPage(pageNumber: number) {
     this.pageNumber = pageNumber;
-    this.products$ = this.productService.getAllProducts(
+    this.productService.getAllProducts(
       this.query,
       this.sortBy,
       this.sortOrder,
       this.pageNumber,
       this.pageSize,
       this.selectedCategory
-    );
+    ).subscribe({
+      next: (res) => {
+        this.products = res;
+      }
+    });
   }
 
   getPreviousPage() {
@@ -87,14 +95,18 @@ export class ProductListComponent implements OnInit {
       return;
     }
     this.pageNumber -= 1;
-    this.products$ = this.productService.getAllProducts(
+    this.productService.getAllProducts(
       this.query,
       this.sortBy,
       this.sortOrder,
       this.pageNumber,
       this.pageSize,
       this.selectedCategory
-    );
+    ).subscribe({
+      next: (res) => {
+        this.products = res;
+      }
+    });
   }
 
   getNextPage() {
@@ -102,25 +114,33 @@ export class ProductListComponent implements OnInit {
       return;
     }
     this.pageNumber += 1;
-    this.products$ = this.productService.getAllProducts(
+    this.productService.getAllProducts(
       this.query,
       this.sortBy,
       this.sortOrder,
       this.pageNumber,
       this.pageSize,
       this.selectedCategory
-    );
+    ).subscribe({
+      next: (res) => {
+        this.products = res;
+      }
+    });
   }
 
   search(query: string) {
-    this.products$ = this.productService.getAllProducts(
+    this.productService.getAllProducts(
       query,
       undefined,
       undefined,
       this.pageNumber,
       this.pageSize,
       this.selectedCategory
-    );
+    ).subscribe({
+      next: (res) => {
+        this.products = res;
+      }
+    });
     this.query = query;
     this.productService.getProductCount(query, this.selectedCategory).subscribe({
       next: (res) => {
@@ -134,21 +154,29 @@ export class ProductListComponent implements OnInit {
   sort(sortBy: string, sortOrder: string) {
     this.sortBy = sortBy;
     this.sortOrder = sortOrder;
-    this.products$ = this.productService.getAllProducts(
+    this.productService.getAllProducts(
       this.query,
       sortBy,
       sortOrder,
       1,
       this.pageSize,
       this.selectedCategory
-    );
+    ).subscribe({
+      next: (res) => {
+        this.products = res;
+      }
+    });
     this.pageNumber = 1;
   }
 
   displayByCategoryName(event: any){
     this.selectedCategory=event.target.value;
     if(this.selectedCategory){
-      this.products$=this.productService.getProductsByCategoryId(this.selectedCategory);
+      this.productService.getProductsByCategoryId(this.selectedCategory).subscribe({
+        next: (res) => {
+          this.products = res;
+        }
+      });;
       this.productService.getProductCount(undefined,this.selectedCategory).subscribe({
         next: (res) => {
           this.productsCount = res;
