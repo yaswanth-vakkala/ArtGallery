@@ -2,6 +2,7 @@
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -10,6 +11,7 @@ namespace ArtGalleryAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Writer")]
     public class WishlistController : ControllerBase
     {
         private readonly IWishlistInterface wishlistService;
@@ -22,6 +24,7 @@ namespace ArtGalleryAPI.Controllers
        
         [HttpGet]
         [Route("{userId}")]
+        [Authorize]
         public async Task<IActionResult> GetAllWishlistsForUser([FromRoute] string userId)
         {
             try
@@ -37,6 +40,7 @@ namespace ArtGalleryAPI.Controllers
 
         
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateWishlist(AddWishlistDto newWishlist)
         {
             if (!ModelState.IsValid)
@@ -65,6 +69,7 @@ namespace ArtGalleryAPI.Controllers
        
         [HttpDelete]
         [Route("{cartId:Guid}")]
+        [Authorize]
         public async Task<IActionResult> DeleteWishlist([FromRoute] Guid wishlistId)
         {
             try
@@ -81,6 +86,7 @@ namespace ArtGalleryAPI.Controllers
        
         [HttpPost]
         [Route("deleteWishlists")]
+        [Authorize]
         public async Task<IActionResult> DeleteWishlists([FromBody] Guid[] wishlistIds)
         {
             try

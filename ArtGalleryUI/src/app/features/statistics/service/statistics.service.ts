@@ -14,28 +14,32 @@ export class StatisticsService {
 
   // Get total sales count
   getTotalSales(): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/total-sales`);
+    return this.http.get<number>(`${this.apiUrl}/total-sales?addAuth=true`);
   }
 
   // Get category order counts
   getCategoryOrderCounts(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/category-order-counts`);
+    return this.http.get<any>(`${this.apiUrl}/category-order-counts?addAuth=true`);
   }
+
+  // getOrdersByCustomerIdMonthWise(): Observable<any>{
+  //   return this.http.get<any>(`${this.apiUrl}/customer-orders-monthwise?addAuth=true`);
+  // }
 
   // Get monthly sales by year
   getMonthlySales(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/monthly-sales`);
+    return this.http.get<any>(`${this.apiUrl}/monthly-sales?addAuth=true`);
   }
 
   // Get total products sold
   getTotalProductsSold(): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/total-products-sold`);
+    return this.http.get<number>(`${this.apiUrl}/total-products-sold?addAuth=true`);
   }
 
   // Get top selling products
   getTopSellingProducts(topN: number): Observable<TopSellingProductDto[]> {
     const params = new HttpParams().set('topN', topN.toString());
-    return this.http.get<TopSellingProductDto[]>(`${this.apiUrl}/top-selling-products`, { params });
+    return this.http.get<TopSellingProductDto[]>(`${this.apiUrl}/top-selling-products?addAuth=true`, { params });
   }
 
   // Get orders in a specified date range
@@ -43,6 +47,6 @@ export class StatisticsService {
     const params = new HttpParams()
       .set('startDate', startDate.toISOString())
       .set('endDate', endDate.toISOString());
-    return this.http.get<SalesOverTimeDto[]>(`${this.apiUrl}/orders-in-date-range`, { params });
+    return this.http.get<SalesOverTimeDto[]>(`${this.apiUrl}/orders-in-date-range?addAuth=true`, { params });
   }
 }

@@ -29,7 +29,7 @@ export class OrderService {
     }
 
     return this.http.get<OrderFull[]>(
-      `${environment.apiBaseUrl}/api/apporder/user/${userId}`,
+      `${environment.apiBaseUrl}/api/apporder/user/${userId}?addAuth=true`,
       {
         params: params,
       },
@@ -63,7 +63,7 @@ export class OrderService {
     }
 
     return this.http.get<OrderFull[]>(
-      `${environment.apiBaseUrl}/api/apporder`,
+      `${environment.apiBaseUrl}/api/apporder?addAuth=true`,
       {
         params: params,
       },
@@ -72,7 +72,7 @@ export class OrderService {
 
   getOrderCount(userId?: string): Observable<number> {
     return this.http.get<number>(
-      `${environment.apiBaseUrl}/api/appOrder/count/${userId}`,
+      `${environment.apiBaseUrl}/api/appOrder/count/${userId}?addAuth=true`,
     );
   }
 
@@ -83,7 +83,7 @@ export class OrderService {
       params = params.set('query', query);
     }
     return this.http.get<number>(
-      `${environment.apiBaseUrl}/api/appOrder/ordersCount`,
+      `${environment.apiBaseUrl}/api/appOrder/ordersCount?addAuth=true`,
       {
         params: params,
       },

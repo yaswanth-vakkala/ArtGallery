@@ -4,6 +4,7 @@ import { UpdateAddress } from '../models/update-address.model';
 import { Subscription } from 'rxjs';
 import { AddressService } from '../services/address.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class UpdateAddressComponent implements OnInit,OnDestroy {
     private addressService: AddressService,
     private router: Router,
     private route: ActivatedRoute,
+    private _location: Location,
   ){};
   
     message: boolean=false;
@@ -42,6 +44,11 @@ export class UpdateAddressComponent implements OnInit,OnDestroy {
       },
     });
   }
+
+  goBack(){
+    this._location.back();
+  }
+
   onUpdateAddressSubmit(){
     const userid=localStorage.getItem('user-id');
     if (this.addressId && (this.model?.addressLine || this.model?.pinCode || this.model?.city || this.model?.landmark || this.model?.country || this.model?.countryCode || this.model?.phoneNumber) ) {

@@ -2,6 +2,7 @@
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -26,10 +27,17 @@ namespace ArtGalleryAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{userId}")]
+        [Authorize]
         public async Task<IActionResult> GetAllCartsForUser([FromRoute] string userId)
         {
             try
             {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
+                var isAdmin = User.IsInRole("Writer");
+                if(!isAdmin && uId != userId)
+                {
+                    return BadRequest();
+                }
                 var carts = await cartService.GetAllCartsForUserAsync(userId);
                 return Ok(carts);
             }
@@ -45,6 +53,7 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="newCart"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateCart(AddCartDto newCart)
         {
             if (!ModelState.IsValid)
@@ -54,9 +63,10 @@ namespace ArtGalleryAPI.Controllers
 
             try
             {
+                var uId = User.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid").FirstOrDefault().Value;
                 var cart = new Cart()
                 {
-                    AppUserId = newCart.AppUserId,
+                    AppUserId = uId,
                     ProductId = newCart.ProductId,
                     CreatedAt = DateTime.UtcNow,
                 };
@@ -77,6 +87,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>bool representing state of operation</returns>
         [HttpDelete]
         [Route("{cartId:Guid}")]
+        [Authorize]
         public async Task<IActionResult> DeleteCart([FromRoute] Guid cartId)
         {
             try
@@ -97,6 +108,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>bool representing state of operation</returns>
         [HttpPost]
         [Route("deleteCarts")]
+        [Authorize]
         public async Task<IActionResult> DeleteCarts([FromBody] Guid[] cartIds)
         {
             try

@@ -2,6 +2,7 @@
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>list of all orderItems</returns>
 
         [HttpGet]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> GetAllorderItems()
         {
             try
@@ -44,6 +46,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>filtered orderItem</returns>
         [HttpGet]
         [Route("{orderItemId:Guid}")]
+        [Authorize]
         public async Task<IActionResult> GetorderItemById([FromRoute] Guid orderItemId)
         {
             try
@@ -72,6 +75,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>filtered orderItem</returns>
         [HttpGet]
         [Route("product/{orderItemId:Guid}")]
+        [Authorize]
         public async Task<IActionResult> GetorderItemFullById([FromRoute] Guid orderItemId)
         {
             try
@@ -98,6 +102,7 @@ namespace ArtGalleryAPI.Controllers
         /// <param name="orderItem"></param>
         /// <returns>new orderItem</returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddorderItem([FromBody] AddOrderItemDto orderItem)
         {
             if (!ModelState.IsValid)
@@ -133,6 +138,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>new orderItem</returns>
         [HttpPost]
         [Route("addMultiple")]
+        [Authorize]
         public async Task<IActionResult> AddorderItems([FromBody] IEnumerable<AddOrderItemDto> orderItems)
         {
             if (!ModelState.IsValid)
@@ -172,6 +178,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>updated orderItem</returns>
         [HttpPut]
         [Route("{orderItemId:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateorderItem([FromRoute] Guid orderItemId, [FromBody] UpdateOrderItemDto updatedorderItem)
         {
             try
@@ -200,6 +207,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns>bool representing state of operation</returns>
         [HttpDelete]
         [Route("{orderItemId:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteorderItem([FromRoute] Guid orderItemId)
         {
             try

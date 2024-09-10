@@ -15,14 +15,22 @@ namespace ArtGalleryAPI.Services.Implementation
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync(int pageNumber, int pageSize, string? query = null, string? sortBy = null, string? sortOrder = null)
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(int pageNumber, int pageSize, string? query = null, string? sortBy = null, string? sortOrder = null, Guid? categoryId = null)
         {
             var skipResults = (pageNumber - 1) * pageSize;
-            var products = dbContext.Product.Include(c => c.Category).AsQueryable();
+            IEnumerable<Product> products = Enumerable.Empty<Product>();
+            if (categoryId != null)
+            {
+                products = dbContext.Product.Include(c => c.Category).Where(p => p.Status == "In Stock" && p.Category.CategoryId == categoryId).AsQueryable();
+            }
+            else
+            {
+                products = dbContext.Product.Include(c => c.Category).Where(p => p.Status == "In Stock").AsQueryable();
+            }
 
             if (string.IsNullOrWhiteSpace(query) == false)
             {
-                products = products.Where(x => x.Name.Contains(query));
+                products = products.Where(x => x.Name.ToLower().Contains(query.ToLower()));
             }
 
             if (string.IsNullOrWhiteSpace(sortBy) == false)
@@ -39,8 +47,45 @@ namespace ArtGalleryAPI.Services.Implementation
             }
 
             products = products.Skip(skipResults).Take(pageSize);
-            
-            return await products.ToListAsync();
+            products = products.ToList();
+            return products;
+        }
+
+        public async Task<IEnumerable<Product>> GetAllProductsForAdminAsync(int pageNumber, int pageSize, string? query = null, string? sortBy = null, string? sortOrder = null, Guid? categoryId = null)
+        {
+            var skipResults = (pageNumber - 1) * pageSize;
+            IEnumerable<Product> products = Enumerable.Empty<Product>();
+            if (categoryId != null)
+            {
+                products = dbContext.Product.Include(c => c.Category).Where(p => p.Category.CategoryId == categoryId).AsQueryable();
+            }
+            else
+            {
+                products = dbContext.Product.Include(c => c.Category).AsQueryable();
+            }
+
+            if (string.IsNullOrWhiteSpace(query) == false)
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(query.ToLower()));
+            }
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if (string.Equals(sortBy, "Price", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    products = isDesc ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
+                }
+                else if (string.Equals(sortBy, "Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    var isDesc = string.Equals(sortOrder, "desc", StringComparison.OrdinalIgnoreCase) ? true : false;
+                    products = isDesc ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name);
+                }
+            }
+
+            products = products.Skip(skipResults).Take(pageSize);
+            products = products.ToList();
+            return products;
         }
 
         public async Task<Product>? GetProductByIdAsync(Guid productId)
@@ -49,23 +94,67 @@ namespace ArtGalleryAPI.Services.Implementation
             return product;
         }
 
-        public async Task<int> GetProductsCountAsync(string? query)
+        public async Task<int> GetProductsCountAsync(string? query, Guid? categoryId)
         {
             var productCount = 0;
-            if (!string.IsNullOrWhiteSpace(query))
+            if (categoryId == null)
             {
-                productCount = await dbContext.Product.Where(p => p.Name.Contains(query)).CountAsync();
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    productCount = await dbContext.Product.Where(p => p.Status == "In Stock" && p.Name.ToLower().Contains(query.ToLower())).CountAsync();
+                }
+                else
+                {
+                    productCount = await dbContext.Product.Where(p => p.Status == "In Stock").CountAsync();
+                }
             }
             else
             {
-                productCount = await dbContext.Product.CountAsync();
+                var products = dbContext.Product.Where(p => p.Category.CategoryId == categoryId);
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    productCount = await products.Where(p => p.Name.ToLower().Contains(query.ToLower()) && p.Status == "In Stock").CountAsync();
+                }
+                else
+                {
+                    productCount = await products.Where(p => p.Status == "In Stock").CountAsync();
+                }
+            }
+            return productCount;
+        }
+
+        public async Task<int> GetProductsCountForAdminAsync(string? query, Guid? categoryId)
+        {
+            var productCount = 0;
+            if (categoryId == null)
+            {
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    productCount = await dbContext.Product.Where(p => p.Name.ToLower().Contains(query.ToLower())).CountAsync();
+                }
+                else
+                {
+                    productCount = await dbContext.Product.CountAsync();
+                }
+            }
+            else
+            {
+                var products = dbContext.Product.Where(p => p.Category.CategoryId == categoryId);
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    productCount = await products.Where(p => p.Name.ToLower().Contains(query.ToLower())).CountAsync();
+                }
+                else
+                {
+                    productCount = await products.CountAsync();
+                }
             }
             return productCount;
         }
 
         public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(Guid categoryId)
         {
-            var products = await dbContext.Product.Include(c => c.Category).Where(p => p.Category.CategoryId == categoryId).ToListAsync();
+            var products = await dbContext.Product.Include(c => c.Category).Where(p => p.Category.CategoryId == categoryId && p.Status == "In Stock").ToListAsync();
             return products;
         }
 

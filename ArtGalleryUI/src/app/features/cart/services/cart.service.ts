@@ -37,28 +37,28 @@ export class CartService {
 
   createPayment(paymentModel: AddPayment): Observable<Payment> {
     return this.http.post<Payment>(
-      `${environment.apiBaseUrl}/api/payment`,
+      `${environment.apiBaseUrl}/api/payment?addAuth=true`,
       paymentModel,
     );
   }
 
   createOrder(orderModel: AddOrder): Observable<Order> {
     return this.http.post<Order>(
-      `${environment.apiBaseUrl}/api/apporder`,
+      `${environment.apiBaseUrl}/api/apporder?addAuth=true`,
       orderModel,
     );
   }
 
   createOrderItems(orderItemModel: AddOrderItem[]): Observable<OrderItem[]> {
     return this.http.post<OrderItem[]>(
-      `${environment.apiBaseUrl}/api/orderitem/addMultiple`,
+      `${environment.apiBaseUrl}/api/orderitem/addMultiple?addAuth=true`,
       orderItemModel,
     );
   }
 
   getCartProducts(productIds: string[]): Observable<Product[]> {
     return this.http.post<Product[]>(
-      `${environment.apiBaseUrl}/api/product/cart`,
+      `${environment.apiBaseUrl}/api/product/cart?addAuth=true`,
       {
         productIds,
       },
@@ -67,20 +67,20 @@ export class CartService {
 
   deleteProducts(productIds: string[]): Observable<boolean> {
     return this.http.post<boolean>(
-      `${environment.apiBaseUrl}/api/product/deleteproducts`,
+      `${environment.apiBaseUrl}/api/product/deleteproducts?addAuth=true`,
       productIds,
     );
   }
 
   deleteCart(cartItemId: string): Observable<boolean> {
     return this.http.delete<boolean>(
-      `${environment.apiBaseUrl}/api/cart/${cartItemId}`,
+      `${environment.apiBaseUrl}/api/cart/${cartItemId}?addAuth=true`,
     );
   }
 
   deleteCarts(productIds: string[]): Observable<boolean> {
     return this.http.post<boolean>(
-      `${environment.apiBaseUrl}/api/cart/deleteCarts`,
+      `${environment.apiBaseUrl}/api/cart/deleteCarts?addAuth=true`,
       productIds,
     );
   }

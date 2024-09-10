@@ -1,46 +1,150 @@
-<div class="container w-[90%] mx-auto">
-    <h1 class="mt-5 font-bold text-2xl">User List</h1>
-    <div class="flex justify-end">
-      <label class="input input-bordered mr-2 mt-5 flex items-center gap-2 info-outline input-info">
-        <input type="text" class="grow" placeholder="Search" [(ngModel)]="query" (keyup)="search(query)"/>
-        <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 16 16"
-        fill="currentColor"
-        class="h-4 w-4 opacity-70">
-        <path
-        fill-rule="evenodd"
-        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-        clip-rule="evenodd" />
-      </svg>
-    </label>
-    <button class="btn ghost mt-5 mr-2" (click)="clearFilters()">Clear Filters</button>
-    <div class="flex justify-end mt-5">
-      <a [routerLink]="['/admin/users/add']" class="btn btn-primary"
-      >Add User</a
-      >
+@if (addBulkUsersResponse) {
+  <div class="w-[75%] mx-auto">
+    <button class="btn btn-ghost" (click)="refreshPage()">Go Back</button>
+    <h1 class="font-bold text-2xl">The status of bulk operation is:</h1>
+    <div class="text-end">
+      <span>
+        Succeded:
+        <span class="font-medium text-green-600">{{ getSuccessCount() }}</span>
+      </span>
+      <span>
+        Failed:
+        <span class="font-medium text-red-600">{{ getFailedCount() }}</span>
+      </span>
     </div>
+    <table class="table table-zebra">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Firstname</th>
+          <th>LastName</th>
+          <th>IsAdmin</th>
+          <th>Status</th>
+          <th>ErrorInfo</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of addBulkUsersResponse; track user.email) {
+          <tr>
+            <td>{{ user.email }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.isAdmin }}</td>
+            @if (user.status == "success") {
+              <td class="text-green-600">{{ user.status }}</td>
+            } @else {
+              <td class="text-red-600">{{ user.status }}</td>
+            }
+            @if (user.errorInfo) {
+              <td>{{ user.errorInfo }}</td>
+            } @else {
+              <td>
+                <span class="text-green-600">success</span>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
   </div>
+} @else {
+  <div class="container w-[90%] mx-auto">
+    <h1 class="mt-5 font-bold text-2xl">User List</h1>
+    <div class="flex justify-between">
+      <div class="mt-5">
+        <a class="btn btn-primary mr-2" (click)="uploadFile()">Add Users</a>
+        <input type="file" (change)="onFileSelected($event)" />
+        <a href="users.xlsx">Download Template</a>
+      </div>
+      <div class="flex">
+        <label
+          class="input input-bordered mr-2 mt-5 flex items-center gap-2 info-outline input-info"
+        >
+          <input
+            type="text"
+            class="grow"
+            placeholder="Search"
+            [(ngModel)]="query"
+            (keyup)="search(query)"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            class="h-4 w-4 opacity-70"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </label>
+        <button class="btn ghost mt-5 mr-2" (click)="clearFilters()">
+          Clear Filters
+        </button>
+        <div class="flex justify-end mt-5">
+          <a [routerLink]="['/admin/users/add']" class="btn btn-primary"
+            >Add User</a
+          >
+        </div>
+      </div>
+    </div>
     <div class="container overflow-x-auto">
-      @if (users$ | async; as users) {
+      @if (users) {
         <table class="table table-zebra">
           <thead>
             <tr>
+              <th>
+                <input
+                  type="checkbox"
+                  (change)="toggleSelectAll($event)"
+                  [checked]="areAllSelected()"
+                />
+              </th>
               <th>Id</th>
               <th>
                 <div class="flex">
                   <span>Name</span>
                   <div class="flex">
-                    <div class="cursor-pointer" (click)="sort('firstName', 'asc')">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18" />
+                    <div
+                      class="cursor-pointer"
+                      (click)="sort('firstName', 'asc')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18"
+                        />
                       </svg>
                     </div>
-                    <div class="cursor-pointer" (click)="sort('firstName', 'desc')">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" />
+                    <div
+                      class="cursor-pointer"
+                      (click)="sort('firstName', 'desc')"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3"
+                        />
                       </svg>
-                    </div>                               
+                    </div>
                   </div>
                 </div>
               </th>
@@ -49,15 +153,37 @@
                   <span>Email</span>
                   <div class="flex">
                     <div class="cursor-pointer" (click)="sort('email', 'asc')">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18"
+                        />
                       </svg>
                     </div>
                     <div class="cursor-pointer" (click)="sort('email', 'desc')">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3"
+                        />
                       </svg>
-                    </div>                               
+                    </div>
                   </div>
                 </div>
               </th>
@@ -69,20 +195,24 @@
           <tbody>
             @for (user of users; track user.id) {
               <tr class="hover">
+                <td>
+                  <input
+                    type="checkbox"
+                    [checked]="isSelected(user)"
+                    (change)="toggleSelection(user)"
+                  />
+                </td>
                 <td>{{ user.id }}</td>
-                <td>{{ user.firstName }} {{user.lastName}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.status}}</td>
-                <td>{{user.phoneNumber}}</td>
-                <td>{{user.lastLoginAt}}</td>
+                <td>{{ user.firstName }} {{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.status }}</td>
+                <td>{{ user.phoneNumber }}</td>
+                <td>{{ user.lastLoginAt | date: "dd/MM/yyyy,hh:mm" }}</td>
                 <th>
                   <div class="flex justify-around">
                     <a
                       class="btn btn-neutral"
-                      [routerLink]="[
-                        '/admin/users/edit',
-                        user.id,
-                      ]"
+                      [routerLink]="['/admin/users/edit', user.id]"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -124,11 +254,18 @@
             }
           </tbody>
         </table>
+        <button
+          class="btn btn-error mt-5"
+          (click)="deleteSelectedUsers()"
+          [disabled]="selectedUsers.size == 0"
+        >
+          Delete Selected Users
+        </button>
       }
     </div>
   </div>
-  
-  @if (users$) {
+
+  @if (users) {
     <div class="flex justify-center mt-5 mb-10">
       <div class="join">
         <button class="join-item btn" (click)="getPage(1)">«</button>
@@ -149,7 +286,7 @@
         >
           {{ this.pageNumber }}
         </button>
-  
+
         @if (this.pageNumber + 1 <= this.paginationList.length) {
           <button class="join-item btn" (click)="getPage(this.pageNumber + 1)">
             {{ this.pageNumber + 1 }}
@@ -166,18 +303,18 @@
           </button>
         }
         <!-- @if (this.pageNumber + 4 <= this.paginationList.length) {
-          <button class="join-item btn" (click)="getPage(this.pageNumber + 4)">
-            {{ this.pageNumber + 4 }}
-          </button>
-        } -->
+            <button class="join-item btn" (click)="getPage(this.pageNumber + 4)">
+              {{ this.pageNumber + 4 }}
+            </button>
+          } -->
         <!-- @for(item of paginationList; track $index; let  i = $index){
-          @if(i+1 == this.pageNumber){
-            <button class="join-item btn btn-active" (click)="getPage(i + 1)">{{i+1}}</button>
-          }@else {
-            <button class="join-item btn" (click)="getPage(i + 1)">{{i+1}}</button>
-          }
-        } -->
-  
+            @if(i+1 == this.pageNumber){
+              <button class="join-item btn btn-active" (click)="getPage(i + 1)">{{i+1}}</button>
+            }@else {
+              <button class="join-item btn" (click)="getPage(i + 1)">{{i+1}}</button>
+            }
+          } -->
+
         <button class="join-item btn" (click)="getNextPage()">&gt;</button>
         <button
           class="join-item btn"
@@ -188,4 +325,12 @@
       </div>
     </div>
   }
-  
+}
+
+@if (errMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-error">
+      <span>Invalid file format!</span>
+    </div>
+  </div>
+}

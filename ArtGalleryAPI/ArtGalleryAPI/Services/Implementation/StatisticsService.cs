@@ -43,6 +43,25 @@ namespace ArtGalleryAPI.Services.Implementation
             return categoryOrderCounts;
         }
 
+        public async Task<Dictionary<string, Dictionary<string, int>>> GetOrdersByCustomerIdMonthWiseAsync(string customerId)
+        {
+                var orderCountsByMonth = await dbContext.AppOrder
+                    .Where(o => o.AppUserId == customerId)
+                    .GroupBy(o => new { o.CreatedAt.Year, o.CreatedAt.Month })
+                    .OrderBy(g => g.Key.Year)
+                    .ThenBy(g => g.Key.Month)
+                    .ToDictionaryAsync(
+                        g => $"{g.Key.Year}-{g.Key.Month:D2}", // Key as "YYYY-MM"
+                        g => g.Count()
+                    );
+
+                // Return a dictionary where the key is the customerId
+                return new Dictionary<string, Dictionary<string, int>>
+        {
+            { customerId, orderCountsByMonth }
+        };
+        }
+
         // Get sales grouped by month
         public async Task<Dictionary<int, Dictionary<int, int>>> GetMonthlySalesByYearAsync()
         {

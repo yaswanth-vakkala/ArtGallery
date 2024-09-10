@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NLog;
 
 namespace ArtGalleryAPI
 {
@@ -44,6 +45,8 @@ namespace ArtGalleryAPI
             builder.Services.AddScoped<IPaymentInterface, PaymentService>();
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
             builder.Services.AddScoped<IWishlistInterface, WishlistService>();
+            builder.Services.AddSingleton<ILoggerInterface, LoggerManager>();
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddIdentityCore<AppUser>(options =>
             {
@@ -82,6 +85,8 @@ namespace ArtGalleryAPI
 
             var app = builder.Build();
 
+            LogManager.Setup().LoadConfigurationFromFile(Path.Combine(Directory.GetCurrentDirectory(), "nlog.config"));
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -93,7 +98,7 @@ namespace ArtGalleryAPI
             app.UseCors(options =>
             {
                 options.AllowAnyHeader();
-                options.AllowAnyOrigin();
+                options.WithOrigins("http://localhost:4200");
                 options.AllowAnyMethod();
             });
 

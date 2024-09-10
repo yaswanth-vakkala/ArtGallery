@@ -2,6 +2,7 @@
 using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services.Implementation;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.Xml;
@@ -25,6 +26,7 @@ namespace ArtGalleryAPI.Controllers
         /// <returns></returns>
         /// 
         [HttpGet]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> GetAllPayments()
         {
             try
@@ -55,6 +57,7 @@ namespace ArtGalleryAPI.Controllers
         }
         [HttpGet]
         [Route("{paymentId:Guid}")]
+        [Authorize]
         public async Task<IActionResult> GetPaymentById([FromRoute] Guid paymentId)
         {
             try
@@ -80,6 +83,7 @@ namespace ArtGalleryAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreatePayment(AddPaymentDto payment)
         {
             if (!ModelState.IsValid)
@@ -111,6 +115,7 @@ namespace ArtGalleryAPI.Controllers
 
         [HttpPut]
         [Route("{paymentId:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdatePayment([FromRoute] Guid paymentId, [FromBody] UpdatePaymentDto updatedPayment)
         {
             try
@@ -134,6 +139,7 @@ namespace ArtGalleryAPI.Controllers
 
         [HttpDelete]
         [Route("{paymentId:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeletePayment([FromRoute] Guid paymentId)
         {
             try

@@ -14,7 +14,7 @@ import { AsyncPipe, DatePipe, NgOptimizedImage } from '@angular/common';
   styleUrl: './orders-list.component.css',
 })
 export class OrdersListComponent implements OnInit, OnDestroy {
-  orders$?: Observable<OrderFull[]>;
+  orders?: OrderFull[];
   orderCount : number = 0;
   pageNumber: number = 1;
   pageSize: number = 2;
@@ -39,7 +39,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
               this.paginationList = new Array(Math.ceil(res / this.pageSize));
             }
           });
-          this.orders$ = this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize);
+          this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize)
+          .subscribe({
+            next: (res) => {
+              this.orders =res;
+            }
+          });
         }
       },
     });
@@ -47,7 +52,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
   getPage(pageNumber: number) {
     this.pageNumber = pageNumber;
-    this.orders$ = this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize);
+    this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize)
+    .subscribe({
+      next: (res) => {
+        this.orders =res;
+      }
+    });
   }
 
   getPreviousPage() {
@@ -55,7 +65,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       return;
     }
     this.pageNumber -= 1;
-    this.orders$ = this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize);
+    this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize)
+    .subscribe({
+      next: (res) => {
+        this.orders =res;
+      }
+    });
 
   }
 
@@ -64,7 +79,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       return;
     }
     this.pageNumber += 1;
-    this.orders$ = this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize);
+    this.orderService.getOrdersByUserId(this.userId, this.pageNumber, this.pageSize)
+    .subscribe({
+      next: (res) => {
+        this.orders =res;
+      }
+    });
 
   }
 

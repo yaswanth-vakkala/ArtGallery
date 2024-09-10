@@ -1,5 +1,5 @@
-@if (orders$ | async; as orders) {
-  <div class="sm:w-full md:w-[60%] mx-auto">
+@if (orders) {
+  <div class="sm:w-full md:w-[65%] mx-auto">
     <h1 class="font-bold text-2xl mb-4">All Orders</h1>
     <div class="flex justify-end">
       <label
@@ -108,10 +108,10 @@
     }
   </div>
 } @else {
-  <div class="text-center font-bold text-2xl mt-10">You have no orders!</div>
+  <!-- <div class="text-center font-bold text-2xl mt-10">You have no orders!</div> -->
 }
 
-@if (orders$) {
+@if (orders) {
   <div class="flex justify-center mt-5 mb-10">
     <div class="join">
       <button class="join-item btn" (click)="getPage(1)">«</button>

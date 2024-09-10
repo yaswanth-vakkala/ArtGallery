@@ -1,197 +1,341 @@
-<div class="w-[95%] mx-auto">
-    <h1 class="mt-5 font-bold text-2xl">Product List</h1>
-    <div class="flex justify-end">
-      <label class="input input-bordered mr-2 mt-5 flex items-center gap-2 info-outline input-info">
-        <input type="text" class="grow" placeholder="Search" [(ngModel)]="query" (keyup)="search(query)"/>
-        <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 16 16"
-        fill="currentColor"
-        class="h-4 w-4 opacity-70">
-        <path
-        fill-rule="evenodd"
-        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-        clip-rule="evenodd" />
-      </svg>
-    </label>
-    <button class="btn ghost mt-5 mr-2" (click)="clearFilters()">Clear Filters</button>
-    <div class="flex justify-end mt-5">
-      <a [routerLink]="['/admin/product/add']" class="btn btn-primary"
-        >Add Product</a
-      >
+@if (addBulkProductsResponse) {
+  <div class="w-[75%] mx-auto">
+    <button class="btn btn-ghost" (click)="refreshPage()">Go Back</button>
+    <h1 class="font-bold text-2xl">The status of bulk operation is:</h1>
+    <div class="text-end">
+      <span>
+        Succeded:
+        <span class="font-medium text-green-600">{{ getSuccessCount() }}</span>
+      </span>
+      <span>
+        Failed:
+        <span class="font-medium text-red-600">{{ getFailedCount() }}</span>
+      </span>
     </div>
+    <table class="table table-zebra">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>ImageUrl</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>ErroInfo</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of addBulkProductsResponse; track product) {
+          <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td class="truncate">{{ product.imageUrl }}</td>
+            <td>{{ product.price }}</td>
+            @if (product.status == "success") {
+              <td class="text-green-600">{{ product.status }}</td>
+            } @else {
+              <td class="text-red-600">{{ product.status }}</td>
+            }
+            @if (product.errorInfo) {
+              <td>{{ product.errorInfo }}</td>
+            } @else {
+              <td>
+                <span class="text-green-600">success</span>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
   </div>
+} @else {
+  <div class="w-[95%] mx-auto">
+    <h1 class="mt-5 font-bold text-2xl">Product List</h1>
+    <div class="flex justify-between">
+      <div class="mt-5">
+        <a class="btn btn-primary mr-2" (click)="uploadFile()">Add Products</a>
+        <input type="file" (change)="onFileSelected($event)" >
+        <a href="products.xlsx">Download Template</a>
+      </div>
+      <div class="flex">
+        <label
+          class="input input-bordered mr-2 mt-5 flex items-center gap-2 info-outline input-info"
+        >
+          <input
+            type="text"
+            class="grow"
+            placeholder="Search"
+            [(ngModel)]="query"
+            (keyup)="search(query)"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            class="h-4 w-4 opacity-70"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </label>
+        <button class="btn ghost mt-5 mr-2" (click)="clearFilters()">
+          Clear Filters
+        </button>
+        <div class="flex justify-end mt-5">
+          <a [routerLink]="['/admin/product/add']" class="btn btn-primary"
+            >Add Product</a
+          >
+        </div>
+      </div>
+    </div>
     <div class="overflow-x-auto">
-        @if (products$ | async; as products) {
-          <table class="table table-zebra">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>
+      @if (products) {
+        <table class="table table-zebra">
+          <thead>
+            <tr>
+              <th>
+                <input
+                  type="checkbox"
+                  (change)="toggleSelectAll($event)"
+                  [checked]="areAllSelected()"
+                />
+              </th>
+              <th>Id</th>
+              <th>
+                <div class="flex">
+                  <span>Name</span>
                   <div class="flex">
-                    <span>Name</span>
-                    <div class="flex">
-                      <div class="cursor-pointer" (click)="sort('name', 'asc')">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18" />
-                        </svg>
-                      </div>
-                      <div class="cursor-pointer" (click)="sort('name', 'desc')">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" />
-                        </svg>
-                      </div>                               
+                    <div class="cursor-pointer" (click)="sort('name', 'asc')">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18"
+                        />
+                      </svg>
+                    </div>
+                    <div class="cursor-pointer" (click)="sort('name', 'desc')">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3"
+                        />
+                      </svg>
                     </div>
                   </div>
-                </th>
-                <th>Description</th>
-                <th>
-                  <div class="flex">
-                    <span>Price</span>
-                    <div class="flex">
-                      <div class="cursor-pointer" (click)="sort('price', 'asc')">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18" />
-                        </svg>
-                      </div>
-                      <div class="cursor-pointer" (click)="sort('price', 'desc')">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" />
-                        </svg>
-                      </div>                               
-                    </div>
-                  </div>
-                </th>
-                <th>Status</th>
-                <th>Created At</th>
-                <th>Modified At</th>
-                <th>Modified by</th>
-                <th>Category</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-                @for (product of products; track product.productId) {
-                    <tr class="hover">
-                      <td>{{ product.productId }}</td>
-                      <td>{{ product.name }}</td>
-                      <td class="line-clamp-2">{{ product.description }}</td>
-                      <td>{{ product.price }}</td>
-                      <td>{{ product.status }}</td>
-                      <td>{{ product.createdAt }}</td>
-                      <td>{{ product.modifiedAt }}</td>
-                      <td>{{ product.modifiedBy }}</td>
-                      <td>{{ product.category }}</td>
-                      <th>
-                        <div class="flex justify-around">
-                            <a
-                              class="btn btn-neutral"
-                              [routerLink]="[
-                                '/admin/product/edit',
-                                product.productId,
-                              ]"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                class="bi bi-pencil-square"
-                                viewBox="0 0 16 16"
-                              >
-                                <path
-                                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
-                                />
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
-                                />
-                              </svg>
-                            </a>
-                            <button
-                    class="btn btn-error"
-                    (click)="onDeleteClick(product.productId)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-trash3"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"
-                      />
-                    </svg>
-                  </button>
                 </div>
               </th>
+              <th>Description</th>
+              <th>
+                <div class="flex">
+                  <span>Price</span>
+                  <div class="flex">
+                    <div class="cursor-pointer" (click)="sort('price', 'asc')">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18"
+                        />
+                      </svg>
+                    </div>
+                    <div class="cursor-pointer" (click)="sort('price', 'desc')">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </th>
+              <th>Status</th>
+              <th>Created At</th>
+              <th>Modified At</th>
+              <th>Modified by</th>
+              <th>Category</th>
+              <th></th>
             </tr>
-          }
-        </tbody>
-      </table>
-    }
+          </thead>
+          <tbody>
+            @for (product of products; track product.productId) {
+              <tr class="hover">
+                @if (product.status === "In Stock") {
+                  <td>
+                    <input
+                      type="checkbox"
+                      [checked]="isSelected(product)"
+                      (change)="toggleSelection(product)"
+                    />
+                  </td>
+                } @else {
+                  <td></td>
+                }
+                <td>{{ product.productId }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.status }}</td>
+                <td>{{ product.createdAt | date: "dd/MM/yyyy" }}</td>
+                <td>{{ product.modifiedAt | date: "dd/MM/yyyy" }}</td>
+                <td>{{ product.modifiedBy }}</td>
+                <td>{{ product.category.name }}</td>
+                <th>
+                  <div class="flex justify-around">
+                    <a
+                      class="btn btn-neutral"
+                      [routerLink]="['/admin/product/edit', product.productId]"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-pencil-square"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+                        />
+                      </svg>
+                    </a>
+                    <button
+                      class="btn btn-error"
+                      (click)="onDeleteClick(product.productId)"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-trash3"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </th>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <button
+          class="btn btn-error mt-5"
+          (click)="deleteSelectedProducts()"
+          [disabled]="selectedProducts.size == 0"
+        >
+          Delete Selected Products
+        </button>
+      }
+    </div>
   </div>
-</div>
 
-@if (products$) {
-  <div class="flex justify-center mt-5 mb-10">
-    <div class="join">
-      <button class="join-item btn" (click)="getPage(1)">«</button>
-      <button class="join-item btn" (click)="getPreviousPage()">&lt;</button>
-      @if (this.pageNumber - 2 > 0) {
-        <button class="join-item btn" (click)="getPage(this.pageNumber - 2)">
-          {{ this.pageNumber - 2 }}
-        </button>
-      }
-      @if (this.pageNumber - 1 > 0) {
-        <button class="join-item btn" (click)="getPage(this.pageNumber - 1)">
-          {{ this.pageNumber - 1 }}
-        </button>
-      }
-      <button
-        class="join-item btn btn-active"
-        (click)="getPage(this.pageNumber)"
-      >
-        {{ this.pageNumber }}
-      </button>
-
-      @if (this.pageNumber + 1 <= this.paginationList.length) {
-        <button class="join-item btn" (click)="getPage(this.pageNumber + 1)">
-          {{ this.pageNumber + 1 }}
-        </button>
-      }
-      @if (this.pageNumber + 2 <= this.paginationList.length) {
-        <button class="join-item btn" (click)="getPage(this.pageNumber + 2)">
-          {{ this.pageNumber + 2 }}
-        </button>
-      }
-      @if (this.pageNumber + 3 <= this.paginationList.length) {
-        <button class="join-item btn" (click)="getPage(this.pageNumber + 3)">
-          {{ this.pageNumber + 3 }}
-        </button>
-      }
-      <!-- @if (this.pageNumber + 4 <= this.paginationList.length) {
-        <button class="join-item btn" (click)="getPage(this.pageNumber + 4)">
-          {{ this.pageNumber + 4 }}
-        </button>
-      } -->
-      <!-- @for(item of paginationList; track $index; let  i = $index){
-        @if(i+1 == this.pageNumber){
-          <button class="join-item btn btn-active" (click)="getPage(i + 1)">{{i+1}}</button>
-        }@else {
-          <button class="join-item btn" (click)="getPage(i + 1)">{{i+1}}</button>
+  @if (products) {
+    <div class="flex justify-center mt-5 mb-10">
+      <div class="join">
+        <button class="join-item btn" (click)="getPage(1)">«</button>
+        <button class="join-item btn" (click)="getPreviousPage()">&lt;</button>
+        @if (this.pageNumber - 2 > 0) {
+          <button class="join-item btn" (click)="getPage(this.pageNumber - 2)">
+            {{ this.pageNumber - 2 }}
+          </button>
         }
-      } -->
+        @if (this.pageNumber - 1 > 0) {
+          <button class="join-item btn" (click)="getPage(this.pageNumber - 1)">
+            {{ this.pageNumber - 1 }}
+          </button>
+        }
+        <button
+          class="join-item btn btn-active"
+          (click)="getPage(this.pageNumber)"
+        >
+          {{ this.pageNumber }}
+        </button>
 
-      <button class="join-item btn" (click)="getNextPage()">&gt;</button>
-      <button
-        class="join-item btn"
-        (click)="getPage(this.paginationList.length)"
-      >
-        »
-      </button>
+        @if (this.pageNumber + 1 <= this.paginationList.length) {
+          <button class="join-item btn" (click)="getPage(this.pageNumber + 1)">
+            {{ this.pageNumber + 1 }}
+          </button>
+        }
+        @if (this.pageNumber + 2 <= this.paginationList.length) {
+          <button class="join-item btn" (click)="getPage(this.pageNumber + 2)">
+            {{ this.pageNumber + 2 }}
+          </button>
+        }
+        @if (this.pageNumber + 3 <= this.paginationList.length) {
+          <button class="join-item btn" (click)="getPage(this.pageNumber + 3)">
+            {{ this.pageNumber + 3 }}
+          </button>
+        }
+        <!-- @if (this.pageNumber + 4 <= this.paginationList.length) {
+          <button class="join-item btn" (click)="getPage(this.pageNumber + 4)">
+            {{ this.pageNumber + 4 }}
+          </button>
+        } -->
+        <!-- @for(item of paginationList; track $index; let  i = $index){
+          @if(i+1 == this.pageNumber){
+            <button class="join-item btn btn-active" (click)="getPage(i + 1)">{{i+1}}</button>
+          }@else {
+            <button class="join-item btn" (click)="getPage(i + 1)">{{i+1}}</button>
+          }
+        } -->
+
+        <button class="join-item btn" (click)="getNextPage()">&gt;</button>
+        <button
+          class="join-item btn"
+          (click)="getPage(this.paginationList.length)"
+        >
+          »
+        </button>
+      </div>
+    </div>
+  }
+}
+
+@if (errMessage) {
+  <div class="toast toast-top toast-end">
+    <div class="alert alert-error">
+      <span>Invalid file format!</span>
     </div>
   </div>
 }

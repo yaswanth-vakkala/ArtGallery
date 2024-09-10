@@ -42,6 +42,11 @@ export class AddAddressComponent implements OnDestroy {
       userEmail: '',
     };
   }
+
+  goBack(){
+    this._location.back();
+  }
+
   onAddAddressSubmit(form: NgForm) {
     this.isFormSubmitted = true;
     this.model.userEmail = localStorage.getItem('user-email');

@@ -1,12 +1,14 @@
 ﻿using ArtGalleryAPI.Models.Dto;
 using ArtGalleryAPI.Services;
 using ArtGalleryAPI.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArtGalleryAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Writer")]
     public class StatisticsController : ControllerBase
     {
         private readonly IStatisticsService statisticsService;
@@ -28,6 +30,13 @@ namespace ArtGalleryAPI.Controllers
         {
             var categoryOrderCounts = await statisticsService.GetCategoryOrderCountsAsync();
             return Ok(categoryOrderCounts);
+        }
+
+        [HttpGet("customer-orders-monthwise")]
+        public async Task<ActionResult<Dictionary<string, Dictionary<string, int>>>> GetOrdersByCustomerIdMonthWise(string customerId)
+        {
+            var orderCountsByMonth=await statisticsService.GetOrdersByCustomerIdMonthWiseAsync(customerId);
+            return Ok(orderCountsByMonth);
         }
 
         [HttpGet("monthly-sales")]

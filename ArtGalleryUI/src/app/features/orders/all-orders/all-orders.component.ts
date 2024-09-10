@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './all-orders.component.css',
 })
 export class AllOrdersComponent implements OnInit {
-  orders$?: Observable<OrderFull[]>;
+  orders?: OrderFull[];
   orderCount: number = 0;
   pageNumber: number = 1;
   pageSize: number = 2;
@@ -33,21 +33,29 @@ export class AllOrdersComponent implements OnInit {
       },
     });
 
-    this.orders$ = this.orderService.getAllOrders(
+    this.orderService.getAllOrders(
       this.pageNumber,
       this.pageSize,
-    );
+    ).subscribe({
+      next: (res) => {
+        this.orders =res;
+      }
+    });
   }
 
   getPage(pageNumber: number) {
     this.pageNumber = pageNumber;
-    this.orders$ = this.orderService.getAllOrders(
+    this.orderService.getAllOrders(
       this.pageNumber,
       this.pageSize,
       this.query,
       this.sortBy,
       this.sortOrder
-    );
+    ).subscribe({
+      next: (res) => {
+        this.orders =res;
+      }
+    });
   }
 
   getPreviousPage() {
@@ -55,13 +63,17 @@ export class AllOrdersComponent implements OnInit {
       return;
     }
     this.pageNumber -= 1;
-    this.orders$ = this.orderService.getAllOrders(
+    this.orderService.getAllOrders(
       this.pageNumber,
       this.pageSize,
       this.query,
       this.sortBy,
       this.sortOrder
-    );
+    ).subscribe({
+      next: (res) => {
+        this.orders =res;
+      }
+    });
   }
 
   getNextPage() {
@@ -69,25 +81,34 @@ export class AllOrdersComponent implements OnInit {
       return;
     }
     this.pageNumber += 1;
-    this.orders$ = this.orderService.getAllOrders(
+    this.orderService.getAllOrders(
       this.pageNumber,
       this.pageSize,
       this.query,
       this.sortBy,
       this.sortOrder
-    );
+    ).subscribe({
+      next: (res) => {
+        this.orders =res;
+      }
+    });
   }
 
   search(query: string) {
-    this.orders$ = this.orderService.getAllOrders(
-      this.pageNumber,
+    this.orderService.getAllOrders(
+      1,
       this.pageSize,
       query,
-    );
+    ).subscribe({
+      next: (res) => {
+        this.orders =res;
+      }
+    });
     this.query = query;
     this.orderService.getOrdersCount(query).subscribe({
       next: (res) => {
         this.orderCount = res;
+        this.pageNumber = 1;
         this.paginationList = new Array(Math.ceil(res / this.pageSize));
       },
     });
@@ -96,13 +117,18 @@ export class AllOrdersComponent implements OnInit {
   sort(sortBy: string, sortOrder: string) {
     this.sortBy = sortBy;
     this.sortOrder = sortOrder;
-    this.orders$ = this.orderService.getAllOrders(
-      this.pageNumber,
+    this.orderService.getAllOrders(
+      1,
       this.pageSize,
       this.query,
       sortBy,
       sortOrder,
-    );
+    ).subscribe({
+      next: (res) => {
+        this.orders =res;
+      }
+    });
+    this.pageNumber = 1;
   }
 
   clearFilters() {

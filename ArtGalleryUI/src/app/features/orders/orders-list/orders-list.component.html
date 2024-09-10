@@ -1,4 +1,4 @@
-@if (orders$ | async; as orders) {
+@if (orders) {
   <div class="sm:w-full md:w-[60%] mx-auto">
     <h1 class="font-bold text-2xl mb-4">My Orders</h1>
     @for (order of orders; track order.orderId) {
@@ -57,12 +57,12 @@
     }
   </div>
 } @else {
-  <div class="text-center font-bold text-2xl mt-10">
+  <!-- <div class="text-center font-bold text-2xl mt-10">
     You have no orders!
-  </div>
+  </div> -->
 }
 
-@if (orders$) {
+@if (orders) {
   <div class="flex justify-center mt-5 mb-10">
     <div class="join">
       <button class="join-item btn" (click)="getPage(1)">«</button>
