@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { AddressService } from '../services/address.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { jwtDecode } from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -21,6 +23,7 @@ export class UpdateAddressComponent implements OnInit,OnDestroy {
   private paramsSubscription?: Subscription;
 
   constructor(
+    private cookieService: CookieService,
     private addressService: AddressService,
     private router: Router,
     private route: ActivatedRoute,
@@ -50,7 +53,13 @@ export class UpdateAddressComponent implements OnInit,OnDestroy {
   }
 
   onUpdateAddressSubmit(){
-    const userid=localStorage.getItem('user-id');
+    let token=this.cookieService.get('Authorization');
+    const decodedToken: any=jwtDecode(token);
+    let userid: string =
+    decodedToken[
+      'http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'
+    ];
+    //const userid=localStorage.getItem('user-id');
     if (this.addressId && (this.model?.addressLine || this.model?.pinCode || this.model?.city || this.model?.landmark || this.model?.country || this.model?.countryCode || this.model?.phoneNumber) ) {
       this.updateAddressSubscription = this.addressService
         .updateAddress(this.addressId, this.model)

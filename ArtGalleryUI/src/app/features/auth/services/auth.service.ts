@@ -39,6 +39,8 @@ export class AuthService {
   }
 
   setUser(user: User): void {
+   // debugger
+
     let token = this.cookieService.get('Authorization');
     const decodedToken: any = jwtDecode(token);
     const claims: any =
@@ -46,22 +48,22 @@ export class AuthService {
         'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
       ];
     this.$user.next(user);
-    localStorage.setItem(
-      'user-id',
-      decodedToken[
-        'http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'
-      ],
-    );
-    localStorage.setItem(
-      'user-email',
-      decodedToken[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
-      ],
-    );
-    localStorage.setItem(
-      'user-roles',
-      Array.isArray(claims) ? claims.join(',') : claims,
-    );
+    // localStorage.setItem(
+    //   'user-id',
+    //   decodedToken[
+    //     'http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'
+    //   ],
+    // );
+    // localStorage.setItem(
+    //   'user-email',
+    //   decodedToken[
+    //     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+    //   ],
+    // );
+    // localStorage.setItem(
+    //   'user-roles',
+    //   Array.isArray(claims) ? claims.join(',') : claims,
+    // );
   }
 
   user(): Observable<User | undefined> {
@@ -69,9 +71,23 @@ export class AuthService {
   }
 
   getUser(): User | undefined {
-    const email = localStorage.getItem('user-email');
-    const id = localStorage.getItem('user-id');
-    const roles = localStorage.getItem('user-roles');
+    let token=this.cookieService.get('Authorization');
+    const decodedToken: any=jwtDecode(token);
+    let id: string =
+    decodedToken[
+      'http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'
+    ];
+    let email: string =
+    decodedToken[
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+    ];
+    let roles: string =
+    decodedToken[
+      'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+    ];
+    //const email = localStorage.getItem('user-email');
+    //const id = localStorage.getItem('user-id');
+    //const roles = localStorage.getItem('user-roles');
 
     if (id && email && roles) {
       const user: User = {
@@ -87,7 +103,7 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.clear();
+    //localStorage.clear();
     this.cookieService.delete('Authorization', '/');
     this.$user.next(undefined);
   }

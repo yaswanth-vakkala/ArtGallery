@@ -19,6 +19,8 @@ import { OrderItem } from '../../orders/models/orderItem.model';
 import { AddressListComponent } from '../../checkout/address-list/address-list.component';
 import { AddressList } from '../../checkout/models/address-list.model';
 import { FormsModule, NgForm } from '@angular/forms';
+import { jwtDecode } from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-cart-list',
@@ -62,6 +64,7 @@ export class CartListComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
+    private cookieService:CookieService,
     private router: Router,
     private route: ActivatedRoute,
   ) {
@@ -165,7 +168,13 @@ export class CartListComponent implements OnInit, OnDestroy {
       return;
     }
     const address = this.addressId;
-    const userId = localStorage.getItem('user-id');
+    let token=this.cookieService.get('Authorization');
+    const decodedToken: any=jwtDecode(token);
+    let userId: string =
+    decodedToken[
+      'http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid'
+    ];
+    //const userId = localStorage.getItem('user-id');
     this.createPaymentSubscription = this.cartService
       .createPayment(this.paymentModel)
       .subscribe({
