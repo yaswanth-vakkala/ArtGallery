@@ -71,6 +71,7 @@ export class AuthService {
   }
 
   getUser(): User | undefined {
+    //debugger
     let token=this.cookieService.get('Authorization');
     const decodedToken: any=jwtDecode(token);
     let id: string =
@@ -81,7 +82,7 @@ export class AuthService {
     decodedToken[
       'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
     ];
-    let roles: string =
+    let roles: string[] =
     decodedToken[
       'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
     ];
@@ -90,11 +91,13 @@ export class AuthService {
     //const roles = localStorage.getItem('user-roles');
 
     if (id && email && roles) {
+      //debugger
       const user: User = {
         id: id,
         email: email,
-        roles: roles.split(','),
+        roles: roles,
       };
+      //console.log(roles)
 
       return user;
     }
